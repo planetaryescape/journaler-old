@@ -1,5 +1,6 @@
 "use client";
 
+import { createUser } from "@/actions/createUser";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,26 +12,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createUser } from "@/lib/actions/createUser";
-import { users } from "@/lib/db/schema/users";
+import { insertUserSchema } from "@/lib/zod-schemas/users";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createInsertSchema } from "drizzle-zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const newUserSchema = createInsertSchema(users);
-
 const DashboardPage = () => {
-  const form = useForm<z.infer<typeof newUserSchema>>({
-    resolver: zodResolver(newUserSchema),
+  const form = useForm<z.infer<typeof insertUserSchema>>({
+    resolver: zodResolver(insertUserSchema),
     defaultValues: {
       username: "",
       email: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof newUserSchema>) {
+  async function onSubmit(values: z.infer<typeof insertUserSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);

@@ -1,6 +1,7 @@
 "use client";
 
 import { LinkButton } from "@/components/ui/link-button";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 import { Brand } from "./brand";
@@ -62,6 +63,7 @@ export const Header = () => {
                   </svg>
                 </LinkButton>
               </li>
+              <UserButton />
             </ul>
           </div>
         </div>

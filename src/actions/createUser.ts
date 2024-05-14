@@ -1,15 +1,13 @@
 "use server";
 
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema/users";
+import { db } from "@/db";
+import { users } from "@/db/schema/users";
 import { logger } from "@/lib/logger";
-import { createInsertSchema } from "drizzle-zod";
+import { insertUserSchema } from "@/lib/zod-schemas/users";
 import { NewUser } from "../db/schema";
 
-const newUserSchema = createInsertSchema(users);
-
 export const createUser = async (data: NewUser) => {
-  const newUser = newUserSchema.parse(data);
+  const newUser = insertUserSchema.parse(data);
   const context = {
     tracePath: "createUser",
     data: { newUser },

@@ -10,6 +10,7 @@
     "email:export": "email export -d ./src/emails -p pnpm",
     "build": "next build",
     "start": "next start",
+    "db:seed": "doppler run -- tsx src/db/seed.ts | pino-pretty",
     "db:generate": "doppler run -- drizzle-kit generate",
     "db:studio": "doppler run -- drizzle-kit studio",
     "db:migrate": "doppler run -- drizzle-kit migrate",
@@ -47,6 +48,8 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "0.97.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -56,6 +59,7 @@
     "pino-pretty": "^11.0.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.10.2",
     "typescript": "^5"
   }
 }

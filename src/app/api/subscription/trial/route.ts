@@ -1,6 +1,6 @@
+import { db } from "@/db";
+import { users } from "@/db/schema";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
 import { logger } from "@/lib/logger";
 import { stripe } from "@/lib/stripe";
 import { getAuth } from "@clerk/nextjs/server";

@@ -1,0 +1,182 @@
+[
+  {
+    "schemaName": "drizzle",
+    "tableName": "__drizzle_migrations",
+    "predictions": [
+      {
+        "input": "drizzle drizzle_migrations hash",
+        "column": "hash",
+        "shape": "HASH",
+        "confidence": 0.9560505151748657,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "categories",
+    "predictions": [
+      {
+        "input": "public categories description",
+        "column": "description",
+        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
+        "confidence": 0.8587998747825623,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public categories name",
+        "column": "name",
+        "shape": "COMMERCE_PRODUCT",
+        "confidence": 0.7693310379981995,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "comments",
+    "predictions": [
+      {
+        "input": "public comments content",
+        "column": "content",
+        "shape": "POST_COMMENT",
+        "confidence": 0.8481965661048889,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "prompts",
+    "predictions": [
+      {
+        "input": "public prompts content",
+        "column": "content",
+        "shape": "POST_BODY",
+        "confidence": 0.9260280132293701,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public prompts title",
+        "column": "title",
+        "shape": "POST_TITLE",
+        "confidence": 0.6197888851165771,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "rewards",
+    "predictions": [
+      {
+        "input": "public rewards criteria",
+        "column": "criteria",
+        "shape": "MARKETING_CAMPAIGN",
+        "confidence": 0.4653556942939758,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public rewards name",
+        "column": "name",
+        "shape": "COMPANY_NAME",
+        "confidence": 0.4712131023406982,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "users",
+    "predictions": [
+      {
+        "input": "public users clerk_user_id",
+        "column": "clerk_user_id",
+        "shape": "UUID",
+        "confidence": 0.9984080195426941,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9942367076873779,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users firstname",
+        "column": "firstname",
+        "shape": "PERSON_FIRST_NAME",
+        "confidence": 0.9499217867851257,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users lastname",
+        "column": "lastname",
+        "shape": "PERSON_LAST_NAME",
+        "confidence": 0.9573825597763062,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users stripe_customer_id",
+        "column": "stripe_customer_id",
+        "shape": "UUID",
+        "confidence": 0.7551897168159485,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users stripe_plan_id",
+        "column": "stripe_plan_id",
+        "shape": "UUID",
+        "confidence": 0.7894580960273743,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users stripe_price_id",
+        "column": "stripe_price_id",
+        "shape": "UUID",
+        "confidence": 0.9927371144294739,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users stripe_subscription_id",
+        "column": "stripe_subscription_id",
+        "shape": "UUID",
+        "confidence": 0.9678263664245605,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users stripe_subscription_interval",
+        "column": "stripe_subscription_interval",
+        "shape": "SUBSCRIPTION",
+        "confidence": 0.4551174342632294,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public users username",
+        "column": "username",
+        "shape": "USERNAME",
+        "confidence": 0.9721010327339172,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]

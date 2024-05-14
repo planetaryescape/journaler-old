@@ -1,7 +1,7 @@
+import { db } from "@/db";
+import { NewUser, users } from "@/db/schema";
 import DealbaseWelcomeEmail from "@/emails/welcome";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
-import { db } from "@/lib/db";
-import { NewUser, users } from "@/lib/db/schema";
 import { logger } from "@/lib/logger";
 import { resend } from "@/lib/resend";
 import { stripe } from "@/lib/stripe";

@@ -1,19 +1,17 @@
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { NextRequest, NextResponse } from "next/server";
 
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema/users";
+import { db } from "@/db";
+import { users } from "@/db/schema/users";
 import { logger } from "@/lib/logger";
-import { createInsertSchema } from "drizzle-zod";
-
-const newUserSchema = createInsertSchema(users);
+import { insertUserSchema } from "@/lib/zod-schemas/users";
 
 export async function POST(request: NextRequest) {
   const context = {
     ...createDefaultApiRouteContext(request),
   };
   try {
-    const data = newUserSchema.parse(request.body);
+    const data = insertUserSchema.parse(request.body);
     logger.info({ ...context, data }, "Creating new user");
     const result = await db.insert(users).values(data).returning();
     return NextResponse.json({ result });
