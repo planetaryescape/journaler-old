@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   index,
@@ -36,6 +37,13 @@ export const customLists = pgTable(
     ),
   })
 );
+
+export const customListsRelations = relations(customLists, ({ one }) => ({
+  user: one(users, {
+    fields: [customLists.userId],
+    references: [users.id],
+  }),
+}));
 
 export type CustomLists = typeof customLists.$inferSelect;
 export type NewCustomList = typeof customLists.$inferInsert;

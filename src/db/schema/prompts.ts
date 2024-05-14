@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -8,7 +9,7 @@ import {
   uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
-import { categories } from "./categories";
+import { promptCategories } from "./prompt-categories";
 import { users } from "./users";
 
 export const prompts = pgTable(
@@ -22,11 +23,6 @@ export const prompts = pgTable(
       .notNull(),
     title: varchar("title").notNull(),
     content: text("content").notNull(),
-    categoryId: integer("category_id")
-      .references(() => categories.id, {
-        onDelete: "no action",
-      })
-      .notNull(),
     viewsCount: integer("views_count").notNull().default(0),
     createdAt: timestamp("created_at")
       .$default(() => new Date())
@@ -40,6 +36,11 @@ export const prompts = pgTable(
     userIdIndex: index("prompts_user_id_idx").on(prompts.userId),
   })
 );
+
+export const promptRelations = relations(prompts, ({ one, many }) => ({
+  user: one(users, { fields: [prompts.userId], references: [users.id] }),
+  promptCategory: many(promptCategories),
+}));
 
 export type Prompt = typeof prompts.$inferSelect;
 export type NewPrompt = typeof prompts.$inferInsert;

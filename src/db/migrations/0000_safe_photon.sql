@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS "interactions" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "list_prompts" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"list_id" integer NOT NULL,
+	"custom_list_id" integer NOT NULL,
 	"prompt_id" integer NOT NULL,
 	"added_at" timestamp NOT NULL
 );
@@ -153,7 +153,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "list_prompts" ADD CONSTRAINT "list_prompts_list_id_custom_lists_id_fk" FOREIGN KEY ("list_id") REFERENCES "public"."custom_lists"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "list_prompts" ADD CONSTRAINT "list_prompts_custom_list_id_custom_lists_id_fk" FOREIGN KEY ("custom_list_id") REFERENCES "public"."custom_lists"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -196,7 +196,7 @@ CREATE INDEX IF NOT EXISTS "follower_id_idx" ON "followers" ("follower_id");--> 
 CREATE INDEX IF NOT EXISTS "followed_id_idx" ON "followers" ("followed_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "interactions_user_id_idx" ON "interactions" ("user_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "interactions_prompt_id_idx" ON "interactions" ("prompt_id");--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "list_id_idx" ON "list_prompts" ("list_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "list_id_idx" ON "list_prompts" ("custom_list_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "list_prompts_prompt_id_idx" ON "list_prompts" ("prompt_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "title_unique" ON "prompts" ("title","user_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "prompts_user_id_idx" ON "prompts" ("user_id");--> statement-breakpoint

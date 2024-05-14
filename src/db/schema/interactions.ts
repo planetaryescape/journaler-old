@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -43,6 +44,17 @@ export const interactions = pgTable(
     ),
   })
 );
+
+export const interactionsRelations = relations(interactions, ({ one }) => ({
+  prompt: one(prompts, {
+    fields: [interactions.promptId],
+    references: [prompts.id],
+  }),
+  user: one(users, {
+    fields: [interactions.userId],
+    references: [users.id],
+  }),
+}));
 
 export type Interaction = typeof interactions.$inferSelect;
 export type NewInteraction = typeof interactions.$inferInsert;

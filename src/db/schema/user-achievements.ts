@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -31,6 +32,20 @@ export const userAchievements = pgTable(
       userAchievements.userId
     ),
     rewardIdIndex: index("reward_id_idx").on(userAchievements.rewardId),
+  })
+);
+
+export const userAchievementsRelations = relations(
+  userAchievements,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userAchievements.userId],
+      references: [users.id],
+    }),
+    reward: one(rewards, {
+      fields: [userAchievements.rewardId],
+      references: [rewards.id],
+    }),
   })
 );
 

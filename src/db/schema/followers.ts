@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -33,6 +34,17 @@ export const followers = pgTable(
     followedIdIndex: index("followed_id_idx").on(followers.followedId),
   })
 );
+
+export const followersRelations = relations(followers, ({ one }) => ({
+  follower: one(users, {
+    fields: [followers.followerId],
+    references: [users.id],
+  }),
+  followedBy: one(users, {
+    fields: [followers.followedId],
+    references: [users.id],
+  }),
+}));
 
 export type Follower = typeof followers.$inferSelect;
 export type NewFollower = typeof followers.$inferInsert;

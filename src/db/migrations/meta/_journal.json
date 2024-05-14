@@ -5,8 +5,15 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1715703900345,
-      "tag": "0000_regular_magdalene",
+      "when": 1715716500745,
+      "tag": "0000_safe_photon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1715716624433,
+      "tag": "0001_unknown_rocket_raccoon",
       "breakpoints": true
     }
   ]

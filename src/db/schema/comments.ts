@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -34,6 +35,17 @@ export const comments = pgTable(
     promptIdIndex: index("comments_prompt_id_idx").on(comments.promptId),
   })
 );
+
+export const commentsRelations = relations(comments, ({ one }) => ({
+  prompt: one(prompts, {
+    fields: [comments.promptId],
+    references: [prompts.id],
+  }),
+  user: one(users, {
+    fields: [comments.userId],
+    references: [users.id],
+  }),
+}));
 
 export type Comment = typeof comments.$inferSelect;
 export type NewComment = typeof comments.$inferInsert;

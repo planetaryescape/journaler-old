@@ -1,13 +1,13 @@
 import { ContactSection } from "@/components/contact-section";
 import { CtaWithFeatures } from "@/components/cta-with-features";
 import { Hero } from "@/components/hero";
-import { Stats } from "@/components/stats";
+import { Prompts } from "@/components/prompts";
 
 const HomePage = () => {
   return (
     <div>
       <Hero />
-      <Stats />
+      <Prompts />
       <CtaWithFeatures />
       <ContactSection />
     </div>

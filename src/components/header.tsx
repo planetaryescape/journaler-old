@@ -8,7 +8,6 @@ import { NavigationMenuComponent } from "./navigation-menu-component";
 
 export const Header = () => {
   const [state, setState] = useState(false);
-  console.log("state:", state);
   const { user } = useUser();
 
   return (

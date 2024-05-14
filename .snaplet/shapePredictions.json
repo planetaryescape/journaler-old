@@ -51,6 +51,50 @@
   },
   {
     "schemaName": "public",
+    "tableName": "custom_lists",
+    "predictions": [
+      {
+        "input": "public custom_lists description",
+        "column": "description",
+        "shape": "COMMERCE_PRODUCT_DESCRIPTION",
+        "confidence": 0.9040812253952026,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public custom_lists name",
+        "column": "name",
+        "shape": "COMMERCE_PRODUCT_NAME",
+        "confidence": 0.672452986240387,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "newsletter_subscribers",
+    "predictions": [
+      {
+        "input": "public newsletter_subscribers email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.9965768456459045,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public newsletter_subscribers name",
+        "column": "name",
+        "shape": "COMPANY_NAME",
+        "confidence": 0.5285370945930481,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
     "tableName": "prompts",
     "predictions": [
       {
