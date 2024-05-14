@@ -18,10 +18,10 @@ export const ContactSection = () => {
         </svg>
       ),
       title: "Join our community",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      desc: "Connect with like-minded journalers, share your thoughts, and get the latest updates. Join our Discord community and be a part of the conversation.",
       link: {
         name: "Join our Discord",
-        href: "#",
+        href: "https://discord.gg/6d5Q8DEQuE",
       },
     },
     {
@@ -47,21 +47,19 @@ export const ContactSection = () => {
       ),
 
       title: "Follow us on Twitter",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      desc: "Stay updated with the latest news, features, and journaling tips. Follow us on X (Twitter) and send us DMs with your questions or feedback.",
       link: {
         name: "Send us DMs",
-        href: "#",
+        href: "https://twitter.com/journaler_app",
       },
     },
   ];
 
   return (
-    <section className="py-14">
-      <div className="max-w-screen-xl mx-auto px-4 text-gray-600 gap-12 md:px-8 lg:flex">
+    <section className="relative py-28 bg-gray-900">
+      <div className="max-w-screen-xl mx-auto px-4 gap-12 md:px-8 lg:flex">
         <div className="max-w-md">
-          <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
-            Let’s connect
-          </h3>
+          <h3 className="text-3xl font-semibold sm:text-4xl">Let’s connect</h3>
           <p className="mt-3">
             We’re here to help and answer any question you might have, We look
             forward to hearing from you .
@@ -74,12 +72,10 @@ export const ContactSection = () => {
                 key={idx}
                 className="space-y-3 border-t py-6 md:max-w-sm md:py-0 md:border-t-0 lg:border-l lg:px-12 lg:max-w-none"
               >
-                <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
+                <div className="w-12 h-12 rounded-full border flex items-center justify-center">
                   {item.icon}
                 </div>
-                <h4 className="text-gray-800 text-lg font-medium xl:text-xl">
-                  {item.title}
-                </h4>
+                <h4 className="text-lg font-medium xl:text-xl">{item.title}</h4>
                 <p>{item.desc}</p>
                 <a
                   href={item.link.href}
@@ -104,6 +100,14 @@ export const ContactSection = () => {
           </ul>
         </div>
       </div>
+
+      <div
+        className="absolute inset-0 max-w-md mx-auto h-72 blur-[118px]"
+        style={{
+          background:
+            "linear-gradient(152.92deg, rgba(192, 132, 252, 0.2) 4.54%, rgba(232, 121, 249, 0.26) 34.2%, rgba(192, 132, 252, 0.1) 77.55%)",
+        }}
+      ></div>
     </section>
   );
 };

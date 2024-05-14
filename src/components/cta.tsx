@@ -7,12 +7,12 @@ export const CTA = () => {
       <div className="max-w-xl mx-auto text-center relative">
         <div className="py-4">
           <h3 className="text-3xl text-gray-200 font-semibold md:text-4xl">
-            Get Unlimited Access To All Templates
+            Unlock Your Full Journaling Potential
           </h3>
           <p className="text-gray-300 leading-relaxed mt-3">
-            Nam erat risus, sodales sit amet lobortis ut, finibus eget metus.
-            Cras aliquam ante ut tortor posuere feugiat. Duis sodales nisi id
-            porta lacinia.
+            Join Journaler to create custom lists, save your favorite prompts,
+            and engage with a community of reflective writers. Sign up now to
+            start your mindful journaling journey!
           </p>
         </div>
         <div className="mt-5 items-center justify-center gap-3 sm:flex">

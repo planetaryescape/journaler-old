@@ -1,5 +1,5 @@
 import { ContactSection } from "@/components/contact-section";
-import { CTA } from "@/components/cta";
+import { CtaWithFeatures } from "@/components/cta-with-features";
 import { Hero } from "@/components/hero";
 import { Stats } from "@/components/stats";
 
@@ -8,8 +8,8 @@ const HomePage = () => {
     <div>
       <Hero />
       <Stats />
+      <CtaWithFeatures />
       <ContactSection />
-      <CTA />
     </div>
   );
 };

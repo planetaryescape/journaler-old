@@ -8,10 +8,8 @@ import { NavigationMenuComponent } from "./navigation-menu-component";
 
 export const Header = () => {
   const [state, setState] = useState(false);
+  console.log("state:", state);
   const { user } = useUser();
-
-  // Replace # paths with your paths
-  const navigation = [{ title: "Browse Prompts", path: "#" }];
 
   return (
     <header className="bg-gray-900">
