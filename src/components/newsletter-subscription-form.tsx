@@ -1,7 +1,5 @@
 "use client";
 
-import { createUser } from "@/actions/createUser";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,40 +10,45 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { insertUserSchema } from "@/lib/zod-schemas/users";
+import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-const DashboardPage = () => {
-  const form = useForm<z.infer<typeof insertUserSchema>>({
-    resolver: zodResolver(insertUserSchema),
+export const NewsletterSubscriptionForm = ({
+  onSubmit,
+}: {
+  onSubmit: (
+    values: z.infer<typeof insertNewsletterSubscriberSchema>
+  ) => Promise<void>;
+}) => {
+  const form = useForm<z.infer<typeof insertNewsletterSubscriberSchema>>({
+    resolver: zodResolver(insertNewsletterSubscriberSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof insertUserSchema>) {
-    const result = await createUser(values);
-    toast.success("User created!", {
-      position: "bottom-center",
-      description: `User created successfully.`,
-    });
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        id="newsletter-subscription"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8"
+      >
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="journaler" {...field} />
+                <Input
+                  placeholder="Your name"
+                  {...field}
+                  value={field.value as string | undefined}
+                />
               </FormControl>
               <FormDescription>
                 This is your public display name.
@@ -68,10 +71,7 @@ const DashboardPage = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 };
-
-export default DashboardPage;

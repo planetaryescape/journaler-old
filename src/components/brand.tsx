@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Button } from "./ui/button";
 
-export const Brand = () => {
-  const [state, setState] = useState(false);
-
+export const Brand = ({
+  state,
+  setState,
+}: {
+  state: boolean;
+  setState: (state: boolean) => void;
+}) => {
   return (
     <div className="flex items-center justify-between py-5 md:block">
       <Link href="/">

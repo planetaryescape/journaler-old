@@ -9,7 +9,13 @@ import {
 import { prompts } from "./prompts";
 import { users } from "./users";
 
-export const interactionTypeEnum = pgEnum("type", ["like", "dislike", "save"]);
+export const interactionTypeEnum = pgEnum("type", [
+  "view",
+  "upvote",
+  "downvote",
+  "save",
+  "share",
+]);
 
 export const interactions = pgTable(
   "interactions",

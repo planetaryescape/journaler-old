@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1715648476983,
-      "tag": "0000_dizzy_earthquake",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1715691282767,
-      "tag": "0001_loud_wasp",
+      "when": 1715703900345,
+      "tag": "0000_regular_magdalene",
       "breakpoints": true
     }
   ]

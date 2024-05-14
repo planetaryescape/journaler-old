@@ -4,6 +4,7 @@ export * from "./custom-lists";
 export * from "./followers";
 export * from "./interactions";
 export * from "./list-prompts";
+export * from "./newsletter-subscribers";
 export * from "./prompts";
 export * from "./rewards";
 export * from "./user-achievements";
