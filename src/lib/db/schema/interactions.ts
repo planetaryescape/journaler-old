@@ -9,11 +9,7 @@ import {
 import { prompts } from "./prompts";
 import { users } from "./users";
 
-const interactionTypeEnum = pgEnum("interaction_type", [
-  "like",
-  "dislike",
-  "save",
-]);
+export const interactionTypeEnum = pgEnum("type", ["like", "dislike", "save"]);
 
 export const interactions = pgTable(
   "interactions",
@@ -35,8 +31,10 @@ export const interactions = pgTable(
       .notNull(),
   },
   (interactions) => ({
-    userIdIndex: index("user_id_idx").on(interactions.userId),
-    promptIdIndex: index("prompt_id_idx").on(interactions.promptId),
+    userIdIndex: index("interactions_user_id_idx").on(interactions.userId),
+    promptIdIndex: index("interactions_prompt_id_idx").on(
+      interactions.promptId
+    ),
   })
 );
 

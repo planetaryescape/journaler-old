@@ -27,7 +27,9 @@ export const userAchievements = pgTable(
       .notNull(),
   },
   (userAchievements) => ({
-    userIdIndex: index("user_id_idx").on(userAchievements.userId),
+    userIdIndex: index("user_achievements_user_id_idx").on(
+      userAchievements.userId
+    ),
     rewardIdIndex: index("reward_id_idx").on(userAchievements.rewardId),
   })
 );

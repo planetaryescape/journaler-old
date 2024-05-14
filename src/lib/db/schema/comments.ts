@@ -30,8 +30,8 @@ export const comments = pgTable(
       .notNull(),
   },
   (comments) => ({
-    userIdIndex: index("user_id_idx").on(comments.userId),
-    promptIdIndex: index("prompt_id_idx").on(comments.promptId),
+    userIdIndex: index("comments_user_id_idx").on(comments.userId),
+    promptIdIndex: index("comments_prompt_id_idx").on(comments.promptId),
   })
 );
 

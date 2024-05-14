@@ -7,7 +7,9 @@
     "dev": "doppler run -- next dev | pino-pretty",
     "build": "next build",
     "start": "next start",
-    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "doppler run -- drizzle-kit generate",
+    "db:studio": "doppler run -- drizzle-kit studio",
+    "db:migrate": "doppler run -- drizzle-kit migrate",
     "lint": "next lint"
   },
   "dependencies": {

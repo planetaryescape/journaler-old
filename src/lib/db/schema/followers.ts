@@ -14,13 +14,11 @@ export const followers = pgTable(
       .references(() => users.id, {
         onDelete: "cascade",
       })
-      .primaryKey()
       .notNull(),
     followedId: integer("followed_id")
       .references(() => users.id, {
         onDelete: "cascade",
       })
-      .primaryKey()
       .notNull(),
     createdAt: timestamp("created_at")
       .$default(() => new Date())

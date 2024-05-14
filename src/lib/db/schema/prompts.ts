@@ -37,7 +37,7 @@ export const prompts = pgTable(
   },
   (prompts) => ({
     uniqueIndex: uniqueIndex("title_unique").on(prompts.title, prompts.userId),
-    userIdIndex: index("user_id_idx").on(prompts.userId),
+    userIdIndex: index("prompts_user_id_idx").on(prompts.userId),
   })
 );
 
