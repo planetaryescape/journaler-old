@@ -8,12 +8,12 @@ import { Brand } from "./brand";
 export const Header = () => {
   const [state, setState] = useState(false);
 
-  // Replace javascript:void(0) paths with your paths
+  // Replace # paths with your paths
   const navigation = [
-    { title: "Features", path: "javascript:void(0)" },
-    { title: "Integrations", path: "javascript:void(0)" },
-    { title: "Customers", path: "javascript:void(0)" },
-    { title: "Pricing", path: "javascript:void(0)" },
+    { title: "Features", path: "#" },
+    { title: "Integrations", path: "#" },
+    { title: "Customers", path: "#" },
+    { title: "Pricing", path: "#" },
   ];
 
   return (

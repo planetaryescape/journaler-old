@@ -3,7 +3,7 @@ import { CTA } from "@/components/cta";
 import { Hero } from "@/components/hero";
 import { Stats } from "@/components/stats";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <div>
       <Hero />

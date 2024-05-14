@@ -21,7 +21,7 @@ export const ContactSection = () => {
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       link: {
         name: "Join our Discord",
-        href: "javascript:void(0)",
+        href: "#",
       },
     },
     {
@@ -50,7 +50,7 @@ export const ContactSection = () => {
       desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       link: {
         name: "Send us DMs",
-        href: "javascript:void(0)",
+        href: "#",
       },
     },
   ];

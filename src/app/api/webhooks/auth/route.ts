@@ -27,6 +27,11 @@ export async function POST(request: Request) {
   };
 
   logger.info({ ...context, eventType: data.type }, "Webhook received");
+  // const headers = nextHeaders() as Record<string, string>;
+  // const secret = "whsec_MfKQ9r8GKYqrTwjUPD8ILPZIo2LaLaSw";
+
+  // const wh = new Webhook(secret);
+  // const msg = wh.verify(payload, headers);
 
   if (data.type === "user.created") {
     try {

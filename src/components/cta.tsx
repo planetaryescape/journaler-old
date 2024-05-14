@@ -16,10 +16,10 @@ export const CTA = () => {
           </p>
         </div>
         <div className="mt-5 items-center justify-center gap-3 sm:flex">
-          <LinkButton href="javascript:void()" variant="secondary">
+          <LinkButton href="#" variant="secondary">
             Try It Out
           </LinkButton>
-          <LinkButton variant="default" href="javascript:void()">
+          <LinkButton variant="default" href="#">
             Get Started
           </LinkButton>
         </div>
