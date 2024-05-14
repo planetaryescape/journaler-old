@@ -1,6 +1,5 @@
 "use client";
 
-import { createUser } from "@/actions/createUser";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createUser } from "@/lib/actions/createUser";
 import { insertUserSchema } from "@/lib/zod-schemas/users";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

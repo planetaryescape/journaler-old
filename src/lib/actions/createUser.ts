@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema/users";
 import { logger } from "@/lib/logger";
 import { insertUserSchema } from "@/lib/zod-schemas/users";
-import { NewUser } from "../db/schema";
+import { NewUser } from "../../db/schema";
 
 export const createUser = async (data: NewUser) => {
   const newUser = insertUserSchema.parse(data);

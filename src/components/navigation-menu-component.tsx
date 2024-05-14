@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dialog";
 import * as React from "react";
 
-import { createNewsletterSubscriber } from "@/actions/createNewsletterSubscriber";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,6 +21,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { createNewsletterSubscriber } from "@/lib/actions/createNewsletterSubscriber";
 import { cn } from "@/lib/utils";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
 import { toast } from "sonner";

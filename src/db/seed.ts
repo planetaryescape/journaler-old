@@ -22,7 +22,7 @@ createSeedClient()
 
     const { prompts } = await seed.prompts(
       (x) =>
-        x(10, {
+        x(100, {
           comments: (x) => x({ min: 0, max: 3 }),
           interactions: (x) => x({ min: 0, max: 100 }),
         }),

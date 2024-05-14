@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div>
       <Hero />
-      <Prompts />
+      <Prompts title="All Time Top Prompts" limit={10} />
       <CtaWithFeatures />
       <ContactSection />
     </div>

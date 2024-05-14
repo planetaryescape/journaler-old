@@ -3,7 +3,10 @@
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
-import { NewNewsletterSubscriber, newsletterSubscribers } from "../db/schema";
+import {
+  NewNewsletterSubscriber,
+  newsletterSubscribers,
+} from "../../db/schema";
 
 export const createNewsletterSubscriber = async (
   data: NewNewsletterSubscriber

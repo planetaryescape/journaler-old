@@ -9,6 +9,7 @@ import {
   uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
+import { interactions } from "./interactions";
 import { promptCategories } from "./prompt-categories";
 import { users } from "./users";
 
@@ -40,6 +41,7 @@ export const prompts = pgTable(
 export const promptRelations = relations(prompts, ({ one, many }) => ({
   user: one(users, { fields: [prompts.userId], references: [users.id] }),
   promptCategory: many(promptCategories),
+  interactions: many(interactions),
 }));
 
 export type Prompt = typeof prompts.$inferSelect;

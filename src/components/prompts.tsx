@@ -3,10 +3,11 @@ import { prompts } from "@/db/schema/prompts";
 import { desc } from "drizzle-orm";
 import { PromptCard } from "./prompt-card";
 
-const getPrompts = async () => {
+const getPrompts = async (limit?: number) => {
   const result = await db.query.prompts.findMany({
     with: {
       user: true,
+      interactions: true,
       promptCategory: {
         with: {
           category: true,
@@ -14,23 +15,42 @@ const getPrompts = async () => {
       },
     },
     orderBy: [desc(prompts.createdAt)],
+    limit,
   });
   return result;
 };
 
-export const Prompts = async () => {
-  const prompts = await getPrompts();
+export const Prompts = async ({
+  title,
+  limit,
+}: {
+  title: string;
+  limit?: number;
+}) => {
+  const prompts = await getPrompts(limit);
 
   return (
     <section className="py-28 bg-gray-900">
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8">
         <h3 className="text-white text-3xl font-semibold mx-auto mb-4 w-full text-center">
-          All Time Top Prompts
+          {title}
         </h3>
         <div className="flex flex-col gap-2 p-4 pt-0">
-          {prompts.map((prompt) => (
-            <PromptCard key={prompt.id} prompt={prompt} />
-          ))}
+          {prompts
+            .map((item) => ({
+              ...item,
+              votes:
+                item.interactions.filter(
+                  (interaction) => interaction.type === "upvote"
+                ).length -
+                item.interactions.filter(
+                  (interaction) => interaction.type === "downvote"
+                ).length,
+            }))
+            .sort((a, b) => b.votes - a.votes)
+            .map((prompt) => (
+              <PromptCard key={prompt.id} prompt={prompt} />
+            ))}
         </div>
       </div>
       <div
