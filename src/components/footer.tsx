@@ -7,36 +7,36 @@ import { Input } from "./ui/input";
 
 export const Footer = () => {
   const footerNavs = [
-    {
-      label: "Company",
-      items: [
-        {
-          href: "#",
-          name: "Partners",
-        },
-        {
-          href: "#",
-          name: "Blog",
-        },
-      ],
-    },
-    {
-      label: "Resources",
-      items: [
-        {
-          href: "#",
-          name: "contact",
-        },
-        {
-          href: "#",
-          name: "Support",
-        },
-        // {
-        //   href: "#",
-        //   name: "Pricing",
-        // },
-      ],
-    },
+    // {
+    //   label: "Company",
+    //   items: [
+    //     {
+    //       href: "#",
+    //       name: "Partners",
+    //     },
+    //     {
+    //       href: "#",
+    //       name: "Blog",
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Resources",
+    //   items: [
+    //     // {
+    //     //   href: "#",
+    //     //   name: "Contact",
+    //     // },
+    //     // {
+    //     //   href: "#",
+    //     //   name: "Support",
+    //     // },
+    //     // {
+    //     //   href: "#",
+    //     //   name: "Pricing",
+    //     // },
+    //   ],
+    // },
     {
       label: "About",
       items: [
@@ -45,13 +45,17 @@ export const Footer = () => {
           name: "Terms",
         },
         {
-          href: "#",
+          href: "/privacy",
           name: "Privacy",
         },
         {
-          href: "#",
-          name: "About Us",
+          href: "/cookies",
+          name: "Cookies Policy",
         },
+        // {
+        //   href: "#",
+        //   name: "About Us",
+        // },
       ],
     },
   ];
@@ -90,12 +94,12 @@ export const Footer = () => {
                 <h4 className="text-gray-800 font-medium">{item.label}</h4>
                 {item.items.map((el, idx) => (
                   <li key={idx}>
-                    <a
+                    <Link
                       href={el.href}
                       className="hover:underline hover:text-indigo-600"
                     >
                       {el.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -108,8 +112,8 @@ export const Footer = () => {
             reserved.
           </div>
           <div className="mt-6 sm:mt-0">
-            <ul className="flex items-center space-x-4">
-              <li className="w-10 h-10 border rounded-full flex items-center justify-center">
+            <ul className="flex list-none items-center space-x-4">
+              <li className="w-10 h-10 list-none border rounded-full flex items-center justify-center">
                 <Link href="https://twitter.com/bhekanik">
                   <svg
                     className="svg-icon w-6 h-6 text-blue-400"
