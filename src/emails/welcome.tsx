@@ -52,7 +52,7 @@ export const DealbaseWelcomeEmail = () => {
       >
         <Body className="bg-offwhite font-sans text-base">
           <Img
-            src={`https://res.cloudinary.com/dealbase-africa/image/upload/v1693350283/dealbase/logo-full_ihhqhu.svg`}
+            src={`https://res.cloudinary.com/doqpfkbrx/image/upload/v1715742795/logos/long-without-background/Journaler_Logo_3_bwwqxx.png`}
             width="197.75"
             height="22.5"
             alt="dealbase.africa"
@@ -91,13 +91,13 @@ export const DealbaseWelcomeEmail = () => {
 
             <Section className="text-center">
               <Button
-                href={`${config.baseUrl}/dashboard`}
+                href={`${config.baseUrl}/prompts`}
                 className="bg-brand rounded-lg px-[18px] py-3 text-white"
               >
                 Explore Top Prompts
               </Button>
               <Button
-                href={`${config.baseUrl}/dashboard`}
+                href={`${config.baseUrl}/categories`}
                 className="bg-brand rounded-lg px-[18px] py-3 text-white"
               >
                 Discover Categories

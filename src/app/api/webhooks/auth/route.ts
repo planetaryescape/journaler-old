@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { NewUser, users } from "@/db/schema";
-import DealbaseWelcomeEmail from "@/emails/welcome";
+import WelcomeEmail from "@/emails/welcome";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { logger } from "@/lib/logger";
 import { resend } from "@/lib/resend";
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         from: "dealbase.africa Team <welcome@communication.dealbase.africa>",
         to: data.data.email_addresses[0].email_address,
         subject: "Welcome to dealbase.africa",
-        react: DealbaseWelcomeEmail(),
+        react: WelcomeEmail(),
       });
       return NextResponse.json({}, { status: 200 });
     } catch (e) {
@@ -108,13 +108,18 @@ export async function POST(request: Request) {
 
   if (data.type === "user.deleted") {
     try {
-      await db.delete(users).where(eq(users.clerkUserId, data.data.id));
+      const result = await db
+        .delete(users)
+        .where(eq(users.clerkUserId, data.data.id));
 
-      logger.info({ ...context, data: data.data }, "User deleted");
+      logger.info({ ...context, result }, "User deleted");
 
-      return NextResponse.json({}, { status: 204 });
-    } catch (e) {
-      logger.error({ ...context, error: e }, "Failed to delete user");
+      return NextResponse.json({}, { status: 200 });
+    } catch (error) {
+      logger.error(
+        { ...context, error, errorMessage: (error as Error).message },
+        "Failed to delete user"
+      );
       return NextResponse.json(
         { error: "Failed to delete user" },
         { status: 500 }
