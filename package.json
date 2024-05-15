@@ -10,7 +10,7 @@
     "email:export": "email export -d ./src/emails -p pnpm",
     "build": "next build",
     "start": "next start",
-    "db:seed": "doppler run -- tsx src/db/seed.ts | pino-pretty",
+    "db:seed": "doppler run -- tsx seed.ts | pino-pretty",
     "db:generate": "doppler run -- drizzle-kit generate",
     "db:drop": "doppler run -- drizzle-kit drop",
     "db:studio": "doppler run -- drizzle-kit studio",

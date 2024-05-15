@@ -1,25 +1,51 @@
-/**
- * ! Executing this script will delete all data in your database and seed it with 10 users.
- * ! Make sure to adjust the script to your needs.
- * Use any TypeScript runner to run this script, for example: `npx tsx seed.ts`
- * Learn more about the Seed Client by following our guide: https://docs.snaplet.dev/seed/getting-started
- */
+import { logger } from "@/lib/logger";
 import { createSeedClient } from "@snaplet/seed";
 
-const main = async () => {
-  const seed = await createSeedClient();
+createSeedClient()
+  .then(async (seed) => {
+    // Truncate all tables in the database
+    await seed.$resetDatabase();
 
-  // Truncate all tables in the database
-  await seed.$resetDatabase();
+    const { users } = await seed.users((x) =>
+      x(10, { user_achievements: (x) => x({ min: 0, max: 3 }) })
+    );
 
-  // Seed the database with 10 users
-  await seed.users((x) => x(10));
+    const { categories } = await seed.categories((x) => x(10));
 
-  // Type completion not working? You might want to reload your TypeScript Server to pick up the changes
+    const followers = await seed.followers((x) => x(10), {
+      connect: { users },
+    });
 
-  console.log("Database seeded successfully!");
+    const customLists = await seed.custom_lists((x) => x(10), {
+      connect: { users },
+    });
 
-  process.exit();
-};
+    const { prompts } = await seed.prompts(
+      (x) =>
+        x(100, {
+          comments: (x) => x({ min: 0, max: 3 }),
+          interactions: (x) => x({ min: 0, max: 100 }),
+        }),
+      { connect: { users, categories } }
+    );
 
-main();
+    const promptCategories = await seed.prompt_categories((x) => x(10), {
+      connect: { prompts, categories },
+    });
+
+    logger.info(
+      {
+        followers: Object.keys(followers),
+        promptCategories: Object.keys(promptCategories),
+        customLists: Object.keys(customLists),
+        users: users.length,
+      },
+      "Successfully seeded database"
+    );
+  })
+  .catch((err) => {
+    logger.error({ err }, "Error seeding database");
+  })
+  .finally(() => {
+    process.exit();
+  });
