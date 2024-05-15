@@ -7,12 +7,19 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Merriweather, Open_Sans } from "next/font/google";
 import "./globals.css";
 
-const fontSans = FontSans({
+const fontSerif = Merriweather({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["300", "400", "700", "900"],
+});
+
+const fontSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -62,14 +69,15 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            "relative min-h-screen bg-background font-sans antialiased",
+            fontSerif.variable,
             fontSans.variable
           )}
         >
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem
+            defaultTheme="light"
+            // enableSystem
             disableTransitionOnChange
           >
             <Header />

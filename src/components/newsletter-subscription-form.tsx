@@ -35,7 +35,7 @@ export const NewsletterSubscriptionForm = ({
       <form
         id="newsletter-subscription"
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="flex flex-col gap-4"
       >
         <FormField
           control={form.control}

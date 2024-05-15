@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -145,7 +146,12 @@ export function NavigationMenuComponent() {
           </DialogDescription>
         </DialogHeader>
         <NewsletterSubscriptionForm onSubmit={onSubmit} />
-        <DialogFooter>
+        <DialogFooter className="flex justify-end">
+          <DialogClose asChild>
+            <Button type="button" variant="outline">
+              Close
+            </Button>
+          </DialogClose>
           <Button form="newsletter-subscription" type="submit">
             Subscribe
           </Button>

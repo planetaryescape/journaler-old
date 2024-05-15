@@ -4,7 +4,7 @@ import { LinkButton } from "./ui/link-button";
 
 export const Hero = () => {
   return (
-    <section className="max-w-screen-xl mx-auto px-4 py-28 md:px-8 hero bg-cover bg-center text-white flex items-center justify-center">
+    <section className="max-w-screen-xl mx-auto px-4 md:py-28 mb-16 md:px-8 bg-cover bg-center flex items-center justify-center">
       <div className="text-center px-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Join Our Community of Thoughtful Journalers
@@ -15,11 +15,11 @@ export const Hero = () => {
           personalized lists. Dive deeper into your journaling journey with
           Journaler!
         </p>
-        <div className="space-x-4">
+        <div className="flex md:justify-center flex-col md:flex-row gap-4">
           <LinkButton href="/sign-up" className="animate-buttonheartbeat">
             Start Contributing
           </LinkButton>
-          <LinkButton href="/prompts" variant="secondary">
+          <LinkButton href="/prompts" variant="outline">
             Explore Top Prompts
           </LinkButton>
         </div>

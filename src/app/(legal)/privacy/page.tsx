@@ -1,9 +1,8 @@
 export default function CookiesPage() {
   return (
-    <div className="p-8 px-28">
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `<style>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<style>
   [data-custom-class='body'], [data-custom-class='body'] * {
           background: transparent !important;
         }
@@ -58,8 +57,7 @@ word-break: break-word !important;
     </style>
       </div>
       `,
-        }}
-      ></div>
-    </div>
+      }}
+    />
   );
 }

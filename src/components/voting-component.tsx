@@ -54,9 +54,8 @@ export const VotingComponent = ({
 }) => {
   const { userId: authUserId } = useAuth();
 
-  const ButtonComponent = !authUserId ? UnauthenticatedButton : Button;
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex ml-auto items-center gap-2", className)}>
       {!authUserId ? (
         <UnauthenticatedButton variant="secondary" href="/sign-up" size="icon">
           <ChevronUpIcon className="h-5 w-5" />
@@ -73,7 +72,7 @@ export const VotingComponent = ({
           <ChevronUpIcon className="h-5 w-5" />
         </Button>
       )}
-      <p className="text-xl">{votes} votes</p>
+      <p className="text-xl whitespace-nowrap">{votes} votes</p>
       {!authUserId ? (
         <UnauthenticatedButton variant="secondary" href="/sign-up" size="icon">
           <ChevronDownIcon className="h-5 w-5" />

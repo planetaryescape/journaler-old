@@ -4,8 +4,12 @@
 
 import * as Sentry from "@sentry/nextjs";
 
+const isDev = process.env.NODE_ENV === "development";
+
 Sentry.init({
   dsn: "https://781ffc6adff3301054c712eca10d8205@o4507252798455808.ingest.de.sentry.io/4507252800356432",
+
+  enabled: !isDev,
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,

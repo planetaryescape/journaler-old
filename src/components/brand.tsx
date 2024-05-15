@@ -1,3 +1,6 @@
+"use client";
+
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -9,18 +12,24 @@ export const Brand = ({
   state: boolean;
   setState: (state: boolean) => void;
 }) => {
+  const { theme } = useTheme();
   return (
     <div className="flex items-center justify-between py-5 md:block">
       <Link href="/">
         <Image
-          src="/logo-dark.png"
-          width={120}
-          height={50}
+          src={theme === "light" ? "/logo-dark.png" : "/logo-light.png"}
+          width={240}
+          height={100}
           alt="Journaler logo"
         />
       </Link>
       <div className="md:hidden">
-        <Button onClick={() => setState(!state)}>
+        <Button
+          onClick={() => {
+            console.log("clicked");
+            setState(!state);
+          }}
+        >
           {state ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

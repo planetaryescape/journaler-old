@@ -51,8 +51,8 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
 
   return (
     <>
-      <div className="p-8 px-28">
-        <Breadcrumb className="mb-8">
+      <section className="py-28 pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8">
+        <Breadcrumb className="mb-4 text-muted-foreground">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/prompts">All Prompts</BreadcrumbLink>
@@ -63,22 +63,13 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <section className="py-28 pt-16 bg-gray-900">
-          <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
-            <div className="flex w-full flex-col gap-1 md:px-8">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-xl">{prompt.title}</h3>
-                  {!prompt.id && (
-                    <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                  )}
-                </div>
-                <VotingComponent
-                  votes={votes}
-                  promptId={prompt.id}
-                  userId={prompt.user.id}
-                />
-              </div>
+        <div className="flex w-full flex-col gap-2">
+          <div className="flex flex-col md:flex-row gap-4 justify-between">
+            <div className="flex flex-col gap-2">
+              <h3 className="font-bold text-xl">{prompt.title}</h3>
+              {!prompt.id && (
+                <span className="flex h-2 w-2 rounded-full bg-blue-600" />
+              )}
               <h6 className="flex gap-2 font-medium text-muted-foreground">
                 <Link href={`/users/${prompt.user.id}`}>
                   <span>@{prompt.user.username}</span>
@@ -91,27 +82,24 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
                 </div>
               </h6>
             </div>
-            <p className="text-xl m-8">{prompt.content}</p>
-            {prompt.promptCategory.length ? (
-              <div className="flex items-center gap-2 m-8 my-4">
-                {prompt.promptCategory.map(({ category: { name } }) => (
-                  <Badge key={name} variant="secondary">
-                    {name}
-                  </Badge>
-                ))}
-              </div>
-            ) : null}
+            <VotingComponent
+              votes={votes}
+              promptId={prompt.id}
+              userId={prompt.user.id}
+            />
           </div>
-
-          <div
-            className="absolute inset-0 max-w-md mx-auto h-80 blur-[118px] sm:h-72"
-            style={{
-              background:
-                "linear-gradient(152.92deg, rgba(192, 132, 252, 0.2) 4.54%, rgba(232, 121, 249, 0.26) 34.2%, rgba(192, 132, 252, 0.1) 77.55%)",
-            }}
-          ></div>
-        </section>
-      </div>
+        </div>
+        <p className="text-xl my-8">{prompt.content}</p>
+        {prompt.promptCategory.length ? (
+          <div className="flex items-center gap-2 my-4">
+            {prompt.promptCategory.map(({ category: { name } }) => (
+              <Link key={name} href={`/categories/${name}`}>
+                <Badge variant="secondary">{name}</Badge>
+              </Link>
+            ))}
+          </div>
+        ) : null}
+      </section>
       {!userId && (
         <>
           <CtaWithFeatures />

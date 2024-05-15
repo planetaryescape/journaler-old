@@ -18,16 +18,14 @@ export const PromptCard = ({
   return (
     <div
       className={cn(
-        "flex justify-between items-start gap-2 rounded-lg border p-4 px-8 text-left text-sm transition-all hover:bg-accent"
+        "flex flex-col justify-between items-start gap-2 md:rounded-lg border-b md:border p-4 md:px-8 text-left text-sm transition-all hover:bg-card/20 border-card duration-200"
       )}
     >
       <Link href={`/prompts/${item.id}`}>
-        <div className="flex w-full flex-col gap-1">
+        <div className="flex w-full flex-col gap-1 mb-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <h3 className="text-muted-foreground font-semibold">
-                {item.title}
-              </h3>
+              <h3 className="text-muted-foreground font-bold">{item.title}</h3>
               {!item.id && (
                 <span className="flex h-2 w-2 rounded-full bg-blue-600" />
               )}
@@ -43,11 +41,11 @@ export const PromptCard = ({
             </div>
           </h6>
         </div>
-        <p className="text-xl">{item.content}</p>
+        <p className="text-lg my-2">{item.content}</p>
         {item.promptCategory.length ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 mt-4">
             {item.promptCategory.map(({ category: { name } }) => (
-              <Badge key={name} variant="secondary">
+              <Badge key={name} variant="outline">
                 {name}
               </Badge>
             ))}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -60,14 +61,16 @@ export const Footer = () => {
     },
   ];
 
+  const { theme } = useTheme();
+
   return (
-    <footer className="text-gray-500 bg-white px-4 py-5 mx-auto md:px-8">
+    <footer className="relative px-4 py-5 mx-auto md:px-8">
       <div className="max-w-screen-xl mx-auto md:px-8">
         <div className="gap-6 justify-between md:flex">
           <div className="flex-1">
             <div className="max-w-xs">
               <Image
-                src="/logo-light.png"
+                src={theme === "light" ? "/logo-dark.png" : "/logo-light.png"}
                 width={120}
                 height={50}
                 alt="Journaler logo"
@@ -78,7 +81,7 @@ export const Footer = () => {
             </div>
             <form onSubmit={(e) => e.preventDefault()}>
               <label className="block pt-4 pb-2">Stay up to date</label>
-              <div className="max-w-sm flex items-center border rounded-md p-1">
+              <div className="max-w-sm flex gap-2 items-center border rounded-md p-1">
                 <Input
                   type="email"
                   placeholder="Enter your email"
@@ -91,13 +94,10 @@ export const Footer = () => {
           <div className="flex-1 mt-10 space-y-6 items-start justify-between sm:flex md:space-y-0 md:mt-0">
             {footerNavs.map((item, idx) => (
               <ul className="space-y-4" key={idx}>
-                <h4 className="text-gray-800 font-medium">{item.label}</h4>
+                <h4 className="font-medium">{item.label}</h4>
                 {item.items.map((el, idx) => (
                   <li key={idx}>
-                    <Link
-                      href={el.href}
-                      className="hover:underline hover:text-indigo-600"
-                    >
+                    <Link href={el.href} className="hover:underline">
                       {el.name}
                     </Link>
                   </li>

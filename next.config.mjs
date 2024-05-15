@@ -3,7 +3,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig = {};
 
 export default withSentryConfig(
-  withSentryConfig(nextConfig),
+  nextConfig,
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -12,6 +12,7 @@ export default withSentryConfig(
     silent: true,
     org: "planetary-escape",
     project: "journaler-webapp",
+    hideSourceMaps: true,
   },
   {
     // For all available options, see:
