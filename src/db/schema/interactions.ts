@@ -29,7 +29,7 @@ export const interactions = pgTable(
       .notNull(),
     userId: integer("user_id")
       .references(() => users.id, {
-        onDelete: "cascade",
+        onDelete: "no action",
       })
       .notNull(),
     type: interactionTypeEnum("type").notNull(),

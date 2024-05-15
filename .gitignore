@@ -39,3 +39,5 @@ next-env.d.ts
 .sentryclirc
 
 tmp*
+# Sentry Config File
+.sentryclirc

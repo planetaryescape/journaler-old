@@ -3,7 +3,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 const nextConfig = {};
 
 export default withSentryConfig(
-  nextConfig,
+  withSentryConfig(nextConfig),
   {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
@@ -11,7 +11,7 @@ export default withSentryConfig(
     // Suppresses source map uploading logs during build
     silent: true,
     org: "planetary-escape",
-    project: "javascript-nextjs",
+    project: "journaler-webapp",
   },
   {
     // For all available options, see:

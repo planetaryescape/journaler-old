@@ -24,6 +24,7 @@ export const users = pgTable(
     stripePriceId: varchar("stripe_price_id"),
     stripePlanId: varchar("stripe_plan_id"),
     trialUsed: boolean("trial_used").default(false),
+    isDeleted: boolean("is_deleted").default(false),
     clerkUserId: varchar("clerk_user_id"),
     email: varchar("email", {}).notNull().unique(),
     createdAt: timestamp("created_at")

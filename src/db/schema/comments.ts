@@ -19,7 +19,7 @@ export const comments = pgTable(
     }),
     userId: integer("user_id")
       .references(() => users.id, {
-        onDelete: "cascade",
+        onDelete: "no action",
       })
       .notNull(),
     content: text("content").notNull(),

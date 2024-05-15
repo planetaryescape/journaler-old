@@ -19,7 +19,7 @@ export const prompts = pgTable(
     id: serial("id").primaryKey(),
     userId: integer("user_id")
       .references(() => users.id, {
-        onDelete: "cascade",
+        onDelete: "no action",
       })
       .notNull(),
     title: varchar("title").notNull(),
