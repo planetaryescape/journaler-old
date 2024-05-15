@@ -30,7 +30,7 @@ export const Prompts = async ({
   const prompts = await getPrompts(limit);
 
   return (
-    <section className="py-28 bg-gray-900">
+    <section className="py-28 pt-16 bg-gray-900">
       <div className="relative z-10 max-w-screen-xl mx-auto px-4 md:px-8">
         <h3 className="text-white text-3xl font-semibold mx-auto mb-4 w-full text-center">
           {title}
