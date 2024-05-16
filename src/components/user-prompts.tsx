@@ -1,9 +1,12 @@
 import { db } from "@/db";
 import { prompts } from "@/db/schema/prompts";
+import { auth } from "@clerk/nextjs/server";
 import { desc } from "drizzle-orm";
 import { PromptCard } from "./prompt-card";
 
 const getPrompts = async (limit?: number) => {
+  const { userId: authUserId } = auth();
+  if (!authUserId) return [];
   const result = await db.query.prompts.findMany({
     with: {
       user: true,
@@ -17,10 +20,11 @@ const getPrompts = async (limit?: number) => {
     orderBy: [desc(prompts.createdAt)],
     limit,
   });
-  return result;
+
+  return result.filter((prompt) => prompt.user.clerkUserId === authUserId);
 };
 
-export const Prompts = async ({
+export const UserPrompts = async ({
   title,
   limit,
 }: {
@@ -28,6 +32,7 @@ export const Prompts = async ({
   limit?: number;
 }) => {
   const prompts = await getPrompts(limit);
+  console.log("prompts:", prompts);
 
   return (
     <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
@@ -38,9 +43,7 @@ export const Prompts = async ({
       )}
       <div className="flex flex-col md:gap-2 md:p-4 border-t md:border-none border-card pt-0">
         {prompts.length === 0 && (
-          <p className="text-center text-sm text-muted-foreground">
-            No prompts found
-          </p>
+          <p className="text-center text-sm">No prompts found</p>
         )}
         {prompts
           .map((item) => ({

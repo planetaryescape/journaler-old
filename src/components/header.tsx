@@ -33,34 +33,26 @@ export const Header = () => {
               state ? "block" : "hidden",
             )}
           >
-            <ul className="flex-1 justify-end md:items-center flex md:flex-row flex-col gap-4">
+            <ul className="flex-1 justify-end md:items-center flex flex-col md:flex-row gap-4">
               <NavigationMenuComponent />
-              {user ? (
-                <>
-                  <li>
-                    <UserButton />
-                  </li>
-                  <li>
-                    <ThemeToggle />
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <LinkButton size="sm" variant="ghost" href="/sign-in">
-                      Sign In
-                    </LinkButton>
-                  </li>
-                  <li>
-                    <LinkButton size="sm" href="/sign-up">
-                      Sign Up
-                    </LinkButton>
-                  </li>
-                  <li>
-                    <ThemeToggle />
-                  </li>
-                </>
-              )}
+              <div className="flex gap-4 justify-start">
+                {!user && (
+                  <>
+                    <li>
+                      <LinkButton size="sm" variant="ghost" href="/sign-in">
+                        Sign In
+                      </LinkButton>
+                    </li>
+                    <li>
+                      <LinkButton size="sm" href="/sign-up">
+                        Sign Up
+                      </LinkButton>
+                    </li>
+                  </>
+                )}
+                <UserButton />
+                <ThemeToggle />
+              </div>
             </ul>
           </div>
         </div>

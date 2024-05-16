@@ -38,8 +38,9 @@ export const Brand = ({
           alt="Journaler logo"
         />
       </Link>
-      <div className="md:hidden">
+      <div className="md:hidden flex gap-2 items-center">
         <Button
+          size="sm"
           onClick={() => {
             console.log("clicked");
             setState(!state);

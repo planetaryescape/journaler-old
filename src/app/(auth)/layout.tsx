@@ -3,7 +3,5 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="grid h-screen w-full place-items-center">{children}</div>
-  );
+  return <div className="grid w-full place-items-center">{children}</div>;
 }

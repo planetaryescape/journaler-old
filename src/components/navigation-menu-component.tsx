@@ -25,6 +25,7 @@ import {
 import { createNewsletterSubscriber } from "@/lib/actions/createNewsletterSubscriber";
 import { cn } from "@/lib/utils";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
+import Link from "next/link";
 import { toast } from "sonner";
 import { z } from "zod";
 import { NewsletterSubscriptionForm } from "./newsletter-subscription-form";
@@ -86,7 +87,7 @@ export function NavigationMenuComponent() {
   const [open, setOpen] = React.useState(false);
 
   async function onSubmit(
-    values: z.infer<typeof insertNewsletterSubscriberSchema>
+    values: z.infer<typeof insertNewsletterSubscriberSchema>,
   ) {
     const result = await createNewsletterSubscriber(values);
     if (result.error) {
@@ -106,10 +107,12 @@ export function NavigationMenuComponent() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <NavigationMenu>
-        <NavigationMenuList>
+      <NavigationMenu className="w-full">
+        <NavigationMenuList className="whitespace-nowrap">
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Browse Prompts</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="w-full">
+              Browse Prompts
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {components.map((component) => (
@@ -135,13 +138,22 @@ export function NavigationMenuComponent() {
               </NavigationMenuLink>
             </DialogTrigger>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle({
+                className: "cursor-pointer",
+              })}
+            >
+              <Link href="/account/prompts">Submit your prompt</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Subscribe to the Journaler Newsletter</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="dark:text-warm-sand text-muted-foreground">
             Get weekly email with best new journal prompts
           </DialogDescription>
         </DialogHeader>
@@ -172,7 +184,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >

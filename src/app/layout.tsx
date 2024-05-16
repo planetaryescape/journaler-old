@@ -10,6 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Merriweather, Open_Sans } from "next/font/google";
 import "./globals.css";
+import { ReactQueryProvider } from "./react-query-provider";
 
 const fontSerif = Merriweather({
   subsets: ["latin"],
@@ -64,34 +65,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-    >
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "relative min-h-screen bg-background font-sans antialiased",
-            fontSerif.variable,
-            fontSans.variable
-          )}
-        >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
+    <ReactQueryProvider>
+      <ClerkProvider
+        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      >
+        <html lang="en" suppressHydrationWarning>
+          <body
+            className={cn(
+              "relative min-h-screen bg-background font-sans antialiased",
+              fontSerif.variable,
+              fontSans.variable,
+            )}
           >
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </ThemeProvider>
-          <SpeedInsights />
-          <Analytics />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              {children}
+              <Footer />
+              <Toaster />
+            </ThemeProvider>
+            <SpeedInsights />
+            <Analytics />
 
-          <BackgroundGradient degrees={Math.random() * 360} />
-        </body>
-      </html>
-    </ClerkProvider>
+            <BackgroundGradient degrees={Math.random() * 360} />
+          </body>
+        </html>
+      </ClerkProvider>
+    </ReactQueryProvider>
   );
 }
