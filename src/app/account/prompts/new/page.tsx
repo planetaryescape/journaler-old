@@ -39,7 +39,7 @@ export default function NewPromptPage() {
     defaultValues: {
       title: "",
       content: "",
-      userId: user?.result.id,
+      userId: user?.result?.id ?? 0,
     },
   });
 
@@ -49,7 +49,7 @@ export default function NewPromptPage() {
     console.log("values:", values);
     const result = await createNewPrompt({
       ...values,
-      userId: user?.result.id ?? 0,
+      userId: user?.result?.id ?? 0,
     });
 
     if (result.error) {
@@ -68,7 +68,7 @@ export default function NewPromptPage() {
   }
 
   return (
-    <div>
+    <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
       <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
         Create a prompt
       </h3>
@@ -76,7 +76,7 @@ export default function NewPromptPage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 max-w-5xl mx-auto w-full dark:text-warm-sand text-muted-foreground"
           id="new-prompt"
         >
           <FormField

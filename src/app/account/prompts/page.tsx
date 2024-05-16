@@ -4,10 +4,10 @@ import Link from "next/link";
 
 const PromptsPage = () => {
   return (
-    <div className="py-28 pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8 flex flex-col">
+    <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
       <div>
         <div>
-          <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
+          <h3 className="text-3xl font-semibold mx-auto mb-4 w-full">
             My Prompts
           </h3>
           <p className="mb-4">
