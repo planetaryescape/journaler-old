@@ -57,3 +57,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+#sentry-feedback {
+  --inset: auto 0 100px auto;
+}
+
+@media (min-width: 768px) {
+  #sentry-feedback {
+    --inset: auto 0 0 auto;
+  }
+}
