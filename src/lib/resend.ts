@@ -1,3 +1,6 @@
 import { Resend } from "resend";
 
-export const resend = new Resend((process.env.RESEND_API_KEY as string) ?? "");
+const apiKey = (process.env.RESEND_API_KEY as string) ?? "";
+console.log("apiKey:", apiKey);
+
+export const resend = new Resend(apiKey);
