@@ -1,6 +1,6 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { UserPrompts } from "@/components/user-prompts";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const PromptsPage = () => {
   return (

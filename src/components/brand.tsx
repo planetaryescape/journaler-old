@@ -1,8 +1,8 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { Link } from "next-view-transitions";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 

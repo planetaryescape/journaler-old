@@ -13,7 +13,7 @@ export const Header = () => {
   const { user } = useUser();
 
   return (
-    <header className="">
+    <header className="sticky top-0">
       <div className={cn(`md:hidden`, state ? "mx-2 pb-5" : "hidden")}>
         <Brand state={state} setState={setState} />
       </div>

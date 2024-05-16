@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { formatDistanceToNow } from "date-fns";
 import { eq } from "drizzle-orm";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 const getUser = async (authUserId: string | null) => {
   if (!authUserId) return null;
@@ -44,7 +44,11 @@ const getPrompt = async (id: number) => {
   return result;
 };
 
-const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
+export default async function SinglePromptPage({
+  params,
+}: {
+  params: { id: number };
+}) {
   const prompt = await getPrompt(params.id);
   const { userId: authUserId } = auth();
   const user = await getUser(authUserId);
@@ -59,13 +63,9 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
 
   const upvotes = prompt.interactions.filter((i) => i.type === "upvote");
 
-  console.log("upvotes:", upvotes);
-
   const isVoted = Boolean(
     upvotes.some((interaction) => interaction.userId === user?.id),
   );
-
-  console.log("isVoted:", isVoted);
 
   return (
     <>
@@ -135,6 +135,4 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
       )}
     </>
   );
-};
-
-export default SinglePromptPage;
+}

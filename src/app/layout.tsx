@@ -9,6 +9,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
+import { ViewTransitions } from "next-view-transitions";
 import { Merriweather, Open_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
@@ -91,37 +92,39 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryProvider>
-      <ClerkProvider
-        publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      >
-        <html lang="en" suppressHydrationWarning>
-          <body
-            className={cn(
-              "relative min-h-screen bg-background font-sans antialiased",
-              fontSerif.variable,
-              fontSans.variable,
-            )}
-          >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
+    <ViewTransitions>
+      <ReactQueryProvider>
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        >
+          <html lang="en" suppressHydrationWarning>
+            <body
+              className={cn(
+                "relative min-h-screen bg-background font-sans antialiased",
+                fontSerif.variable,
+                fontSans.variable,
+              )}
             >
-              <NextTopLoader color="#8FBC8F" />
-              <Header />
-              {children}
-              <Footer />
-              <Toaster />
-            </ThemeProvider>
-            <SpeedInsights />
-            <Analytics />
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <NextTopLoader color="#8FBC8F" />
+                <Header />
+                {children}
+                <Footer />
+                <Toaster />
+              </ThemeProvider>
+              <SpeedInsights />
+              <Analytics />
 
-            <BackgroundGradient degrees={Math.random() * 360} />
-          </body>
-        </html>
-      </ClerkProvider>
-    </ReactQueryProvider>
+              <BackgroundGradient degrees={Math.random() * 360} />
+            </body>
+          </html>
+        </ClerkProvider>
+      </ReactQueryProvider>
+    </ViewTransitions>
   );
 }

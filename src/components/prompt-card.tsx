@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { formatDistanceToNow } from "date-fns";
 import { eq } from "drizzle-orm";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Badge } from "./ui/badge";
 import { VotingComponent } from "./voting-component";
 
@@ -30,13 +30,13 @@ export const PromptCard = async ({
   const { userId: authUserId } = auth();
   const user = await getUser(authUserId);
   const isVoted = Boolean(
-    item.interactions.some((interaction) => interaction.userId === user?.id)
+    item.interactions.some((interaction) => interaction.userId === user?.id),
   );
 
   return (
     <div
       className={cn(
-        "flex flex-col justify-between items-start gap-2 md:rounded-lg border-b md:border p-4 md:px-8 text-left text-sm transition-all hover:bg-card/20 dark:hover:bg-card/50 border-card duration-200"
+        "flex flex-col justify-between items-start gap-2 md:rounded-lg border-b md:border p-4 md:px-8 text-left text-sm transition-all hover:bg-card/20 dark:hover:bg-card/50 border-card duration-200",
       )}
     >
       <Link href={`/prompts/${item.id}`}>
