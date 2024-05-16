@@ -52,7 +52,6 @@ jobs:
         run: pnpm build
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
   auto-merge-dependabot:
     name: Auto merge dependabot PR
