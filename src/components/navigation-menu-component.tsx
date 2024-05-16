@@ -90,7 +90,7 @@ export function NavigationMenuComponent() {
               </NavigationMenuLink>
             </DialogTrigger>
           </NavigationMenuItem>
-          {pathname !== "/" && (
+          {user ? (
             <NavigationMenuItem className="w-full">
               <NavigationMenuLink asChild>
                 <LinkButton
@@ -102,6 +102,22 @@ export function NavigationMenuComponent() {
                 </LinkButton>
               </NavigationMenuLink>
             </NavigationMenuItem>
+          ) : (
+            <>
+              {pathname !== "/" && (
+                <NavigationMenuItem className="w-full">
+                  <NavigationMenuLink asChild>
+                    <LinkButton
+                      className="animate-buttonheartbeat w-full"
+                      href="/account/prompts"
+                      size="sm"
+                    >
+                      Submit your prompt
+                    </LinkButton>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )}
+            </>
           )}
         </NavigationMenuList>
       </NavigationMenu>
