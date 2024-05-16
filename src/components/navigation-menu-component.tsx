@@ -23,68 +23,20 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { createNewsletterSubscriber } from "@/lib/actions/createNewsletterSubscriber";
+import { components } from "@/lib/config/browse-prompts-components";
 import { cn } from "@/lib/utils";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 import { NewsletterSubscriptionForm } from "./newsletter-subscription-form";
 import { LinkButton } from "./ui/link-button";
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "All Prompts",
-    href: "/prompts",
-    description: "Explore all journal prompts available on Journaler.",
-  },
-  {
-    title: "This Week's Top Prompts",
-    href: "/prompts/this-week",
-    description: "Check out the most popular prompts from this week.",
-  },
-  {
-    title: "All Time Top Prompts",
-    href: "/prompts/all-time",
-    description: "Discover the highest-rated prompts of all time.",
-  },
-  {
-    title: "Top Categories",
-    href: "/categories",
-    description: "Browse prompts by the most popular categories.",
-  },
-  {
-    title: "This Week's Top Categories",
-    href: "/categories/this-week",
-    description: "Explore the top categories trending this week.",
-  },
-  {
-    title: "All Time Top Categories",
-    href: "/categories/all-time",
-    description: "Find out which categories have the top prompts of all time.",
-  },
-  {
-    title: "New Prompts",
-    href: "/prompts/new",
-    description: "Discover the latest prompts added by the community.",
-  },
-  {
-    title: "Trending Prompts",
-    href: "/prompts/trending",
-    description: "See what's currently trending in the Journaler community.",
-  },
-  {
-    title: "My Saved Prompts",
-    href: "/account/prompts/saved",
-    description: "Access the prompts you have saved to your custom lists.",
-  },
-  {
-    title: "My Created Prompts",
-    href: "/account/prompts",
-    description: "Manage and review prompts you have created and shared.",
-  },
-];
-
 export function NavigationMenuComponent() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
+  const { user } = useUser();
 
   async function onSubmit(
     values: z.infer<typeof insertNewsletterSubscriberSchema>,
@@ -138,17 +90,19 @@ export function NavigationMenuComponent() {
               </NavigationMenuLink>
             </DialogTrigger>
           </NavigationMenuItem>
-          <NavigationMenuItem className="w-full">
-            <NavigationMenuLink>
-              <LinkButton
-                className="animate-buttonheartbeat w-full"
-                href="/account/prompts"
-                size="sm"
-              >
-                Submit your prompt
-              </LinkButton>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
+          {pathname !== "/" && (
+            <NavigationMenuItem className="w-full">
+              <NavigationMenuLink asChild>
+                <LinkButton
+                  className="animate-buttonheartbeat w-full"
+                  href="/account/prompts"
+                  size="sm"
+                >
+                  Submit your prompt
+                </LinkButton>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
 

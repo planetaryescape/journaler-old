@@ -41,3 +41,5 @@ next-env.d.ts
 tmp*
 # Sentry Config File
 .sentryclirc
+
+.eslintcache

@@ -3,6 +3,7 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { cn } from "@/lib/utils";
 import { UserButton, useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { BackgroundGradient } from "./background-gradient";
 import { Brand } from "./brand";
@@ -12,6 +13,7 @@ import { ThemeToggle } from "./theme-toggle";
 export const Header = () => {
   const [state, setState] = useState(false);
   const { user } = useUser();
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 bg-background z-10">
@@ -44,11 +46,13 @@ export const Header = () => {
                         Sign In
                       </LinkButton>
                     </li>
-                    <li>
-                      <LinkButton size="sm" href="/sign-up">
-                        Sign Up
-                      </LinkButton>
-                    </li>
+                    {/* {pathname !== "/" && (
+                      <li>
+                        <LinkButton size="sm" href="/sign-up">
+                          Sign Up
+                        </LinkButton>
+                      </li>
+                    )} */}
                   </>
                 )}
                 <ThemeToggle />
