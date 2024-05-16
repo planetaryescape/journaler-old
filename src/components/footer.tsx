@@ -84,7 +84,7 @@ export const Footer = () => {
                     ? theme === "dark"
                       ? "/logo-dark.png"
                       : "/logo-light.png"
-                    : "/logo-light.png"
+                    : "/logo-dark.png"
                 }
                 width={120}
                 height={50}
