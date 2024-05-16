@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { BackgroundGradient } from "./background-gradient";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -151,6 +152,8 @@ export const Footer = () => {
           }
         `}</style>
       </div>
+
+      <BackgroundGradient />
     </footer>
   );
 };

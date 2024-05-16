@@ -1,3 +1,4 @@
+import { BackgroundGradient } from "@/components/background-gradient";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -87,6 +88,8 @@ export default function RootLayout({
           </ThemeProvider>
           <SpeedInsights />
           <Analytics />
+
+          <BackgroundGradient degrees={Math.random() * 360} />
         </body>
       </html>
     </ClerkProvider>

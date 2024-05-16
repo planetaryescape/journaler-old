@@ -22,7 +22,7 @@ export function UnauthenticatedButton({ children, ...props }: LinkButtonProps) {
       <HoverCardContent className="w-80">
         <div className="flex justify-between space-x-4">
           <Avatar>
-            <AvatarImage src="/logo-small-dark.png" />
+            <AvatarImage src={"/logo-small-light.png"} />
             <AvatarFallback>J.</AvatarFallback>
           </Avatar>
           <div className="space-y-1">

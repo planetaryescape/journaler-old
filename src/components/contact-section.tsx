@@ -1,8 +1,9 @@
 import { contactMethods } from "@/lib/config/contact-methods";
+import { BackgroundGradient } from "./background-gradient";
 
 export const ContactSection = () => {
   return (
-    <section className="py-12 pb-28 max-w-screen-xl mx-auto px-4 gap-12 md:px-8 lg:flex">
+    <section className="relative py-12 pb-28 max-w-screen-xl mx-auto px-4 gap-12 md:px-8 lg:flex">
       <div className="max-w-md text-center md:text-left">
         <h3 className="text-3xl font-semibold sm:text-4xl">Let’s connect</h3>
         <p className="mt-3">
@@ -44,6 +45,8 @@ export const ContactSection = () => {
           ))}
         </ul>
       </div>
+
+      <BackgroundGradient degrees={Math.random() * 360} />
     </section>
   );
 };

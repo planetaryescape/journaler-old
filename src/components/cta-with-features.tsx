@@ -1,9 +1,10 @@
 import { features } from "@/lib/config/features";
+import { BackgroundGradient } from "./background-gradient";
 import { LinkButton } from "./ui/link-button";
 
 export const CtaWithFeatures = () => {
   return (
-    <section className="md:py-28 mb-16 max-w-screen-xl mx-auto px-4 justify-between gap-24 lg:flex md:px-8">
+    <section className="relative md:py-28 mb-16 max-w-screen-xl mx-auto px-4 justify-between gap-24 lg:flex md:px-8">
       <div className="max-w-xl mx-auto text-center md:text-left">
         <h3 className="text-3xl font-semibold sm:text-4xl">
           Like Journaler so far? Sign up and unlock Your Full Journaling
@@ -37,6 +38,8 @@ export const CtaWithFeatures = () => {
           ))}
         </ul>
       </div>
+
+      <BackgroundGradient degrees={Math.random() * 360} />
     </section>
   );
 };
