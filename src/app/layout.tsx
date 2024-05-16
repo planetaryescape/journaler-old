@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
@@ -25,11 +26,18 @@ const fontSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(config.baseUrl),
+  applicationName: "Journaler",
+  manifest: "site.webmanifest",
+  viewport:
+    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover",
   title:
     "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
   description:
     "Join Journaler to explore top journal prompts, share your own, and engage with a community of reflective writers. Start your mindful journaling journey today!",
   openGraph: {
+    siteName: "Journaler",
+    url: config.baseUrl,
     type: "website",
     title:
       "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
@@ -38,14 +46,31 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/logo.png",
-        width: 800,
-        height: 600,
+        alt: "Journaler Logo",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Journaler Logo",
+      },
+      {
+        url: "/android-chrome-192x192.png",
+        width: 192,
+        height: 192,
+        alt: "Journaler Logo",
+      },
+      {
+        url: "/apple-touch-icon.png",
+        width: 180,
+        height: 180,
         alt: "Journaler Logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    creator: "@journaler_app",
     title:
       "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
     description:
@@ -57,6 +82,17 @@ export const metadata: Metadata = {
       },
     ],
   },
+  appleWebApp: {
+    capable: true,
+    title:
+      "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
+    startupImage: "/logo.png",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  themeColor: "#F5DEB3",
 };
 
 export default function RootLayout({
