@@ -108,7 +108,7 @@ export function NavigationMenuComponent() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <NavigationMenu className="w-full">
-        <NavigationMenuList className="whitespace-nowrap">
+        <NavigationMenuList className="whitespace-nowrap flex flex-col md:flex-row md:items-center items-start">
           <NavigationMenuItem>
             <NavigationMenuTrigger className="w-full">
               Browse Prompts

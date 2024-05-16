@@ -35,7 +35,7 @@ export const Header = () => {
           >
             <ul className="flex-1 justify-end md:items-center flex flex-col md:flex-row gap-4">
               <NavigationMenuComponent />
-              <div className="flex gap-4 justify-start">
+              <div className="flex gap-4 justify-start items-center">
                 {!user && (
                   <>
                     <li>
