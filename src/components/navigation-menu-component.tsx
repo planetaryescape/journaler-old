@@ -25,10 +25,10 @@ import {
 import { createNewsletterSubscriber } from "@/lib/actions/createNewsletterSubscriber";
 import { cn } from "@/lib/utils";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
-import Link from "next/link";
 import { toast } from "sonner";
 import { z } from "zod";
 import { NewsletterSubscriptionForm } from "./newsletter-subscription-form";
+import { LinkButton } from "./ui/link-button";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -144,7 +144,13 @@ export function NavigationMenuComponent() {
                 className: "cursor-pointer w-full",
               })}
             >
-              <Link href="/account/prompts">Submit your prompt</Link>
+              <LinkButton
+                className="animate-buttonheartbeat w-full"
+                href="/account/prompts"
+                size="sm"
+              >
+                Submit your prompt
+              </LinkButton>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
