@@ -68,7 +68,7 @@ export default function NewPromptPage() {
   }
 
   return (
-    <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
+    <div className="mb-16 relative max-w-4xl mx-auto px-4 md:px-8">
       <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
         Create a prompt
       </h3>

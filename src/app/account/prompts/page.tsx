@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const PromptsPage = () => {
   return (
-    <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
+    <div className="mb-16 relative max-w-4xl mx-auto px-4 md:px-8">
       <div>
         <div>
           <h3 className="text-3xl font-semibold mx-auto mb-4 w-full">
