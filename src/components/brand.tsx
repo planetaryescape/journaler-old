@@ -31,7 +31,7 @@ export const Brand = ({
               ? theme === "dark"
                 ? "/logo-dark.png"
                 : "/logo-light.png"
-              : "/logo-light.png"
+              : "/logo-dark.png"
           }
           width={240}
           height={100}
