@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -17,6 +17,7 @@ export const Brand = ({
 }) => {
   const { theme } = useTheme();
   const [hasTheme, setHasTheme] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     if (theme) {
@@ -41,12 +42,16 @@ export const Brand = ({
         />
       </Link>
       <div className="md:hidden flex gap-4 items-center">
-        <LinkButton size="sm" variant="ghost" href="/sign-in">
-          Sign In
-        </LinkButton>
-        <LinkButton size="sm" href="/sign-up">
-          Sign Up
-        </LinkButton>
+        {!user && (
+          <>
+            <LinkButton size="sm" variant="ghost" href="/sign-in">
+              Sign In
+            </LinkButton>
+            <LinkButton size="sm" href="/sign-up">
+              Sign Up
+            </LinkButton>
+          </>
+        )}
         <ThemeToggle />
         <UserButton />
       </div>
