@@ -1,4 +1,4 @@
-import { config } from "@/lib/config/config";
+import { config } from "@/lib/config";
 import {
   Body,
   Button,
@@ -14,19 +14,6 @@ import {
   Text,
 } from "@react-email/components";
 import { Tailwind } from "@react-email/tailwind";
-import { ReactNode } from "react";
-
-interface DealbaseWelcomeEmailProps {
-  steps?: {
-    id: number;
-    Description: ReactNode;
-  }[];
-  links?: string[];
-}
-
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
 
 export const DealbaseWelcomeEmail = () => {
   return (
@@ -38,8 +25,8 @@ export const DealbaseWelcomeEmail = () => {
           theme: {
             extend: {
               colors: {
-                brand: "#31a078",
-                offwhite: "#fafbfb",
+                brand: "hsl(180, 25%, 25%)",
+                offwhite: "hsl(39, 77%, 85%)",
               },
               spacing: {
                 0: "0px",
@@ -50,15 +37,15 @@ export const DealbaseWelcomeEmail = () => {
           },
         }}
       >
-        <Body className="bg-offwhite font-sans text-base">
+        <Body className="bg-offwhite font-sans text-base text-brand">
           <Img
             src={`https://res.cloudinary.com/doqpfkbrx/image/upload/v1715742795/logos/long-without-background/Journaler_Logo_3_bwwqxx.png`}
             width="197.75"
             height="22.5"
-            alt="dealbase.africa"
+            alt="Journaler Logo"
             className="mx-auto my-20"
           />
-          <Container className="p-45 bg-white">
+          <Container className="p-45 bg-[hsl(39, 77%, 85%)]">
             <Heading className="my-0 text-center leading-8">
               Welcome to Journaler
             </Heading>

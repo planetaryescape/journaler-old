@@ -6,6 +6,7 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { Brand } from "./brand";
 import { NavigationMenuComponent } from "./navigation-menu-component";
+import { ThemeToggle } from "./theme-toggle";
 
 export const Header = () => {
   const [state, setState] = useState(false);
@@ -47,6 +48,9 @@ export const Header = () => {
                     <LinkButton size="sm" href="/sign-up">
                       Sign Up
                     </LinkButton>
+                  </li>
+                  <li>
+                    <ThemeToggle />
                   </li>
                 </>
               )}

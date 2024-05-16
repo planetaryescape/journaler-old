@@ -27,20 +27,20 @@
   }
 
   .dark {
-    --background: 60 2% 28%; /* Charcoal Gray */
+    --background: 180 25% 25%; /* Deep Forest Green */
     --foreground: 39 77% 85%; /* Warm Sand */
     --card: 60 2% 28%; /* Charcoal Gray */
-    --card-foreground: 39 77% 85%; /* Warm Sand */
-    --popover: 60 2% 28%; /* Charcoal Gray */
-    --popover-foreground: 39 77% 85%; /* Warm Sand */
+    --card-foreground: 34 44% 69%; /* Soft Clay */
+    --popover: 39 77% 85%; /* Warm Sand */
+    --popover-foreground: 180 25% 25%; /* Deep Forest Green */
     --primary: 39 77% 85%; /* Warm Sand */
-    --primary-foreground: 60 2% 28%; /* Charcoal Gray */
-    --secondary: 120 25% 70%; /* Muted Sage */
-    --secondary-foreground: 60 2% 28%; /* Charcoal Gray */
-    --muted: 120 25% 70%; /* Muted Sage */
-    --muted-foreground: 60 2% 28%; /* Charcoal Gray */
+    --primary-foreground: 180 25% 25%; /* Deep Forest Green */
+    --secondary: 34 44% 69%; /* Soft Clay */
+    --secondary-foreground: 180 25% 25%; /* Deep Forest Green */
+    --muted: 34 44% 69%; /* Soft Clay */
+    --muted-foreground: 180 25% 25%; /* Deep Forest Green */
     --accent: 25 63% 72%; /* Pale Terracotta */
-    --accent-foreground: 60 2% 28%; /* Charcoal Gray */
+    --accent-foreground: 180 25% 25%; /* Deep Forest Green */
     --destructive: 8 42% 65%; /* Pale Terracotta */
     --destructive-foreground: 0 0% 98%; /* White */
     --border: 34 44% 69%; /* Soft Clay */

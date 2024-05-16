@@ -17,7 +17,7 @@ export const Brand = ({
     <div className="flex items-center justify-between py-5 md:block">
       <Link href="/">
         <Image
-          src={theme === "light" ? "/logo-dark.png" : "/logo-light.png"}
+          src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
           width={240}
           height={100}
           alt="Journaler logo"
