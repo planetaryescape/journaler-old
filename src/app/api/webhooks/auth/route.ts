@@ -5,7 +5,6 @@ import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext
 import { logger } from "@/lib/logger";
 import { resend } from "@/lib/resend";
 import { stripe } from "@/lib/stripe";
-import * as Sentry from "@sentry/nextjs";
 import { NextResponse } from "next/server";
 
 import { eq } from "drizzle-orm";
@@ -15,12 +14,6 @@ const newUserSchema = createInsertSchema(users);
 
 export async function POST(request: Request) {
   const data = await request.json();
-
-  const scope = Sentry.getCurrentHub().getScope();
-  const transaction = Sentry.startTransaction({
-    name: `User Webhook`,
-  });
-  scope?.setSpan(transaction);
 
   const context = {
     ...createDefaultApiRouteContext(request),
@@ -64,7 +57,7 @@ export async function POST(request: Request) {
       logger.error({ ...context, error: e }, "Failed to create new user");
       return NextResponse.json(
         { error: "Failed to create new user" },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }
@@ -101,7 +94,7 @@ export async function POST(request: Request) {
       logger.error({ ...context, error: e }, "Failed to update user");
       return NextResponse.json(
         { error: "Failed to update user" },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }
@@ -118,11 +111,11 @@ export async function POST(request: Request) {
     } catch (error) {
       logger.error(
         { ...context, error, errorMessage: (error as Error).message },
-        "Failed to delete user"
+        "Failed to delete user",
       );
       return NextResponse.json(
         { error: "Failed to delete user" },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }

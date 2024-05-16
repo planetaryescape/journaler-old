@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Merriweather, Open_Sans } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { ReactQueryProvider } from "./react-query-provider";
 
@@ -108,6 +109,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <NextTopLoader color="#8FBC8F" />
               <Header />
               {children}
               <Footer />
