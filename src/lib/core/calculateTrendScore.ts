@@ -1,4 +1,4 @@
-import { config } from "@/lib/config/config";
+import { config } from "@/lib/config";
 import { intervalToDuration } from "date-fns";
 
 export const calculateTrendScore = ({
