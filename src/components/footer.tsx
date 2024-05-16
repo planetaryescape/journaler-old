@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { BackgroundGradient } from "./background-gradient";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -63,6 +64,13 @@ export const Footer = () => {
   ];
 
   const { theme } = useTheme();
+  const [hasTheme, setHasTheme] = useState(false);
+
+  useEffect(() => {
+    if (theme) {
+      setHasTheme(true);
+    }
+  }, [theme]);
 
   return (
     <footer className="relative px-4 py-5 mx-auto md:px-8">
@@ -71,7 +79,13 @@ export const Footer = () => {
           <div className="flex-1">
             <div className="max-w-xs">
               <Image
-                src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
+                src={
+                  hasTheme
+                    ? theme === "dark"
+                      ? "/logo-dark.png"
+                      : "/logo-light.png"
+                    : "/logo-light.png"
+                }
                 width={120}
                 height={50}
                 alt="Journaler logo"

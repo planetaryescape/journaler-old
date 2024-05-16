@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 export const Brand = ({
@@ -13,11 +14,25 @@ export const Brand = ({
   setState: (state: boolean) => void;
 }) => {
   const { theme } = useTheme();
+  const [hasTheme, setHasTheme] = useState(false);
+
+  useEffect(() => {
+    if (theme) {
+      setHasTheme(true);
+    }
+  }, [theme]);
+
   return (
     <div className="flex items-center justify-between py-5 md:block">
       <Link href="/">
         <Image
-          src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
+          src={
+            hasTheme
+              ? theme === "dark"
+                ? "/logo-dark.png"
+                : "/logo-light.png"
+              : "/logo-light.png"
+          }
           width={240}
           height={100}
           alt="Journaler logo"
