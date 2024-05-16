@@ -86,7 +86,7 @@ export default function RootLayout({
               <Header />
               {children}
               <Footer />
-              <Toaster className="dark:text-warm-sand text-muted-foreground" />
+              <Toaster />
             </ThemeProvider>
             <SpeedInsights />
             <Analytics />
