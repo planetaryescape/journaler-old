@@ -73,12 +73,12 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "My Saved Prompts",
-    href: "/prompts/saved",
+    href: "/account/prompts/saved",
     description: "Access the prompts you have saved to your custom lists.",
   },
   {
     title: "My Created Prompts",
-    href: "/prompts/mine",
+    href: "/account/prompts",
     description: "Manage and review prompts you have created and shared.",
   },
 ];
