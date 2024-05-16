@@ -20,14 +20,6 @@ import { formatDistanceToNow } from "date-fns";
 import { eq } from "drizzle-orm";
 import { Link } from "next-view-transitions";
 
-export function Component() {
-  return (
-    <div>
-      <Link href="/about">Go to /about</Link>
-    </div>
-  );
-}
-
 const getUser = async (authUserId: string | null) => {
   if (!authUserId) return null;
   const result = await db.query.users.findFirst({
