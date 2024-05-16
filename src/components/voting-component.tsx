@@ -2,7 +2,7 @@
 import { vote } from "@/lib/actions/vote";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons";
+import { ChevronUpIcon } from "@radix-ui/react-icons";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -57,8 +57,14 @@ export const VotingComponent = ({
   return (
     <div className={cn("flex ml-auto items-center gap-2", className)}>
       {!authUserId ? (
-        <UnauthenticatedButton variant="secondary" href="/sign-up" size="icon">
+        <UnauthenticatedButton
+          variant="secondary"
+          href="/sign-up"
+          size="sm"
+          className="font-medium lowercase"
+        >
           <ChevronUpIcon className="h-5 w-5" />
+          <p className="text-xl whitespace-nowrap">{votes}</p>
         </UnauthenticatedButton>
       ) : (
         <Button
@@ -67,26 +73,11 @@ export const VotingComponent = ({
             await vote({ promptId, userId, type: "upvote" });
           }}
           variant="secondary"
-          size="icon"
+          className="font-medium lowercase"
+          size="sm"
         >
           <ChevronUpIcon className="h-5 w-5" />
-        </Button>
-      )}
-      <p className="text-xl whitespace-nowrap">{votes} votes</p>
-      {!authUserId ? (
-        <UnauthenticatedButton variant="secondary" href="/sign-up" size="icon">
-          <ChevronDownIcon className="h-5 w-5" />
-        </UnauthenticatedButton>
-      ) : (
-        <Button
-          disabled={!authUserId}
-          onClick={async () => {
-            await vote({ promptId, userId, type: "downvote" });
-          }}
-          variant="secondary"
-          size="icon"
-        >
-          <ChevronDownIcon className="h-5 w-5" />
+          <p className="text-xl whitespace-nowrap">{votes}</p>
         </Button>
       )}
     </div>
