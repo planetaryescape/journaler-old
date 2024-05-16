@@ -22,7 +22,7 @@ export const Header = () => {
           `pb-5 md:text-sm`,
           state
             ? "absolute z-20 top-0 inset-x-0 rounded-xl mx-2 mt-2 md:mx-0 md:mt-0 md:relative bg-card md:bg-transparent"
-            : ""
+            : "",
         )}
       >
         <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
@@ -30,13 +30,20 @@ export const Header = () => {
           <div
             className={cn(
               `flex-1 items-center mt-8 md:mt-0 md:flex`,
-              state ? "block" : "hidden"
+              state ? "block" : "hidden",
             )}
           >
             <ul className="flex-1 justify-end md:items-center flex md:flex-row flex-col gap-4">
               <NavigationMenuComponent />
               {user ? (
-                <UserButton />
+                <>
+                  <li>
+                    <UserButton />
+                  </li>
+                  <li>
+                    <ThemeToggle />
+                  </li>
+                </>
               ) : (
                 <>
                   <li>
