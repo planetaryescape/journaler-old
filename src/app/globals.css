@@ -59,11 +59,20 @@
 }
 
 #sentry-feedback {
-  --inset: auto 0 100px auto;
+  --inset: auto 0 200px auto;
+  --accent-background: var(--deep-forest-green);
+  --accent-foreground: var(--warm-sand);
 }
 
 @media (min-width: 768px) {
   #sentry-feedback {
     --inset: auto 0 0 auto;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #sentry-feedback {
+    --accent-background: var(--warm-sand);
+    --accent-foreground: var(--deep-forest-green);
   }
 }

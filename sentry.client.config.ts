@@ -31,10 +31,19 @@ Sentry.init({
       blockAllMedia: true,
     }),
     Sentry.feedbackIntegration({
-      // Additional SDK configuration goes in here, for example:
       colorScheme: "system",
       isNameRequired: true,
       isEmailRequired: true,
+      useSentryUser: {
+        name: "fullName",
+        email: "email",
+      },
+      themeLight: {
+        background: "#F5DEB3",
+      },
+      themeDark: {
+        background: "#2F4F4F",
+      },
     }),
   ],
 });

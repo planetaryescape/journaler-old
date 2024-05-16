@@ -2,15 +2,21 @@ import { ContactSection } from "@/components/contact-section";
 import { CtaWithFeatures } from "@/components/cta-with-features";
 import { Hero } from "@/components/hero";
 import { Prompts } from "@/components/prompts";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
+import * as Sentry from "@sentry/nextjs";
 
-const HomePage = () => {
-  const { userId } = auth();
+const HomePage = async () => {
+  const user = await currentUser();
+  Sentry.setUser({
+    fullName: user?.fullName ?? "Anonymous",
+    email: user?.emailAddresses[0].emailAddress,
+  });
+
   return (
     <div>
-      {!userId && <Hero />}
+      {!user?.id && <Hero />}
       <Prompts title="All Time Top Prompts" limit={10} />
-      {!userId && <CtaWithFeatures />}
+      {!user?.id && <CtaWithFeatures />}
       <ContactSection />
     </div>
   );
