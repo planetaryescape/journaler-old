@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Merriweather, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ReactQueryProvider } from "./react-query-provider";
@@ -25,12 +25,20 @@ const fontSans = Open_Sans({
   weight: ["300", "400", "700"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#F5DEB3",
+  width: "device-width",
+  height: "device-height",
+  initialScale: 1,
+  minimumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   applicationName: "Journaler",
   manifest: "site.webmanifest",
-  viewport:
-    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover",
   title:
     "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
   description:
@@ -92,7 +100,6 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
-  themeColor: "#F5DEB3",
 };
 
 export default function RootLayout({
