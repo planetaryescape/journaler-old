@@ -1,20 +1,38 @@
-import { Category, User } from "@/db/schema";
+import { db } from "@/db";
+import { Category, Interaction, User, users } from "@/db/schema";
 import { Prompt } from "@/db/schema/prompts";
 import { cn } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import { formatDistanceToNow } from "date-fns";
+import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { VotingComponent } from "./voting-component";
 
-export const PromptCard = ({
+const getUser = async (authUserId: string | null) => {
+  if (!authUserId) return null;
+  const result = await db.query.users.findFirst({
+    where: eq(users.clerkUserId, authUserId),
+  });
+  return result;
+};
+
+export const PromptCard = async ({
   prompt: item,
 }: {
   prompt: Prompt & {
     promptCategory: { category: Category }[];
     user: User;
+    interactions: Interaction[];
     votes: number;
   };
 }) => {
+  const { userId: authUserId } = auth();
+  const user = await getUser(authUserId);
+  const isVoted = Boolean(
+    item.interactions.some((interaction) => interaction.userId === user?.id)
+  );
+
   return (
     <div
       className={cn(
@@ -59,6 +77,7 @@ export const PromptCard = ({
         userId={item.userId}
         promptId={item.id}
         votes={item.votes}
+        isVoted={isVoted}
       />
     </div>
   );

@@ -13,11 +13,20 @@ import {
 import { VotingComponent } from "@/components/voting-component";
 import { db } from "@/db";
 import { prompts } from "@/db/schema/prompts";
+import { users } from "@/db/schema/users";
 import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { formatDistanceToNow } from "date-fns";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
+
+const getUser = async (authUserId: string | null) => {
+  if (!authUserId) return null;
+  const result = await db.query.users.findFirst({
+    where: eq(users.clerkUserId, authUserId),
+  });
+  return result;
+};
 
 const getPrompt = async (id: number) => {
   const result = await db.query.prompts.findFirst({
@@ -37,29 +46,45 @@ const getPrompt = async (id: number) => {
 
 const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
   const prompt = await getPrompt(params.id);
+  const { userId: authUserId } = auth();
+  const user = await getUser(authUserId);
 
-  const { userId } = auth();
   if (!prompt) {
     return <BounceLoader className="size-full" />;
   }
 
-  const votes =
-    prompt.interactions.filter((interaction) => interaction.type === "upvote")
-      .length -
-    prompt.interactions.filter((interaction) => interaction.type === "downvote")
-      .length;
+  const votes = prompt.interactions.filter(
+    (interaction) => interaction.type === "upvote"
+  ).length;
+
+  const upvotes = prompt.interactions.filter((i) => i.type === "upvote");
+
+  console.log("upvotes:", upvotes);
+
+  const isVoted = Boolean(
+    upvotes.some((interaction) => interaction.userId === user?.id)
+  );
+
+  console.log("isVoted:", isVoted);
 
   return (
     <>
-      <section className="py-28 pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8">
-        <Breadcrumb className="mb-4 text-muted-foreground">
+      <section className="py-28 pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8 flex flex-col">
+        <Breadcrumb className="mb-4 text-muted-foreground dark:text-warm-sand/80">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/prompts">All Prompts</BreadcrumbLink>
+              <BreadcrumbLink
+                className="dark:text-warm-sand/80 text-muted-foreground"
+                href="/prompts"
+              >
+                All Prompts
+              </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator className="dark:text-warm-sand/80 text-muted-foreground" />
             <BreadcrumbItem>
-              <BreadcrumbPage>{prompt.title}</BreadcrumbPage>
+              <BreadcrumbPage className="truncate w-36 md:w-auto">
+                {prompt.title}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -70,7 +95,7 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
               {!prompt.id && (
                 <span className="flex h-2 w-2 rounded-full bg-blue-600" />
               )}
-              <h6 className="flex gap-2 font-medium text-muted-foreground">
+              <h6 className="flex gap-2 font-medium text-muted-foreground dark:text-warm-sand/80">
                 <Link href={`/users/${prompt.user.id}`}>
                   <span>@{prompt.user.username}</span>
                 </Link>
@@ -82,11 +107,6 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
                 </div>
               </h6>
             </div>
-            <VotingComponent
-              votes={votes}
-              promptId={prompt.id}
-              userId={prompt.user.id}
-            />
           </div>
         </div>
         <p className="text-xl my-8">{prompt.content}</p>
@@ -99,8 +119,15 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
             ))}
           </div>
         ) : null}
+
+        <VotingComponent
+          votes={votes}
+          promptId={prompt.id}
+          userId={user?.id ?? 0}
+          isVoted={isVoted}
+        />
       </section>
-      {!userId && (
+      {!authUserId && (
         <>
           <CtaWithFeatures />
           <ContactSection />

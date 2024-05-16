@@ -46,10 +46,12 @@ export const VotingComponent = ({
   promptId,
   votes,
   className,
+  isVoted,
 }: {
   userId: number;
   promptId: number;
   votes: number;
+  isVoted: boolean;
   className?: string;
 }) => {
   const { userId: authUserId } = useAuth();
@@ -58,7 +60,8 @@ export const VotingComponent = ({
     <div className={cn("flex ml-auto items-center gap-2", className)}>
       {!authUserId ? (
         <UnauthenticatedButton
-          variant="secondary"
+          variant={isVoted ? "default" : "secondary"}
+          aria-disabled={isVoted}
           href="/sign-up"
           size="sm"
           className="font-medium lowercase"
@@ -68,11 +71,12 @@ export const VotingComponent = ({
         </UnauthenticatedButton>
       ) : (
         <Button
-          disabled={!authUserId}
+          aria-disabled={!authUserId || isVoted}
+          disabled={!authUserId || isVoted}
           onClick={async () => {
             await vote({ promptId, userId, type: "upvote" });
           }}
-          variant="secondary"
+          variant={isVoted ? "default" : "secondary"}
           className="font-medium lowercase"
           size="sm"
         >

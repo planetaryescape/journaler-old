@@ -38,13 +38,9 @@ export const Prompts = async ({
         {prompts
           .map((item) => ({
             ...item,
-            votes:
-              item.interactions.filter(
-                (interaction) => interaction.type === "upvote"
-              ).length -
-              item.interactions.filter(
-                (interaction) => interaction.type === "downvote"
-              ).length,
+            votes: item.interactions.filter(
+              (interaction) => interaction.type === "upvote"
+            ).length,
           }))
           .sort((a, b) => b.votes - a.votes)
           .map((prompt) => (

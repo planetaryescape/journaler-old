@@ -1,5 +1,5 @@
-import { logger } from "@/lib/logger";
 import { createSeedClient } from "@snaplet/seed";
+import { logger } from "./src/lib/logger";
 
 createSeedClient()
   .then(async (seed) => {
