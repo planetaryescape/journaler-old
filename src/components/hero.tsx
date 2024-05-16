@@ -5,7 +5,7 @@ import { LinkButton } from "./ui/link-button";
 
 export const Hero = () => {
   return (
-    <section className="relative max-w-screen-xl mx-auto px-4 md:py-28 mb-16 md:px-8 bg-cover bg-center flex items-center justify-center">
+    <section className="relative max-w-screen-xl mx-auto px-4 pt-12 md:py-28 mb-16 md:px-8 bg-cover bg-center flex items-center justify-center">
       <div className="text-center px-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Join Our Community of Thoughtful Journalers

@@ -6,8 +6,11 @@ import { auth } from "@clerk/nextjs/server";
 const PromptsPage = () => {
   const { userId } = auth();
   return (
-    <div>
-      <Prompts title="All Prompts" />
+    <div className="pt-4">
+      <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
+        All Prompts
+      </h3>
+      <Prompts />
       {!userId && (
         <>
           <CtaWithFeatures />

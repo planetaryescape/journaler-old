@@ -139,11 +139,7 @@ export function NavigationMenuComponent() {
             </DialogTrigger>
           </NavigationMenuItem>
           <NavigationMenuItem className="w-full">
-            <NavigationMenuLink
-              className={navigationMenuTriggerStyle({
-                className: "cursor-pointer w-full",
-              })}
-            >
+            <NavigationMenuLink>
               <LinkButton
                 className="animate-buttonheartbeat w-full"
                 href="/account/prompts"
@@ -164,7 +160,7 @@ export function NavigationMenuComponent() {
           </DialogDescription>
         </DialogHeader>
         <NewsletterSubscriptionForm onSubmit={onSubmit} />
-        <DialogFooter className="flex justify-end">
+        <DialogFooter className="flex gap-2 justify-end">
           <DialogClose asChild>
             <Button type="button" variant="outline">
               Close

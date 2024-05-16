@@ -43,7 +43,7 @@ export const UserPrompts = async ({
       )}
       <div className="flex flex-col md:gap-2 md:p-4 border-t md:border-none border-card pt-0">
         {prompts.length === 0 && (
-          <p className="text-center text-sm">No prompts found</p>
+          <p className="text-sm py-8">You have not created any prompts</p>
         )}
         {prompts
           .map((item) => ({

@@ -1,6 +1,7 @@
 import { BackgroundGradient } from "@/components/background-gradient";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { MobileHeader } from "@/components/mobile-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { config } from "@/lib/config";
@@ -114,6 +115,7 @@ export default function RootLayout({
                 <NextTopLoader color="#8FBC8F" />
                 <Header />
                 {children}
+                <MobileHeader />
                 <Footer />
                 <Toaster />
               </ThemeProvider>

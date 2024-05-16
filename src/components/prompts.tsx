@@ -30,7 +30,7 @@ export const Prompts = async ({
   const prompts = await getPrompts(limit);
 
   return (
-    <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
+    <div className="mb-16 relative max-w-4xl mx-auto pt-4 md:px-8">
       {title && (
         <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
           {title}

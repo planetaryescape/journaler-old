@@ -4,6 +4,7 @@ import { LinkButton } from "@/components/ui/link-button";
 import { cn } from "@/lib/utils";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useState } from "react";
+import { BackgroundGradient } from "./background-gradient";
 import { Brand } from "./brand";
 import { NavigationMenuComponent } from "./navigation-menu-component";
 import { ThemeToggle } from "./theme-toggle";
@@ -13,13 +14,13 @@ export const Header = () => {
   const { user } = useUser();
 
   return (
-    <header className="sticky top-0">
+    <header className="sticky top-0 bg-background z-10">
       <div className={cn(`md:hidden`, state ? "mx-2 pb-5" : "hidden")}>
         <Brand state={state} setState={setState} />
       </div>
       <nav
         className={cn(
-          `pb-5 md:text-sm`,
+          `md:text-sm`,
           state
             ? "absolute z-20 top-0 inset-x-0 rounded-xl mx-2 mt-2 md:mx-0 md:mt-0 md:relative bg-card md:bg-transparent"
             : "",
@@ -50,13 +51,14 @@ export const Header = () => {
                     </li>
                   </>
                 )}
-                <UserButton />
                 <ThemeToggle />
+                <UserButton />
               </div>
             </ul>
           </div>
         </div>
       </nav>
+      <BackgroundGradient degrees={Math.random() * 360} />
     </header>
   );
 };

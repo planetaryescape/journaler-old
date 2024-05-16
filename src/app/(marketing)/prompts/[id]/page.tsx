@@ -76,7 +76,7 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
   console.log("isVoted:", isVoted);
 
   return (
-    <>
+    <div className="pt-4">
       <section className="py-28 pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8 flex flex-col">
         <Breadcrumb className="mb-4 text-muted-foreground dark:text-warm-sand/80">
           <BreadcrumbList>
@@ -141,7 +141,7 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
           <ContactSection />
         </>
       )}
-    </>
+    </div>
   );
 };
 
