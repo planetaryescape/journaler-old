@@ -53,26 +53,8 @@ export const metadata: Metadata = {
       "Join Journaler to explore top journal prompts, share your own, and engage with a community of reflective writers. Start your mindful journaling journey today!",
     images: [
       {
-        url: "/logo.png",
-        alt: "Journaler Logo",
-      },
-      {
-        url: "/android-chrome-512x512.png",
-        width: 512,
-        height: 512,
-        alt: "Journaler Logo",
-      },
-      {
-        url: "/android-chrome-192x192.png",
-        width: 192,
-        height: 192,
-        alt: "Journaler Logo",
-      },
-      {
-        url: "/apple-touch-icon.png",
-        width: 180,
-        height: 180,
-        alt: "Journaler Logo",
+        url: "https://res.cloudinary.com/doqpfkbrx/image/upload/v1715858073/opengraph%20images/Journaler_Opengraph_Image_May_16_1_v6lpfn.webp",
+        alt: "Journaler Cover Image",
       },
     ],
   },
@@ -85,8 +67,8 @@ export const metadata: Metadata = {
       "Join Journaler to explore top journal prompts, share your own, and engage with a community of reflective writers. Start your mindful journaling journey today!",
     images: [
       {
-        url: "/logo.png",
-        alt: "Journaler Logo",
+        url: "https://res.cloudinary.com/doqpfkbrx/image/upload/v1715858073/opengraph%20images/Journaler_Opengraph_Image_May_16_1_v6lpfn.webp",
+        alt: "Journaler Cover Image",
       },
     ],
   },
