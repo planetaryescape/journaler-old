@@ -72,7 +72,7 @@
 
 @media (prefers-color-scheme: dark) {
   #sentry-feedback {
-    --accent-background: var(--warm-sand);
     --accent-foreground: var(--deep-forest-green);
+    --accent-background: var(--muted-sage);
   }
 }
