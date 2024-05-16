@@ -59,13 +59,9 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
 
   const upvotes = prompt.interactions.filter((i) => i.type === "upvote");
 
-  console.log("upvotes:", upvotes);
-
   const isVoted = Boolean(
     upvotes.some((interaction) => interaction.userId === user?.id),
   );
-
-  console.log("isVoted:", isVoted);
 
   return (
     <div className="pt-4">

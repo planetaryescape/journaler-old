@@ -32,7 +32,6 @@ export const UserPrompts = async ({
   limit?: number;
 }) => {
   const prompts = await getPrompts(limit);
-  console.log("prompts:", prompts);
 
   return (
     <div className="mb-16 relative max-w-4xl mx-auto md:px-8">

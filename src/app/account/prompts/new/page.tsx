@@ -32,8 +32,6 @@ export default function NewPromptPage() {
     },
   });
 
-  console.log("user:", user);
-
   const form = useForm<z.infer<typeof insertPromptSchema>>({
     resolver: zodResolver(insertPromptSchema),
     defaultValues: {
@@ -46,7 +44,6 @@ export default function NewPromptPage() {
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof insertPromptSchema>) {
-    console.log("values:", values);
     const result = await createNewPrompt({
       ...values,
       userId: user?.result?.id ?? 0,
