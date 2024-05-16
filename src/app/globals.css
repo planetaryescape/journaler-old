@@ -60,8 +60,8 @@
 
 #sentry-feedback {
   --inset: auto 0 200px auto;
-  --accent-background: var(--deep-forest-green);
-  --accent-foreground: var(--warm-sand);
+  --accent-foreground: var(--deep-forest-green);
+  --accent-background: var(--muted-sage);
 }
 
 @media (min-width: 768px) {
