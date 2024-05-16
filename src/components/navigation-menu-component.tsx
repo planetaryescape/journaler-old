@@ -108,8 +108,8 @@ export function NavigationMenuComponent() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <NavigationMenu className="w-full">
-        <NavigationMenuList className="whitespace-nowrap flex flex-col md:flex-row md:items-center items-start">
-          <NavigationMenuItem>
+        <NavigationMenuList className="whitespace-nowrap flex flex-col md:flex-row md:items-center items-start gap-4 md:gap-2">
+          <NavigationMenuItem className="w-full">
             <NavigationMenuTrigger className="w-full">
               Browse Prompts
             </NavigationMenuTrigger>
@@ -127,21 +127,21 @@ export function NavigationMenuComponent() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="w-full">
             <DialogTrigger asChild>
               <NavigationMenuLink
                 className={navigationMenuTriggerStyle({
-                  className: "cursor-pointer",
+                  className: "cursor-pointer w-full",
                 })}
               >
                 Subscribe
               </NavigationMenuLink>
             </DialogTrigger>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className="w-full">
             <NavigationMenuLink
               className={navigationMenuTriggerStyle({
-                className: "cursor-pointer",
+                className: "cursor-pointer w-full",
               })}
             >
               <Link href="/account/prompts">Submit your prompt</Link>
