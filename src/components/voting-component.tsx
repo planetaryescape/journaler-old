@@ -78,6 +78,7 @@ export const VotingComponent = ({
           onClick={async () => {
             await vote({ promptId, userId, type: "upvote" });
             queryClient.invalidateQueries({ queryKey: ["prompts"] });
+            queryClient.invalidateQueries({ queryKey: ["category-prompts"] });
           }}
           variant={isVoted ? "default" : "secondary"}
           className="font-medium lowercase"

@@ -11,10 +11,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { User } from "@/db/schema";
+import { Category, User } from "@/db/schema";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
-import { insertPromptSchema } from "@/lib/zod-schemas/prompt";
+import { insertPromptSchema } from "@/lib/zod-schemas/prompts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -32,18 +39,34 @@ export default function NewPromptPage() {
     },
   });
 
-  const form = useForm<z.infer<typeof insertPromptSchema>>({
-    resolver: zodResolver(insertPromptSchema),
+  const { data: categories } = useQuery<{ result: Category[] }>({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await fetch("/api/categories");
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  const form = useForm<
+    z.infer<typeof insertPromptSchema> & { categoryId: number }
+  >({
+    resolver: zodResolver(
+      insertPromptSchema.extend({ categoryId: z.number() }),
+    ),
     defaultValues: {
       title: "",
       content: "",
       userId: user?.result?.id ?? 0,
+      categoryId: categories?.result[0]?.id ?? 0,
     },
   });
 
   const router = useRouter();
 
-  async function onSubmit(values: z.infer<typeof insertPromptSchema>) {
+  async function onSubmit(
+    values: z.infer<typeof insertPromptSchema> & { categoryId: number },
+  ) {
     const result = await createNewPrompt({
       ...values,
       userId: user?.result?.id ?? 0,
@@ -107,6 +130,44 @@ export default function NewPromptPage() {
                 </FormControl>
                 <FormDescription className="dark:text-warm-sand text-muted-foreground">
                   Tell us your prompt
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="categoryId"
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <FormControl>
+                  <Select
+                    {...field}
+                    value={field.value.toString()}
+                    onValueChange={(value) => field.onChange(parseInt(value))}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue
+                        placeholder="Category"
+                        className="dark:text-warm-sand text-muted-foreground"
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories?.result?.map((category) => (
+                        <SelectItem
+                          key={category.id}
+                          value={category.id.toString()}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormDescription className="dark:text-warm-sand text-muted-foreground">
+                  Select a category for your prompt
                 </FormDescription>
                 <FormMessage />
               </FormItem>

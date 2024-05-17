@@ -1,19 +1,18 @@
 import { db } from "@/db";
 import { interactions } from "@/db/schema/interactions";
 import { prompts } from "@/db/schema/prompts";
-import { users } from "@/db/schema/users";
 import { auth } from "@clerk/nextjs/server";
-import { desc, eq, sql } from "drizzle-orm";
+import { desc, eq, gt } from "drizzle-orm";
 import { PromptCard } from "./prompt-card";
 
-const getPrompts = async (limit?: number) => {
+const getPrompts = async (earliest?: Date) => {
   const { userId: authUserId } = auth();
   if (!authUserId) return [];
   const result = await db.query.prompts.findMany({
-    extras: {
-      votes: sql<number>`count(${interactions.id})`.as("votes"),
-    },
-    where: eq(users.clerkUserId, authUserId),
+    // extras: {
+    //   votes: sql<number>`count(${interactions.id})`.as("votes"),
+    // },
+    where: earliest ? gt(prompts.createdAt, earliest) : undefined,
     with: {
       user: true,
       interactions: {
@@ -26,26 +25,46 @@ const getPrompts = async (limit?: number) => {
       },
     },
     orderBy: [desc(prompts.createdAt)],
-    limit,
   });
 
-  return result;
+  return result.filter((prompt) => prompt.user.clerkUserId === authUserId);
 };
 
 export const UserPrompts = async ({
   title,
   limit,
+  earliest,
+  sortBy = { value: "votes", order: "desc" },
 }: {
   title?: string;
   limit?: number;
+  earliest?: Date;
+  sortBy?: { value: "votes" | "createdAt"; order: "desc" | "asc" };
 }) => {
-  const prompts = await getPrompts(limit);
-  console.log("userPrompts:", prompts);
+  const rawPrompts = await getPrompts(earliest);
+
+  let prompts =
+    rawPrompts
+      .map((item) => ({
+        ...item,
+        votes: item.interactions.filter(
+          (interaction) => interaction.type === "upvote",
+        ).length,
+      }))
+      .sort(
+        (a, b) =>
+          (sortBy.order === "desc" ? 1 : -1) *
+          (Number(b[sortBy.value]) - Number(a[sortBy.value])),
+      ) ?? [];
+
+  if (limit) {
+    prompts = prompts.slice(0, limit);
+  }
 
   return (
     <div className="mb-16 relative max-w-4xl mx-auto md:px-8">
       {title && (
-        <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
+        <h3 className="text-xl font-semibold mx-auto mb-4 w-full text-center">
           {title}
         </h3>
       )}

@@ -15,7 +15,7 @@ export default async function Categories() {
         items={categories.map((category) => ({
           name: category.name,
           description: category.description ?? "",
-          link: `/categories/${category.id}`,
+          link: `/account/categories/${category.id}`,
         }))}
       />
     </div>

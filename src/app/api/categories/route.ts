@@ -1,10 +1,9 @@
 import { db } from "@/db";
-import { interactions } from "@/db/schema/interactions";
 import { prompts } from "@/db/schema/prompts";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { logger } from "@/lib/logger";
 import { getAuth } from "@clerk/nextjs/server";
-import { and, eq, gt } from "drizzle-orm";
+import { and, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -12,14 +11,12 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url);
   const earliest = searchParams.get("earliest") ?? null;
-  const categoryId = searchParams.get("categoryId") ?? null;
 
   const context = {
     ...createDefaultApiRouteContext(request),
-    tracePath: "/api/prompts",
+    tracePath: "/api/categories",
     userId,
     earliest,
-    categoryId,
   };
 
   if (!userId) {
@@ -28,40 +25,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    logger.info({ ...context }, "Getting prompts");
-    let result = await db.query.prompts.findMany({
+    logger.info({ ...context }, "Getting categories");
+    let result = await db.query.categories.findMany({
       where: and(
         earliest ? gt(prompts.createdAt, new Date(earliest)) : undefined,
       ),
-      // extras: {
-      //   votes: sql<number>`count(${interactions.id})`.as("votes"),
-      // },
-      with: {
-        user: true,
-        interactions: {
-          where: eq(interactions.type, "upvote"),
-        },
-        promptCategory: {
-          with: {
-            category: true,
-          },
-        },
-      },
     });
 
-    let finalResult = result;
-
-    if (categoryId) {
-      finalResult = result.filter((prompt) =>
-        prompt.promptCategory.some(
-          (pc) => pc.categoryId === Number(categoryId),
-        ),
-      );
-    }
-
-    return NextResponse.json({ result: finalResult });
+    return NextResponse.json({ result });
   } catch (error) {
-    logger.error({ ...context, error }, "Error getting prompts");
+    logger.error({ ...context, error }, "Error getting categories");
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Unknown error",
