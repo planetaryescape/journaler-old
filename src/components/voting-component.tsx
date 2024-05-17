@@ -11,6 +11,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { useQueryClient } from "@tanstack/react-query";
 import { LinkButton, LinkButtonProps } from "./ui/link-button";
 
 export function UnauthenticatedButton({ children, ...props }: LinkButtonProps) {
@@ -55,6 +56,7 @@ export const VotingComponent = ({
   className?: string;
 }) => {
   const { userId: authUserId } = useAuth();
+  const queryClient = useQueryClient();
 
   return (
     <div className={cn("flex ml-auto items-center gap-2", className)}>
@@ -75,6 +77,7 @@ export const VotingComponent = ({
           disabled={!authUserId || isVoted}
           onClick={async () => {
             await vote({ promptId, userId, type: "upvote" });
+            queryClient.invalidateQueries({ queryKey: ["prompts"] });
           }}
           variant={isVoted ? "default" : "secondary"}
           className="font-medium lowercase"
