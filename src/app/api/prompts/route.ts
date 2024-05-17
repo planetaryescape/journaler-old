@@ -33,9 +33,6 @@ export async function GET(request: NextRequest) {
       where: and(
         earliest ? gt(prompts.createdAt, new Date(earliest)) : undefined,
       ),
-      // extras: {
-      //   votes: sql<number>`count(${interactions.id})`.as("votes"),
-      // },
       with: {
         user: true,
         interactions: {

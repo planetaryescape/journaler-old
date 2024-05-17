@@ -558,7 +558,7 @@
             "start": 1
           },
           "hasDefaultValue": true,
-          "isId": true,
+          "isId": false,
           "maxLength": null
         },
         {
@@ -572,7 +572,7 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false,
-          "isId": false,
+          "isId": true,
           "maxLength": null
         },
         {
@@ -586,7 +586,7 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false,
-          "isId": false,
+          "isId": true,
           "maxLength": null
         },
         {
@@ -600,7 +600,7 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false,
-          "isId": false,
+          "isId": true,
           "maxLength": null
         },
         {
@@ -656,9 +656,11 @@
       ],
       "uniqueConstraints": [
         {
-          "name": "interactions_pkey",
+          "name": "user_id_prompt_id_type_pk",
           "fields": [
-            "id"
+            "prompt_id",
+            "type",
+            "user_id"
           ],
           "nullNotDistinct": false
         }
@@ -1523,6 +1525,20 @@
           "maxLength": null
         },
         {
+          "id": "public.users.is_deleted",
+          "name": "is_deleted",
+          "columnName": "is_deleted",
+          "type": "bool",
+          "isRequired": false,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false,
+          "maxLength": null
+        },
+        {
           "id": "public.users.clerk_user_id",
           "name": "clerk_user_id",
           "columnName": "clerk_user_id",
@@ -1575,20 +1591,6 @@
           "isGenerated": false,
           "sequence": false,
           "hasDefaultValue": false,
-          "isId": false,
-          "maxLength": null
-        },
-        {
-          "id": "public.users.is_deleted",
-          "name": "is_deleted",
-          "columnName": "is_deleted",
-          "type": "bool",
-          "isRequired": false,
-          "kind": "scalar",
-          "isList": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": true,
           "isId": false,
           "maxLength": null
         },

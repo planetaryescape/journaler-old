@@ -1,5 +1,5 @@
 {
-  "id": "eb81ceaa-9d2f-41d8-b860-5dfa46983010",
+  "id": "f0a79f05-cef9-4083-92f4-94de7fdd088b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "6",
   "dialect": "postgresql",
@@ -121,7 +121,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
@@ -296,7 +296,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true
         },
         "prompt_id": {
@@ -365,11 +365,20 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
+      "compositePrimaryKeys": {
+        "user_id_prompt_id_type_pk": {
+          "name": "user_id_prompt_id_type_pk",
+          "columns": [
+            "user_id",
+            "prompt_id",
+            "type"
+          ]
+        }
+      },
       "uniqueConstraints": {}
     },
     "public.list_prompts": {
@@ -490,6 +499,82 @@
         }
       }
     },
+    "public.prompt_categories": {
+      "name": "prompt_categories",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "prompt_id": {
+          "name": "prompt_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "prompt_categories_prompt_id_idx": {
+          "name": "prompt_categories_prompt_id_idx",
+          "columns": [
+            "prompt_id"
+          ],
+          "isUnique": false
+        },
+        "prompt_categories_category_id_idx": {
+          "name": "prompt_categories_category_id_idx",
+          "columns": [
+            "category_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "prompt_categories_prompt_id_prompts_id_fk": {
+          "name": "prompt_categories_prompt_id_prompts_id_fk",
+          "tableFrom": "prompt_categories",
+          "tableTo": "prompts",
+          "columnsFrom": [
+            "prompt_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "prompt_categories_category_id_categories_id_fk": {
+          "name": "prompt_categories_category_id_categories_id_fk",
+          "tableFrom": "prompt_categories",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.prompts": {
       "name": "prompts",
       "schema": "",
@@ -515,12 +600,6 @@
         "content": {
           "name": "content",
           "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "category_id": {
-          "name": "category_id",
-          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -568,19 +647,6 @@
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "prompts_category_id_categories_id_fk": {
-          "name": "prompts_category_id_categories_id_fk",
-          "tableFrom": "prompts",
-          "tableTo": "categories",
-          "columnsFrom": [
-            "category_id"
           ],
           "columnsTo": [
             "id"
@@ -764,6 +830,13 @@
         },
         "trial_used": {
           "name": "trial_used",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "is_deleted": {
+          "name": "is_deleted",
           "type": "boolean",
           "primaryKey": false,
           "notNull": false,

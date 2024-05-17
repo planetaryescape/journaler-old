@@ -4,6 +4,7 @@ import {
   integer,
   pgEnum,
   pgTable,
+  primaryKey,
   serial,
   timestamp,
 } from "drizzle-orm/pg-core";
@@ -21,7 +22,7 @@ export const interactionTypeEnum = pgEnum("type", [
 export const interactions = pgTable(
   "interactions",
   {
-    id: serial("id").primaryKey(),
+    id: serial("id"),
     promptId: integer("prompt_id")
       .references(() => prompts.id, {
         onDelete: "cascade",
@@ -38,11 +39,15 @@ export const interactions = pgTable(
       .notNull(),
   },
   (interactions) => ({
+    interactionsPk: primaryKey({
+      name: "user_id_prompt_id_type_pk",
+      columns: [interactions.userId, interactions.promptId, interactions.type],
+    }),
     userIdIndex: index("interactions_user_id_idx").on(interactions.userId),
     promptIdIndex: index("interactions_prompt_id_idx").on(
-      interactions.promptId
+      interactions.promptId,
     ),
-  })
+  }),
 );
 
 export const interactionsRelations = relations(interactions, ({ one }) => ({

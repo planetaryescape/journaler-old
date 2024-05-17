@@ -44,11 +44,12 @@ CREATE TABLE IF NOT EXISTS "followers" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "interactions" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" serial NOT NULL,
 	"prompt_id" integer NOT NULL,
 	"user_id" integer NOT NULL,
 	"type" "type" NOT NULL,
-	"created_at" timestamp NOT NULL
+	"created_at" timestamp NOT NULL,
+	CONSTRAINT "user_id_prompt_id_type_pk" PRIMARY KEY("user_id","prompt_id","type")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "list_prompts" (
@@ -66,12 +67,18 @@ CREATE TABLE IF NOT EXISTS "newsletter_subscribers" (
 	CONSTRAINT "newsletter_subscribers_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "prompt_categories" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"prompt_id" integer NOT NULL,
+	"category_id" integer NOT NULL,
+	"created_at" timestamp NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "prompts" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"user_id" integer NOT NULL,
 	"title" varchar NOT NULL,
 	"content" text NOT NULL,
-	"category_id" integer NOT NULL,
 	"views_count" integer DEFAULT 0 NOT NULL,
 	"created_at" timestamp NOT NULL,
 	"updated_at" timestamp NOT NULL
@@ -102,6 +109,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"stripe_price_id" varchar,
 	"stripe_plan_id" varchar,
 	"trial_used" boolean DEFAULT false,
+	"is_deleted" boolean DEFAULT false,
 	"clerk_user_id" varchar,
 	"email" varchar NOT NULL,
 	"created_at" timestamp NOT NULL,
@@ -117,7 +125,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "comments" ADD CONSTRAINT "comments_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "comments" ADD CONSTRAINT "comments_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -147,7 +155,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "interactions" ADD CONSTRAINT "interactions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "interactions" ADD CONSTRAINT "interactions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -165,13 +173,19 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "prompts" ADD CONSTRAINT "prompts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "prompt_categories" ADD CONSTRAINT "prompt_categories_prompt_id_prompts_id_fk" FOREIGN KEY ("prompt_id") REFERENCES "public"."prompts"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "prompts" ADD CONSTRAINT "prompts_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "prompt_categories" ADD CONSTRAINT "prompt_categories_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "prompts" ADD CONSTRAINT "prompts_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -198,6 +212,8 @@ CREATE INDEX IF NOT EXISTS "interactions_user_id_idx" ON "interactions" ("user_i
 CREATE INDEX IF NOT EXISTS "interactions_prompt_id_idx" ON "interactions" ("prompt_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "list_id_idx" ON "list_prompts" ("custom_list_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "list_prompts_prompt_id_idx" ON "list_prompts" ("prompt_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "prompt_categories_prompt_id_idx" ON "prompt_categories" ("prompt_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "prompt_categories_category_id_idx" ON "prompt_categories" ("category_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "title_unique" ON "prompts" ("title","user_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "prompts_user_id_idx" ON "prompts" ("user_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "user_achievements_user_id_idx" ON "user_achievements" ("user_id");--> statement-breakpoint
