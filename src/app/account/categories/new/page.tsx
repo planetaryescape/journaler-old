@@ -45,6 +45,7 @@ export default function NewCategoryPage() {
         duration: 10000,
         description: `Thank you for your contribution to the Journaler community!`,
       });
+      form.reset();
       router.push(`/account/categories/${result.result?.id}`);
     }
   }

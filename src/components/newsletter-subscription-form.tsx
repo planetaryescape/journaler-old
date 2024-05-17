@@ -19,7 +19,7 @@ export const NewsletterSubscriptionForm = ({
   onSubmit,
 }: {
   onSubmit: (
-    values: z.infer<typeof insertNewsletterSubscriberSchema>
+    values: z.infer<typeof insertNewsletterSubscriberSchema>,
   ) => Promise<void>;
 }) => {
   const form = useForm<z.infer<typeof insertNewsletterSubscriberSchema>>({
@@ -45,12 +45,13 @@ export const NewsletterSubscriptionForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
+                  className="dark:text-warm-sand text-muted-foreground"
                   placeholder="Your name"
                   {...field}
                   value={field.value as string | undefined}
                 />
               </FormControl>
-              <FormDescription>
+              <FormDescription className="dark:text-warm-sand text-muted-foreground">
                 This is your public display name.
               </FormDescription>
               <FormMessage />
@@ -64,9 +65,15 @@ export const NewsletterSubscriptionForm = ({
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="example@email.com" {...field} />
+                <Input
+                  className="dark:text-warm-sand text-muted-foreground"
+                  placeholder="example@email.com"
+                  {...field}
+                />
               </FormControl>
-              <FormDescription>Your email address</FormDescription>
+              <FormDescription className="dark:text-warm-sand text-muted-foreground">
+                Your email address
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

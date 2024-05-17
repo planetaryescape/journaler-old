@@ -32,7 +32,7 @@ export const createNewPrompt = async (
 
     logger.debug({ ...context, data: { result } }, "Created new prompt");
 
-    return { result };
+    return { result: result[0] };
   } catch (error) {
     logger.error({ ...context, error }, "Error creating new prompt");
     return { error: error instanceof Error ? error.message : "Unknown error" };

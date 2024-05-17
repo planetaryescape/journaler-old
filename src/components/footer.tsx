@@ -6,8 +6,7 @@ import { Link } from "next-view-transitions";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BackgroundGradient } from "./background-gradient";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { FooterNewsletterForm } from "./footer-newsletter-form";
 
 export const Footer = () => {
   const { theme } = useTheme();
@@ -37,21 +36,11 @@ export const Footer = () => {
                 height={50}
                 alt="Journaler logo"
               />
-              <p className="leading-relaxed mt-2 text-[15px]">
+              <p className="leading-relaxed mt-2 text-[15px] whitespace-nowrap mb-2">
                 Get weekly email with best new journal prompts.
               </p>
             </div>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <label className="block pt-4 pb-2">Stay up to date</label>
-              <div className="max-w-sm flex gap-2 items-center border rounded-md p-1">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full p-2.5 outline-none"
-                />
-                <Button>Subscribe</Button>
-              </div>
-            </form>
+            <FooterNewsletterForm />
           </div>
           <div className="flex-1 mt-10 space-y-6 items-start justify-between sm:flex md:space-y-0 md:mt-0">
             {footerNavs.map((item, idx) => (
