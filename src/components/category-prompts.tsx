@@ -7,12 +7,14 @@ import { toast } from "sonner";
 import BounceLoader from "./bounce-loader";
 import { PromptCard } from "./prompt-card";
 
-export const Prompts = ({
+export const CategoryPrompts = ({
+  category,
   title,
   limit,
   earliest,
   sortBy = { value: "votes", order: "desc" },
 }: {
+  category: Category;
   title?: string;
   limit?: number;
   earliest?: Date;
@@ -25,10 +27,10 @@ export const Prompts = ({
       interactions: Interaction[];
     })[];
   }>({
-    queryKey: ["prompts", earliest],
+    queryKey: ["category-prompts", earliest, category.id],
     queryFn: async () => {
       const res = await fetch(
-        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}`,
+        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}&categoryId=${category.id}`,
       );
       if (!res.ok) {
         toast.error("Failed to fetch prompts.", {

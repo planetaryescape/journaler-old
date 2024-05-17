@@ -35,7 +35,7 @@ export const components: {
   },
   {
     title: "New Prompts",
-    href: "/prompts/new",
+    href: "/prompts/latest",
     description: "Discover the latest prompts added by the community.",
   },
   {

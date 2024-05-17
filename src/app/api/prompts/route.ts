@@ -1,10 +1,11 @@
 import { db } from "@/db";
+import { promptCategories } from "@/db/schema";
 import { interactions } from "@/db/schema/interactions";
 import { prompts } from "@/db/schema/prompts";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { logger } from "@/lib/logger";
 import { getAuth } from "@clerk/nextjs/server";
-import { eq, gt } from "drizzle-orm";
+import { and, eq, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -12,12 +13,14 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url);
   const earliest = searchParams.get("earliest") ?? null;
-  console.log("earliest:", earliest);
+  const categoryId = searchParams.get("categoryId") ?? null;
+
   const context = {
     ...createDefaultApiRouteContext(request),
     tracePath: "/api/prompts",
     userId,
     earliest,
+    categoryId,
   };
 
   if (!userId) {
@@ -28,7 +31,12 @@ export async function GET(request: NextRequest) {
   try {
     logger.info({ ...context }, "Getting prompts");
     const result = await db.query.prompts.findMany({
-      where: earliest ? gt(prompts.createdAt, new Date(earliest)) : undefined,
+      where: and(
+        earliest ? gt(prompts.createdAt, new Date(earliest)) : undefined,
+        categoryId
+          ? eq(promptCategories.categoryId, Number(categoryId))
+          : undefined,
+      ),
       // extras: {
       //   votes: sql<number>`count(${interactions.id})`.as("votes"),
       // },

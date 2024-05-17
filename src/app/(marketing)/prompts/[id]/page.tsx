@@ -108,8 +108,8 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
         <p className="text-xl my-8">{prompt.content}</p>
         {prompt.promptCategory.length ? (
           <div className="flex items-center gap-2 my-4">
-            {prompt.promptCategory.map(({ category: { name } }) => (
-              <Link key={name} href={`/categories/${name}`}>
+            {prompt.promptCategory.map(({ category: { name, id } }) => (
+              <Link key={name} href={`/categories/${id}`}>
                 <Badge variant="secondary">{name}</Badge>
               </Link>
             ))}
