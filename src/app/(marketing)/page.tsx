@@ -1,7 +1,7 @@
 import { ContactSection } from "@/components/contact-section";
 import { CtaWithFeatures } from "@/components/cta-with-features";
 import { Hero } from "@/components/hero";
-import { Prompts } from "@/components/prompts";
+import { PromptsTabs } from "@/components/prompts-tabs";
 import { currentUser } from "@clerk/nextjs/server";
 import * as Sentry from "@sentry/nextjs";
 
@@ -15,7 +15,8 @@ const HomePage = async () => {
   return (
     <div>
       {!user?.id && <Hero />}
-      <Prompts title="All Time Top Prompts" limit={10} />
+      <PromptsTabs limit={10} />
+      {/* <Prompts title="All Time Top Prompts" limit={10} /> */}
       {!user?.id && <CtaWithFeatures />}
       <ContactSection />
     </div>

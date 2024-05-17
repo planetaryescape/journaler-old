@@ -1,23 +1,15 @@
-import { db } from "@/db";
-import { Category, Interaction, User, users } from "@/db/schema";
+"use client";
+
+import { Category, Interaction, User } from "@/db/schema";
 import { Prompt } from "@/db/schema/prompts";
 import { cn } from "@/lib/utils";
-import { auth } from "@clerk/nextjs/server";
+import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
-import { eq } from "drizzle-orm";
 import { Link } from "next-view-transitions";
 import { Badge } from "./ui/badge";
 import { VotingComponent } from "./voting-component";
 
-const getUser = async (authUserId: string | null) => {
-  if (!authUserId) return null;
-  const result = await db.query.users.findFirst({
-    where: eq(users.clerkUserId, authUserId),
-  });
-  return result;
-};
-
-export const PromptCard = async ({
+export const PromptCard = ({
   prompt: item,
 }: {
   prompt: Prompt & {
@@ -27,10 +19,19 @@ export const PromptCard = async ({
     votes: number;
   };
 }) => {
-  const { userId: authUserId } = auth();
-  const user = await getUser(authUserId);
+  const { data: user } = useQuery<{ result: User }>({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await fetch("/api/users/current");
+      const data = await res.json();
+      return data;
+    },
+  });
+
   const isVoted = Boolean(
-    item.interactions.some((interaction) => interaction.userId === user?.id),
+    item.interactions.some(
+      (interaction) => interaction.userId === user?.result.id,
+    ),
   );
 
   return (

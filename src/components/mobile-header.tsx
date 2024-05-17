@@ -53,7 +53,7 @@ export const MobileHeader = ({ className }: { className?: string }) => {
   return (
     <header
       className={cn(
-        "fixed bottom-0 border-card border-t left-0 right-0 md:hidden bg-background z-10 w-screen",
+        "fixed bottom-0 border-card border-t left-0 right-0 md:hidden bg-background/70 z-10 w-screen",
         className,
       )}
     >

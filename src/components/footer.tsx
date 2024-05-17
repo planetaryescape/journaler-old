@@ -1,5 +1,6 @@
 "use client";
 
+import { footerNavs } from "@/lib/config/footer-navs";
 import { useTheme } from "next-themes";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -9,60 +10,6 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 export const Footer = () => {
-  const footerNavs = [
-    // {
-    //   label: "Company",
-    //   items: [
-    //     {
-    //       href: "#",
-    //       name: "Partners",
-    //     },
-    //     {
-    //       href: "#",
-    //       name: "Blog",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Resources",
-    //   items: [
-    //     // {
-    //     //   href: "#",
-    //     //   name: "Contact",
-    //     // },
-    //     // {
-    //     //   href: "#",
-    //     //   name: "Support",
-    //     // },
-    //     // {
-    //     //   href: "#",
-    //     //   name: "Pricing",
-    //     // },
-    //   ],
-    // },
-    {
-      label: "About",
-      items: [
-        {
-          href: "#",
-          name: "Terms",
-        },
-        {
-          href: "/privacy",
-          name: "Privacy",
-        },
-        {
-          href: "/cookies",
-          name: "Cookies Policy",
-        },
-        // {
-        //   href: "#",
-        //   name: "About Us",
-        // },
-      ],
-    },
-  ];
-
   const { theme } = useTheme();
   const [hasTheme, setHasTheme] = useState(false);
 
@@ -73,7 +20,7 @@ export const Footer = () => {
   }, [theme]);
 
   return (
-    <footer className="relative px-4 py-5 mx-auto md:px-8">
+    <footer className="relative px-4 py-5 mx-auto mb-16 md:mb-0 md:px-8">
       <div className="max-w-screen-xl mx-auto md:px-8">
         <div className="gap-6 justify-between md:flex">
           <div className="flex-1">

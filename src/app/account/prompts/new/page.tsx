@@ -89,7 +89,7 @@ export default function NewPromptPage() {
                     value={field.value as string | undefined}
                   />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="dark:text-warm-sand text-muted-foreground">
                   Give your prompt a short descriptive title
                 </FormDescription>
                 <FormMessage />
@@ -105,7 +105,9 @@ export default function NewPromptPage() {
                 <FormControl>
                   <Textarea placeholder="What's on your mind?" {...field} />
                 </FormControl>
-                <FormDescription>Tell us your prompt</FormDescription>
+                <FormDescription className="dark:text-warm-sand text-muted-foreground">
+                  Tell us your prompt
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
