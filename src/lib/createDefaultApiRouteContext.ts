@@ -6,6 +6,6 @@ export const createDefaultApiRouteContext = (
   return {
     route: new URL(request.url).pathname,
     method: request.method,
-    headers: headers(),
+    requestId: headers().get("request-id"),
   };
 };

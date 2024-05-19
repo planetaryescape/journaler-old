@@ -2,7 +2,9 @@
 
 import { Category, Interaction, User } from "@/db/schema";
 import { Prompt } from "@/db/schema/prompts";
+import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { toast } from "sonner";
 import BounceLoader from "./bounce-loader";
 import { PromptCard } from "./prompt-card";
@@ -28,7 +30,13 @@ export const Prompts = ({
     queryKey: ["prompts", earliest],
     queryFn: async () => {
       const res = await fetch(
-        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}`,
+        `/api/prompts${earliest ? `?earliest=${earliest.toISOString()}` : ""}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "request-id": generateRequestId(),
+          },
+        },
       );
       if (!res.ok) {
         toast.error("Failed to fetch prompts.", {
@@ -43,25 +51,26 @@ export const Prompts = ({
     },
   });
 
-  let prompts =
-    rawPrompts?.result
-      .map((item) => ({
-        ...item,
-        votes: item.interactions.filter(
-          (interaction) => interaction.type === "upvote",
-        ).length,
-      }))
-      .sort(
-        (a, b) =>
-          (sortBy.order === "desc" ? 1 : -1) *
-          (Number(b[sortBy.value]) - Number(a[sortBy.value])),
-      ) ?? [];
+  const memoizedPrompts = useMemo(() => {
+    let prompts =
+      rawPrompts?.result
+        .map((item) => ({
+          ...item,
+          votes: item.interactions.filter(
+            (interaction) => interaction.type === "upvote",
+          ).length,
+        }))
+        .sort(
+          (a, b) =>
+            (sortBy.order === "desc" ? 1 : -1) *
+            (Number(b[sortBy.value]) - Number(a[sortBy.value])),
+        ) ?? [];
 
-  if (limit) {
-    prompts = prompts.slice(0, limit);
-  }
-
-  console.log("prompts:", prompts);
+    if (limit) {
+      prompts = prompts.slice(0, limit);
+    }
+    return prompts;
+  }, [rawPrompts, limit, sortBy]);
 
   return (
     <div className="mb-16 relative max-w-4xl mx-auto pt-4 md:px-8">
@@ -71,13 +80,13 @@ export const Prompts = ({
         </h3>
       )}
       <div className="flex flex-col md:gap-2 md:p-4 border-t md:border-none border-card pt-0">
-        {!isLoading && prompts.length === 0 && (
+        {!isLoading && memoizedPrompts.length === 0 && (
           <p className="text-center text-sm text-muted-foreground dark:text-warm-sand ">
             No prompts found
           </p>
         )}
         {isLoading && <BounceLoader className="size-full" />}
-        {prompts.map((prompt) => (
+        {memoizedPrompts.map((prompt) => (
           <PromptCard key={prompt.id} prompt={prompt} />
         ))}
       </div>

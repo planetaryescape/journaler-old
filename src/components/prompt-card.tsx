@@ -3,6 +3,7 @@
 import { Category, Interaction, User } from "@/db/schema";
 import { Prompt } from "@/db/schema/prompts";
 import { cn } from "@/lib/utils";
+import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "next-view-transitions";
@@ -22,7 +23,12 @@ export const PromptCard = ({
   const { data: user } = useQuery<{ result: User }>({
     queryKey: ["user"],
     queryFn: async () => {
-      const res = await fetch("/api/users/current");
+      const res = await fetch("/api/users/current", {
+        headers: {
+          "Content-Type": "application/json",
+          "request-id": generateRequestId(),
+        },
+      });
       const data = await res.json();
       return data;
     },

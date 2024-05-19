@@ -2,6 +2,7 @@
 
 import { Category, Interaction, User } from "@/db/schema";
 import { Prompt } from "@/db/schema/prompts";
+import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import BounceLoader from "./bounce-loader";
@@ -31,6 +32,12 @@ export const CategoryPrompts = ({
     queryFn: async () => {
       const res = await fetch(
         `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}&categoryId=${category.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "request-id": generateRequestId(),
+          },
+        },
       );
       if (!res.ok) {
         toast.error("Failed to fetch prompts.", {

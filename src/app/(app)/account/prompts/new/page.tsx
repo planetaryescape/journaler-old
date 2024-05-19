@@ -21,6 +21,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Category, User } from "@/db/schema";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
+import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { insertPromptSchema } from "@/lib/zod-schemas/prompts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
@@ -33,7 +34,12 @@ export default function NewPromptPage() {
   const { data: user } = useQuery<{ result: User }>({
     queryKey: ["user"],
     queryFn: async () => {
-      const res = await fetch("/api/users/current");
+      const res = await fetch("/api/users/current", {
+        headers: {
+          "Content-Type": "application/json",
+          "request-id": generateRequestId(),
+        },
+      });
       const data = await res.json();
       return data;
     },
@@ -42,7 +48,12 @@ export default function NewPromptPage() {
   const { data: categories } = useQuery<{ result: Category[] }>({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("/api/categories");
+      const res = await fetch("/api/categories", {
+        headers: {
+          "Content-Type": "application/json",
+          "request-id": generateRequestId(),
+        },
+      });
       const data = await res.json();
       return data;
     },
