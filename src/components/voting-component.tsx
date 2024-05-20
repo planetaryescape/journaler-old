@@ -12,6 +12,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { LinkButton, LinkButtonProps } from "./ui/link-button";
 
 export function UnauthenticatedButton({ children, ...props }: LinkButtonProps) {
@@ -76,7 +77,14 @@ export const VotingComponent = ({
           aria-disabled={!authUserId || isVoted}
           disabled={!authUserId || isVoted}
           onClick={async () => {
-            await vote({ promptId, userId, type: "upvote" });
+            const result = await vote({ promptId, userId, type: "upvote" });
+            if ("error" in result) {
+              toast.error("Failed to vote", {
+                position: "top-center",
+                description: `Something went wrong, please try again: ${result.error}`,
+              });
+            }
+
             queryClient.invalidateQueries({ queryKey: ["prompts"] });
             queryClient.invalidateQueries({ queryKey: ["user"] });
             queryClient.invalidateQueries({ queryKey: ["category-prompts"] });

@@ -28,14 +28,14 @@ export const FooterNewsletterForm = ({}: {}) => {
     values: z.infer<typeof insertNewsletterSubscriberSchema>,
   ) {
     const result = await createNewsletterSubscriber(values);
-    if (result.error) {
+    if ("error" in result) {
       toast.error("Failed to subscribe.", {
-        position: "bottom-center",
+        position: "top-center",
         description: `Something went wrong, please try again: ${result.error}`,
       });
     } else {
       toast.success("Subscribed!", {
-        position: "bottom-center",
+        position: "top-center",
         duration: 10000,
         description: `Successfully subscribed to Journaler. We have sent you a confirmation email, please check your inbox.`,
       });

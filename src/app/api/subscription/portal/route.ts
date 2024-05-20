@@ -3,6 +3,7 @@ import { users } from "@/db/schema";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { logger } from "@/lib/logger";
 import { stripe } from "@/lib/stripe";
+import { formatEntity, formatErrorEntity } from "@/lib/utils/formatEntity";
 import { getAuth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
@@ -69,14 +70,18 @@ export async function POST(request: NextRequest) {
       return_url: new URL(request.nextUrl).origin + "/dashboard/subscription",
     });
 
-    return NextResponse.json({ sessionUrl: session.url });
+    return NextResponse.json(formatEntity(session.url, "generic"));
   } catch (error) {
     logger.error(
       {
         ...context,
         error,
       },
-      "Follow error"
+      "Follow error",
+    );
+    return NextResponse.json(
+      formatErrorEntity(error instanceof Error ? error.message : error),
+      { status: 500 },
     );
   }
 }

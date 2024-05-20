@@ -4,9 +4,17 @@ import { db } from "@/db";
 import { logger } from "@/lib/logger";
 import { revalidatePath } from "next/cache";
 import { NewInteraction, interactions } from "../../db/schema";
+import {
+  Entity,
+  ErrorEntity,
+  formatEntity,
+  formatErrorEntity,
+} from "../utils/formatEntity";
 import { insertInteractionSchema } from "../zod-schemas/interactions";
 
-export const vote = async (data: NewInteraction) => {
+export const vote = async (
+  data: NewInteraction,
+): Promise<Entity<NewInteraction> | ErrorEntity> => {
   const newInteraction = insertInteractionSchema.parse(data);
   const context = {
     tracePath: "vote",
@@ -18,9 +26,9 @@ export const vote = async (data: NewInteraction) => {
     logger.debug({ ...context, data: { result } }, "Successfully voted");
 
     revalidatePath(`/prompts/${newInteraction.promptId}`);
-    return { result };
+    return formatEntity(result[0], "interaction");
   } catch (error) {
     logger.error({ ...context, error }, "Error voting");
-    return { error: error instanceof Error ? error.message : "Unknown error" };
+    return formatErrorEntity(error instanceof Error ? error.message : error);
   }
 };

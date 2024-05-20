@@ -2,10 +2,18 @@
 
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
-import { NewCategory, categories } from "../../db/schema";
+import { Category, NewCategory, categories } from "../../db/schema";
+import {
+  Entity,
+  ErrorEntity,
+  formatEntity,
+  formatErrorEntity,
+} from "../utils/formatEntity";
 import { insertCategoriesSchema } from "../zod-schemas/categories";
 
-export const createNewCategory = async (data: NewCategory) => {
+export const createNewCategory = async (
+  data: NewCategory,
+): Promise<Entity<Category> | ErrorEntity> => {
   const newCategory = insertCategoriesSchema.parse(data);
 
   const context = {
@@ -19,9 +27,9 @@ export const createNewCategory = async (data: NewCategory) => {
 
     logger.debug({ ...context, data: { result } }, "Created new category");
 
-    return { result: result[0] };
+    return formatEntity(result[0], "category");
   } catch (error) {
     logger.error({ ...context, error }, "Error creating new category");
-    return { error: error instanceof Error ? error.message : "Unknown error" };
+    return formatErrorEntity(error instanceof Error ? error.message : error);
   }
 };

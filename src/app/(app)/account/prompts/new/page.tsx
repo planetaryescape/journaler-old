@@ -21,6 +21,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Category, User } from "@/db/schema";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
+import { Entity, EntityList } from "@/lib/utils/formatEntity";
 import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { insertPromptSchema } from "@/lib/zod-schemas/prompts";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,7 +32,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 export default function NewPromptPage() {
-  const { data: user } = useQuery<{ result: User }>({
+  const { data: user } = useQuery<Entity<User>>({
     queryKey: ["user"],
     queryFn: async () => {
       const res = await fetch("/api/users/current", {
@@ -45,7 +46,7 @@ export default function NewPromptPage() {
     },
   });
 
-  const { data: categories } = useQuery<{ result: Category[] }>({
+  const { data: categories } = useQuery<EntityList<Category>>({
     queryKey: ["categories"],
     queryFn: async () => {
       const res = await fetch("/api/categories", {
@@ -68,8 +69,8 @@ export default function NewPromptPage() {
     defaultValues: {
       title: "",
       content: "",
-      userId: user?.result?.id ?? 0,
-      categoryId: categories?.result[0]?.id ?? 0,
+      userId: user?.data?.id ?? 0,
+      categoryId: categories?.data?.[0]?.data?.id ?? 0,
     },
   });
 
@@ -80,22 +81,22 @@ export default function NewPromptPage() {
   ) {
     const result = await createNewPrompt({
       ...values,
-      userId: user?.result?.id ?? 0,
+      userId: user?.data?.id ?? 0,
     });
 
-    if (result.error) {
+    if ("error" in result) {
       toast.error("Failed to create a new prompt.", {
-        position: "bottom-center",
+        position: "top-center",
         description: `Something went wrong, please try again: ${result.error}`,
       });
     } else {
       toast.success("Prompt created!", {
-        position: "bottom-center",
+        position: "top-center",
         duration: 10000,
         description: `Thank you for your contribution to the Journaler community! Your prompt has been created.`,
       });
       form.reset();
-      router.push(`/account/prompts/${result.result?.id}`);
+      router.push(`/account/prompts/${result.data.id}`);
     }
   }
 
@@ -167,12 +168,12 @@ export default function NewPromptPage() {
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      {categories?.result?.map((category) => (
+                      {categories?.data.map((category) => (
                         <SelectItem
-                          key={category.id}
-                          value={category.id.toString()}
+                          key={category.data.id}
+                          value={category.data.id.toString()}
                         >
-                          {category.name}
+                          {category.data.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

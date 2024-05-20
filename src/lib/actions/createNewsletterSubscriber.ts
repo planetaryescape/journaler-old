@@ -7,10 +7,16 @@ import {
   NewNewsletterSubscriber,
   newsletterSubscribers,
 } from "../../db/schema";
+import {
+  Entity,
+  ErrorEntity,
+  formatEntity,
+  formatErrorEntity,
+} from "../utils/formatEntity";
 
 export const createNewsletterSubscriber = async (
-  data: NewNewsletterSubscriber
-) => {
+  data: NewNewsletterSubscriber,
+): Promise<Entity<NewNewsletterSubscriber> | ErrorEntity> => {
   const newNewsletterSubscriber = insertNewsletterSubscriberSchema.parse(data);
   const context = {
     tracePath: "createNewsletterSubscriber",
@@ -19,7 +25,7 @@ export const createNewsletterSubscriber = async (
   try {
     logger.info(
       { ...context, data: { newNewsletterSubscriber } },
-      "Creating new newsletter subscriber"
+      "Creating new newsletter subscriber",
     );
     const result = await db
       .insert(newsletterSubscribers)
@@ -27,14 +33,14 @@ export const createNewsletterSubscriber = async (
       .returning();
     logger.debug(
       { ...context, data: { result } },
-      "Created new newsletter subscriber"
+      "Created new newsletter subscriber",
     );
-    return { result };
+    return formatEntity(result[0], "newsletter-subscriber");
   } catch (error) {
     logger.error(
       { ...context, error },
-      "Error creating new newsletter subscriber"
+      "Error creating new newsletter subscriber",
     );
-    return { error: error instanceof Error ? error.message : "Unknown error" };
+    return formatErrorEntity(error instanceof Error ? error.message : error);
   }
 };

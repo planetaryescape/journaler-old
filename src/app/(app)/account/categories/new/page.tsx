@@ -34,19 +34,19 @@ export default function NewCategoryPage() {
   async function onSubmit(values: z.infer<typeof insertCategoriesSchema>) {
     const result = await createNewCategory(values);
 
-    if (result.error) {
+    if ("error" in result) {
       toast.error("Failed to create a new category.", {
-        position: "bottom-center",
+        position: "top-center",
         description: `Something went wrong, please try again: ${result.error}`,
       });
     } else {
       toast.success("Category created!", {
-        position: "bottom-center",
+        position: "top-center",
         duration: 10000,
         description: `Thank you for your contribution to the Journaler community!`,
       });
       form.reset();
-      router.push(`/account/categories/${result.result?.id}`);
+      router.push(`/account/categories/${result.data?.id}`);
     }
   }
 

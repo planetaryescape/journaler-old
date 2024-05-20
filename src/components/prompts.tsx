@@ -40,7 +40,7 @@ export const Prompts = ({
       );
       if (!res.ok) {
         toast.error("Failed to fetch prompts.", {
-          position: "bottom-center",
+          position: "top-center",
           description: `Something went wrong, please try again: ${res.statusText}`,
         });
         return { result: [] };

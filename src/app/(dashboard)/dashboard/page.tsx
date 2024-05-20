@@ -30,7 +30,7 @@ const DashboardPage = () => {
   async function onSubmit(values: z.infer<typeof insertUserSchema>) {
     const result = await createUser(values);
     toast.success("User created!", {
-      position: "bottom-center",
+      position: "top-center",
       description: `User created successfully.`,
     });
   }

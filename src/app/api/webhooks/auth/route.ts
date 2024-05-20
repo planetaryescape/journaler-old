@@ -7,6 +7,7 @@ import { resend } from "@/lib/resend";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 
+import { formatErrorEntity } from "@/lib/utils/formatEntity";
 import { eq } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 
@@ -52,13 +53,12 @@ export async function POST(request: Request) {
         subject: "Welcome to dealbase.africa",
         react: WelcomeEmail(),
       });
-      return NextResponse.json({}, { status: 200 });
+      return NextResponse.json(null, { status: 200 });
     } catch (e) {
       logger.error({ ...context, error: e }, "Failed to create new user");
-      return NextResponse.json(
-        { error: "Failed to create new user" },
-        { status: 500 },
-      );
+      return NextResponse.json(formatErrorEntity("Failed to create new user"), {
+        status: 500,
+      });
     }
   }
 

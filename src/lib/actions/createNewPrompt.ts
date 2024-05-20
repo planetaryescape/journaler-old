@@ -3,12 +3,18 @@
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
 import { z } from "zod";
-import { NewPrompt, promptCategories, prompts } from "../../db/schema";
+import { NewPrompt, Prompt, promptCategories, prompts } from "../../db/schema";
+import {
+  Entity,
+  ErrorEntity,
+  formatEntity,
+  formatErrorEntity,
+} from "../utils/formatEntity";
 import { insertPromptSchema } from "../zod-schemas/prompts";
 
 export const createNewPrompt = async (
   data: NewPrompt & { categoryId: number },
-) => {
+): Promise<Entity<Prompt> | ErrorEntity> => {
   const newPrompt = insertPromptSchema
     .extend({ categoryId: z.number() })
     .parse(data);
@@ -32,9 +38,9 @@ export const createNewPrompt = async (
 
     logger.debug({ ...context, data: { result } }, "Created new prompt");
 
-    return { result: result[0] };
+    return formatEntity(result[0], "prompt");
   } catch (error) {
     logger.error({ ...context, error }, "Error creating new prompt");
-    return { error: error instanceof Error ? error.message : "Unknown error" };
+    return formatErrorEntity(error instanceof Error ? error.message : error);
   }
 };
