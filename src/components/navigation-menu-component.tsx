@@ -95,7 +95,7 @@ export function NavigationMenuComponent() {
               <NavigationMenuLink asChild>
                 <LinkButton
                   className="animate-buttonheartbeat w-full"
-                  href="/account/prompts"
+                  href="/account/profile"
                   size="sm"
                 >
                   Submit your prompt

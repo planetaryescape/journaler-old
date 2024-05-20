@@ -14,7 +14,20 @@ export default async function ProfilePage({
 
   const user = await db.query.users.findFirst({
     where: eq(users.id, parseInt(id)),
+    // with: {
+    //   followers: {
+    //     with: {
+    //       follower: true,
+    //       followedBy: true,
+    //     },
+    //   },
+    // },
   });
+
+  // const followers =
+  //   user?.followers.filter((f) => f.followedId === user?.id).length ?? 0;
+  // const following =
+  //   user?.followers.filter((f) => f.followerId === user?.id).length ?? 0;
 
   return (
     <div className="mb-16 pt-4 relative max-w-4xl mx-auto px-4 md:px-8">
@@ -24,6 +37,10 @@ export default async function ProfilePage({
             {`${user?.firstname} ${user?.lastname}`}
           </h3>
           <span>@user-{user?.id}</span>
+        </div>
+        <div className="mb-4">
+          {/* <span>{followers} follower</span>
+          <span>{following} following</span> */}
         </div>
       </div>
       <UserPrompts userId={user?.id ?? 0} />

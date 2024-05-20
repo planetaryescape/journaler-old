@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   pgEnum,
@@ -7,6 +8,7 @@ import {
   uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
+import { followers } from "./followers";
 
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 
@@ -37,8 +39,13 @@ export const users = pgTable(
   (users) => ({
     usernameIndex: uniqueIndex("username_idx").on(users.username),
     emailIndex: uniqueIndex("email_idx").on(users.email),
-  })
+  }),
 );
+
+export const userRelations = relations(users, ({ one, many }) => ({
+  followers: many(followers),
+  following: many(followers),
+}));
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;

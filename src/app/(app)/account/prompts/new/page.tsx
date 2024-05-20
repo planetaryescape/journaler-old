@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LinkButton } from "@/components/ui/link-button";
 import { Textarea } from "@/components/ui/textarea";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
@@ -135,9 +136,14 @@ export default function NewPromptPage() {
             )}
           />
 
-          <Button form="new-prompt" type="submit">
-            Submit
-          </Button>
+          <div className="flex gap-2 w-full">
+            <LinkButton href="/account/profile" variant="secondary">
+              Cancel
+            </LinkButton>
+            <Button form="new-prompt" type="submit">
+              Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

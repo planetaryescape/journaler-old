@@ -26,9 +26,7 @@ export default async function ProfilePage() {
     <div className="mb-16 pt-4 relative max-w-4xl mx-auto px-4 md:px-8">
       <div className="mb-4">
         <div>
-          <h3 className="font-bold text-xl">
-            {`${user?.firstname} ${user?.lastname}`}
-          </h3>
+          <h3 className="font-bold text-xl">{`${user?.email}`}</h3>
           <span>@user-{user?.id}</span>
           <p className="mb-4">
             You can create a new prompt or edit an existing one

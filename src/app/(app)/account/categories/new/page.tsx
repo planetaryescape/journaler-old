@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LinkButton } from "@/components/ui/link-button";
 import { Textarea } from "@/components/ui/textarea";
 import { createNewCategory } from "@/lib/actions/createNewCategory";
 import { insertCategoriesSchema } from "@/lib/zod-schemas/categories";
@@ -103,9 +104,14 @@ export default function NewCategoryPage() {
             )}
           />
 
-          <Button form="new-category" type="submit">
-            Submit
-          </Button>
+          <div className="flex gap-2 w-full">
+            <LinkButton href="/account/profile" variant="secondary">
+              Cancel
+            </LinkButton>
+            <Button form="new-category" type="submit">
+              Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
