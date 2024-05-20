@@ -30,7 +30,7 @@ export const createNewsletterSubscriber = async (
     );
     const result = await db
       .insert(newsletterSubscribers)
-      .values(data)
+      .values(newNewsletterSubscriber)
       .returning();
     logger.debug(
       { ...context, data: result[0] },

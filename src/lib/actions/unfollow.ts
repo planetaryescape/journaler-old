@@ -2,6 +2,7 @@
 
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { Follower, NewFollower, followers } from "../../db/schema";
 import {
@@ -12,20 +13,28 @@ import {
 } from "../utils/formatEntity";
 import { insertFollowerSchema } from "../zod-schemas/followers";
 
-export const follow = async (
+export const unfollow = async (
   data: NewFollower,
 ): Promise<Entity<Follower> | ErrorEntity> => {
-  const newFollower = insertFollowerSchema.parse(data);
+  const unFollowData = insertFollowerSchema.parse(data);
   const context = {
-    tracePath: "follow",
-    data: { newFollower },
+    tracePath: "unfollow",
+    data: { unFollowData },
   };
   try {
-    logger.info({ ...context, data: { newFollower } }, "Following");
-    const result = await db.insert(followers).values(newFollower).returning();
-    logger.debug({ ...context, data: result[0] }, "Successfully followed");
+    logger.info({ ...context, data: { unFollowData } }, "Unfollowing");
+    const result = await db
+      .delete(followers)
+      .where(
+        and(
+          eq(followers.followerId, unFollowData.followerId),
+          eq(followers.followedId, unFollowData.followedId),
+        ),
+      )
+      .returning();
+    logger.debug({ ...context, data: result[0] }, "Successfully unfollowed");
 
-    revalidatePath(`/users/${newFollower.followedId}`);
+    revalidatePath(`/users/${unFollowData.followedId}`);
     return formatEntity(result[0], "follower");
   } catch (error) {
     logger.error({ ...context, error }, "Error voting");

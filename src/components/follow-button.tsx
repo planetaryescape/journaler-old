@@ -1,8 +1,6 @@
 "use client";
-import { vote } from "@/lib/actions/vote";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@clerk/nextjs";
-import { ChevronUpIcon } from "@radix-ui/react-icons";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -11,7 +9,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { follow } from "@/lib/actions/follow";
+import { unfollow } from "@/lib/actions/unfollow";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { LinkButton, LinkButtonProps } from "./ui/link-button";
@@ -31,7 +30,7 @@ export function UnauthenticatedButton({ children, ...props }: LinkButtonProps) {
           <div className="space-y-1">
             <h4 className="text-sm font-semibold">Journaler</h4>
             <p className="text-sm">
-              This action is only available to signed in user. Click the button
+              This action is only available to signed in users. Click the button
               below to sign up and join the community of thoughtful journalers.
             </p>
             <div className="flex items-center pt-2">
@@ -45,59 +44,83 @@ export function UnauthenticatedButton({ children, ...props }: LinkButtonProps) {
 }
 
 export const FollowButton = ({
-  userId,
-  promptId,
-  votes,
+  followerId,
+  followedId,
   className,
-  isVoted,
+  alreadyFollowing,
 }: {
-  userId: number;
-  promptId: number;
-  votes: number;
-  isVoted: boolean;
+  followerId: number;
+  followedId: number;
+  alreadyFollowing: boolean;
   className?: string;
 }) => {
   const { userId: authUserId } = useAuth();
   const queryClient = useQueryClient();
-  const { user } = useCurrentUser();
 
   return (
     <div className={cn("flex ml-auto items-center gap-2", className)}>
       {!authUserId ? (
         <UnauthenticatedButton
-          variant={isVoted ? "default" : "secondary"}
-          aria-disabled={isVoted}
+          variant={alreadyFollowing ? "default" : "secondary"}
+          aria-disabled={alreadyFollowing}
           href="/sign-up"
           size="sm"
           className="font-medium lowercase"
         >
-          <ChevronUpIcon className="h-5 w-5" />
-          <p className="text-xl whitespace-nowrap">{votes}</p>
+          Follow
         </UnauthenticatedButton>
       ) : (
-        <Button
-          aria-disabled={!authUserId || isVoted}
-          disabled={!authUserId || isVoted}
-          onClick={async () => {
-            const result = await vote({ promptId, userId, type: "upvote" });
-            if ("error" in result) {
-              toast.error("Failed to vote", {
-                position: "top-center",
-                description: `Something went wrong, please try again: ${result.error}`,
-              });
-            }
+        <>
+          {alreadyFollowing ? (
+            <Button
+              aria-disabled={!authUserId}
+              disabled={!authUserId}
+              onClick={async () => {
+                const result = await unfollow({
+                  followedId,
+                  followerId,
+                });
+                if ("error" in result) {
+                  toast.error("Failed to unfollow", {
+                    position: "top-center",
+                    description: `Something went wrong, please try again: ${result.error}`,
+                  });
+                }
 
-            queryClient.invalidateQueries({ queryKey: ["prompts"] });
-            queryClient.invalidateQueries({ queryKey: ["user"] });
-            queryClient.invalidateQueries({ queryKey: ["category-prompts"] });
-          }}
-          variant={isVoted ? "default" : "secondary"}
-          className="font-medium lowercase"
-          size="sm"
-        >
-          <ChevronUpIcon className="h-5 w-5" />
-          <p className="text-xl whitespace-nowrap">{votes}</p>
-        </Button>
+                queryClient.invalidateQueries({ queryKey: ["user"] });
+              }}
+              variant="destructive"
+              className="font-medium lowercase"
+              size="sm"
+            >
+              Unfollow
+            </Button>
+          ) : (
+            <Button
+              aria-disabled={!authUserId}
+              disabled={!authUserId}
+              onClick={async () => {
+                const result = await follow({
+                  followedId,
+                  followerId,
+                });
+                if ("error" in result) {
+                  toast.error("Failed to follow", {
+                    position: "top-center",
+                    description: `Something went wrong, please try again: ${result.error}`,
+                  });
+                }
+
+                queryClient.invalidateQueries({ queryKey: ["user"] });
+              }}
+              variant={alreadyFollowing ? "default" : "secondary"}
+              className="font-medium lowercase"
+              size="sm"
+            >
+              Follow
+            </Button>
+          )}
+        </>
       )}
     </div>
   );

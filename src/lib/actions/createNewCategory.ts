@@ -23,7 +23,7 @@ export const createNewCategory = async (
 
   try {
     logger.info({ ...context, data: { newCategory } }, "Creating new category");
-    const result = await db.insert(categories).values(data).returning();
+    const result = await db.insert(categories).values(newCategory).returning();
 
     logger.debug({ ...context, data: result[0] }, "Created new category");
 

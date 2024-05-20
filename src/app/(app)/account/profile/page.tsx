@@ -20,6 +20,10 @@ export default async function ProfilePage() {
 
   const user = await db.query.users.findFirst({
     where: eq(users.clerkUserId, userId as string),
+    with: {
+      followers: true,
+      following: true,
+    },
   });
 
   return (
@@ -31,6 +35,16 @@ export default async function ProfilePage() {
           <p className="mb-4">
             You can create a new prompt or edit an existing one
           </p>
+        </div>
+        <div className="mb-4 flex gap-2">
+          <span>
+            <span className="font-bold">{user?.followers.length ?? 0}</span>{" "}
+            followers
+          </span>
+          <span>
+            <span className="font-bold">{user?.following.length ?? 0}</span>{" "}
+            following
+          </span>
         </div>
         <div className="flex gap-2 mb-4">
           <LinkButton href="/account/prompts/new">New Prompt</LinkButton>
