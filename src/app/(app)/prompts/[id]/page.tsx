@@ -10,7 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { VotingComponent } from "@/components/voting-component";
+import { VoteButton } from "@/components/voting-component";
 import { db } from "@/db";
 import { prompts } from "@/db/schema/prompts";
 import { users } from "@/db/schema/users";
@@ -116,7 +116,7 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
           </div>
         ) : null}
 
-        <VotingComponent
+        <VoteButton
           votes={votes}
           promptId={prompt.id}
           userId={user?.id ?? 0}

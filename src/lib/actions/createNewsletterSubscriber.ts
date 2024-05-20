@@ -5,6 +5,7 @@ import { logger } from "@/lib/logger";
 import { insertNewsletterSubscriberSchema } from "@/lib/zod-schemas/newsletter-subscriber";
 import {
   NewNewsletterSubscriber,
+  NewsletterSubscriber,
   newsletterSubscribers,
 } from "../../db/schema";
 import {
@@ -16,7 +17,7 @@ import {
 
 export const createNewsletterSubscriber = async (
   data: NewNewsletterSubscriber,
-): Promise<Entity<NewNewsletterSubscriber> | ErrorEntity> => {
+): Promise<Entity<NewsletterSubscriber> | ErrorEntity> => {
   const newNewsletterSubscriber = insertNewsletterSubscriberSchema.parse(data);
   const context = {
     tracePath: "createNewsletterSubscriber",

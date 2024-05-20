@@ -35,7 +35,7 @@ export default function NewPromptPage() {
     defaultValues: {
       title: "",
       content: "",
-      userId: user?.data?.id ?? 0,
+      userId: user?.id ?? 0,
       categoryId: 0,
     },
   });
@@ -47,7 +47,7 @@ export default function NewPromptPage() {
   ) {
     const result = await createNewPrompt({
       ...values,
-      userId: user?.data?.id ?? 0,
+      userId: user?.id ?? 0,
     });
 
     if ("error" in result) {

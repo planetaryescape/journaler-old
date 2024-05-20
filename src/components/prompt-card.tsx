@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "next-view-transitions";
 import { Badge } from "./ui/badge";
-import { VotingComponent } from "./voting-component";
+import { VoteButton } from "./voting-component";
 
 export type PromptWithVotes = WithVotes<PromptWithRelations>;
 
@@ -14,9 +14,7 @@ export const PromptCard = ({ prompt: item }: { prompt: PromptWithVotes }) => {
   const { user } = useCurrentUser();
 
   const isVoted = Boolean(
-    item.interactions.some(
-      (interaction) => interaction.userId === user?.data.id,
-    ),
+    item.interactions.some((interaction) => interaction.userId === user?.id),
   );
 
   return (
@@ -59,7 +57,7 @@ export const PromptCard = ({ prompt: item }: { prompt: PromptWithVotes }) => {
         ) : null}
       </Link>
 
-      <VotingComponent
+      <VoteButton
         userId={item.userId}
         promptId={item.id}
         votes={item.votes}

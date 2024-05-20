@@ -12,7 +12,7 @@ export const useCurrentUser = (): Omit<
   UseQueryResult<Entity<User>, ErrorEntity>,
   "data"
 > & {
-  user?: Entity<User>;
+  user?: User;
 } => {
   const { data: user, ...rest } = useQuery<unknown, ErrorEntity, Entity<User>>({
     queryKey: ["user"],
@@ -29,7 +29,7 @@ export const useCurrentUser = (): Omit<
   });
 
   return {
-    user,
+    user: user?.data,
     ...rest,
   };
 };

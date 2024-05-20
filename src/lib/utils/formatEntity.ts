@@ -1,6 +1,7 @@
 export type EntityType =
   | "prompt"
   | "generic"
+  | "follower"
   | "user"
   | "newsletter-subscriber"
   | "list"

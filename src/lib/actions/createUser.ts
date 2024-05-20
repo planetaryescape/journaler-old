@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { users } from "@/db/schema/users";
+import { User, users } from "@/db/schema/users";
 import { logger } from "@/lib/logger";
 import { insertUserSchema } from "@/lib/zod-schemas/users";
 import { NewUser } from "../../db/schema";
@@ -14,7 +14,7 @@ import {
 
 export const createUser = async (
   data: NewUser,
-): Promise<Entity<NewUser> | ErrorEntity> => {
+): Promise<Entity<User> | ErrorEntity> => {
   const newUser = insertUserSchema.parse(data);
   const context = {
     tracePath: "createUser",

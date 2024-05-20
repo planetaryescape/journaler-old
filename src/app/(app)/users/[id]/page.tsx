@@ -15,25 +15,10 @@ export default async function ProfilePage({
   const user = await db.query.users.findFirst({
     where: eq(users.id, parseInt(id)),
     with: {
-      followed: {
-        with: {
-          followedBy: true,
-        },
-      },
-      following: {
-        with: {
-          follower: true,
-        },
-      },
+      followers: true,
+      following: true,
     },
   });
-
-  console.log("user:", user);
-
-  // const followers =
-  //   user?.followers.filter((f) => f.followedId === user?.id).length ?? 0;
-  // const following =
-  //   user?.followers.filter((f) => f.followerId === user?.id).length ?? 0;
 
   return (
     <div className="mb-16 pt-4 relative max-w-4xl mx-auto px-4 md:px-8">
@@ -50,11 +35,11 @@ export default async function ProfilePage({
         </div>
         <div className="mb-4 flex gap-2">
           <span>
-            <span className="font-bold">{user?.followed.length ?? 0}</span>{" "}
+            <span className="font-bold">{user?.followers.length ?? 0}</span>{" "}
             followers
           </span>
           <span>
-            <span className="font-bold">{user?.followed.length ?? 0}</span>{" "}
+            <span className="font-bold">{user?.following.length ?? 0}</span>{" "}
             following
           </span>
         </div>

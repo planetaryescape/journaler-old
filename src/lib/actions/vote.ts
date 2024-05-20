@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { logger } from "@/lib/logger";
 import { revalidatePath } from "next/cache";
-import { NewInteraction, interactions } from "../../db/schema";
+import { Interaction, NewInteraction, interactions } from "../../db/schema";
 import {
   Entity,
   ErrorEntity,
@@ -14,7 +14,7 @@ import { insertInteractionSchema } from "../zod-schemas/interactions";
 
 export const vote = async (
   data: NewInteraction,
-): Promise<Entity<NewInteraction> | ErrorEntity> => {
+): Promise<Entity<Interaction> | ErrorEntity> => {
   const newInteraction = insertInteractionSchema.parse(data);
   const context = {
     tracePath: "vote",
