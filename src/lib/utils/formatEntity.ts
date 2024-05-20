@@ -11,9 +11,12 @@ export type EntityType =
   | "reward"
   | "comment";
 
+export type StatusType = "success" | "error" | "fail";
+
 export type Entity<T = unknown> = {
+  status: StatusType;
   sys: {
-    id: number;
+    id?: number;
     entity: EntityType;
     createdAt?: string;
     updatedAt?: string;
@@ -22,6 +25,7 @@ export type Entity<T = unknown> = {
 };
 
 export type ErrorEntity = {
+  status: "error";
   sys: {
     entity: "error";
     createdAt?: string;
@@ -31,19 +35,22 @@ export type ErrorEntity = {
 };
 
 export type EntityList<T = unknown> = {
+  status: StatusType;
   sys: {
     entity: "list";
     createdAt?: string;
     updatedAt?: string;
   };
-  data: Entity<T>[];
+  data: Omit<Entity<T>, "success">[];
 };
 
-export const formatEntity = <T extends { id: number }>(
+export const formatEntity = <T extends { id?: number }>(
   data: T,
   entity: EntityType,
+  status: StatusType = "success",
 ): Entity<T> => {
   return {
+    status,
     sys: {
       id: data.id,
       entity,
@@ -52,11 +59,13 @@ export const formatEntity = <T extends { id: number }>(
   };
 };
 
-export const formatEntityList = <T extends { id: number }>(
+export const formatEntityList = <T extends { id?: number }>(
   data: T[],
   entity: EntityType,
+  status: StatusType = "success",
 ): EntityList<T> => {
   return {
+    status,
     sys: {
       entity: "list",
     },
@@ -66,6 +75,7 @@ export const formatEntityList = <T extends { id: number }>(
 
 export const formatErrorEntity = <T = unknown>(error: T): ErrorEntity => {
   return {
+    status: "error",
     sys: {
       entity: "error",
     },
