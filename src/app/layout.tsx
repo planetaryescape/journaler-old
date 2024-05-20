@@ -13,8 +13,12 @@ import type { Metadata, Viewport } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import { Merriweather, Open_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import "./globals.css";
+import { ReactNode } from "react";
+import AppKnockProvider from "./providers";
 import { ReactQueryProvider } from "./react-query-provider";
+
+import "@knocklabs/react/dist/index.css";
+import "./globals.css";
 
 const fontSerif = Merriweather({
   subsets: ["latin"],
@@ -90,7 +94,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <ViewTransitions>
@@ -98,33 +102,35 @@ export default function RootLayout({
         <ClerkProvider
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
-          <html lang="en" suppressHydrationWarning>
-            <body
-              className={cn(
-                "relative min-h-screen bg-background font-sans antialiased",
-                fontSerif.variable,
-                fontSans.variable,
-              )}
-            >
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
+          <AppKnockProvider>
+            <html lang="en" suppressHydrationWarning>
+              <body
+                className={cn(
+                  "relative min-h-screen bg-background font-sans antialiased",
+                  fontSerif.variable,
+                  fontSans.variable,
+                )}
               >
-                <NextTopLoader color="#8FBC8F" />
-                <Header />
-                {children}
-                <MobileHeader />
-                <Footer />
-                <Toaster />
-              </ThemeProvider>
-              <SpeedInsights />
-              <Analytics />
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="dark"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <NextTopLoader color="#8FBC8F" />
+                  <Header />
+                  {children}
+                  <MobileHeader />
+                  <Footer />
+                  <Toaster />
+                </ThemeProvider>
+                <SpeedInsights />
+                <Analytics />
 
-              <BackgroundGradient degrees={Math.random() * 360} />
-            </body>
-          </html>
+                <BackgroundGradient degrees={Math.random() * 360} />
+              </body>
+            </html>
+          </AppKnockProvider>
         </ClerkProvider>
       </ReactQueryProvider>
     </ViewTransitions>

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "next-view-transitions";
 import { Badge } from "./ui/badge";
-import { VoteButton } from "./voting-component";
+import { VoteButton } from "./vote-button";
 
 export type PromptWithVotes = WithVotes<PromptWithRelations>;
 

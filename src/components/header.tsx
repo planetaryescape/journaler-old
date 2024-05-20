@@ -3,8 +3,12 @@
 import { LinkButton } from "@/components/ui/link-button";
 import { cn } from "@/lib/utils";
 import { UserButton, useUser } from "@clerk/nextjs";
+import {
+  NotificationFeedPopover,
+  NotificationIconButton,
+} from "@knocklabs/react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BackgroundGradient } from "./background-gradient";
 import { Brand } from "./brand";
 import { NavigationMenuComponent } from "./navigation-menu-component";
@@ -14,6 +18,8 @@ export const Header = () => {
   const [state, setState] = useState(false);
   const { user } = useUser();
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+  const notifButtonRef = useRef(null);
 
   return (
     <header className="sticky top-0 bg-background z-10">
@@ -38,6 +44,18 @@ export const Header = () => {
           >
             <ul className="flex-1 justify-end md:items-center flex flex-col md:flex-row gap-4">
               <NavigationMenuComponent />
+
+              <div>
+                <NotificationIconButton
+                  ref={notifButtonRef}
+                  onClick={(e) => setIsVisible(!isVisible)}
+                />
+                <NotificationFeedPopover
+                  buttonRef={notifButtonRef}
+                  isVisible={isVisible}
+                  onClose={() => setIsVisible(false)}
+                />
+              </div>
               <div className="flex gap-4 justify-start items-center">
                 {!user && (
                   <>

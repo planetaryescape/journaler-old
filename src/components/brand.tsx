@@ -1,10 +1,14 @@
 "use client";
 
 import { UserButton, useUser } from "@clerk/nextjs";
+import {
+  NotificationFeedPopover,
+  NotificationIconButton,
+} from "@knocklabs/react";
 import { useTheme } from "next-themes";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { LinkButton } from "./ui/link-button";
 
@@ -18,6 +22,8 @@ export const Brand = ({
   const { theme } = useTheme();
   const [hasTheme, setHasTheme] = useState(false);
   const { user } = useUser();
+  const [isVisible, setIsVisible] = useState(false);
+  const notifButtonRef = useRef(null);
 
   useEffect(() => {
     if (theme) {
@@ -52,6 +58,17 @@ export const Brand = ({
             </LinkButton>
           </>
         )}
+        <div>
+          <NotificationIconButton
+            ref={notifButtonRef}
+            onClick={(e) => setIsVisible(!isVisible)}
+          />
+          <NotificationFeedPopover
+            buttonRef={notifButtonRef}
+            isVisible={isVisible}
+            onClose={() => setIsVisible(false)}
+          />
+        </div>
         <ThemeToggle />
         <UserButton />
       </div>
