@@ -38,7 +38,7 @@ export const PromptCard = ({ prompt: item }: { prompt: PromptWithVotes }) => {
             </div>
           </div>
           <h6 className="text-xs flex gap-2 font-medium text-muted-foreground dark:text-warm-sand/80">
-            <span>@{item.user.username}</span>
+            <span>@user-{item.userId}</span>
             <span>·</span>
             <div className={cn("")}>
               {formatDistanceToNow(new Date(item.createdAt), {
