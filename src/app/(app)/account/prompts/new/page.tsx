@@ -1,5 +1,6 @@
 "use client";
 
+import CategoriesSelect from "@/components/categories-select";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,15 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import useCategories from "@/hooks/use-categories";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
 import { insertPromptSchema } from "@/lib/zod-schemas/prompts";
@@ -31,7 +24,6 @@ import { z } from "zod";
 
 export default function NewPromptPage() {
   const { user } = useCurrentUser();
-  const { categories } = useCategories();
 
   const form = useForm<
     z.infer<typeof insertPromptSchema> & { categoryId: number }
@@ -43,7 +35,7 @@ export default function NewPromptPage() {
       title: "",
       content: "",
       userId: user?.data?.id ?? 0,
-      categoryId: categories?.data?.[0]?.data?.id ?? 0,
+      categoryId: 0,
     },
   });
 
@@ -129,28 +121,11 @@ export default function NewPromptPage() {
               <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                  <Select
+                  <CategoriesSelect
                     {...field}
                     value={field.value.toString()}
                     onValueChange={(value) => field.onChange(parseInt(value))}
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue
-                        placeholder="Category"
-                        className="dark:text-warm-sand text-muted-foreground"
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categories?.data.map((category) => (
-                        <SelectItem
-                          key={category.data.id}
-                          value={category.data.id.toString()}
-                        >
-                          {category.data.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  />
                 </FormControl>
                 <FormDescription className="dark:text-warm-sand text-muted-foreground">
                   Select a category for your prompt
