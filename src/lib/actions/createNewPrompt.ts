@@ -36,7 +36,7 @@ export const createNewPrompt = async (
       categoryId,
     });
 
-    logger.debug({ ...context, data: { result } }, "Created new prompt");
+    logger.debug({ ...context, data: result[0] }, "Created new prompt");
 
     return formatEntity(result[0], "prompt");
   } catch (error) {

@@ -23,7 +23,7 @@ export const createUser = async (
   try {
     logger.info({ ...context, data: { newUser } }, "Creating new user");
     const result = await db.insert(users).values(data).returning();
-    logger.debug({ ...context, data: { result } }, "Created new user");
+    logger.debug({ ...context, data: result[0] }, "Created new user");
     return formatEntity(result[0], "user");
   } catch (error) {
     logger.error({ ...context, error }, "Error creating new user");

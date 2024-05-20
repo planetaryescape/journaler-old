@@ -23,7 +23,7 @@ export const vote = async (
   try {
     logger.info({ ...context, data: { newInteraction } }, "Voting");
     const result = await db.insert(interactions).values(data).returning();
-    logger.debug({ ...context, data: { result } }, "Successfully voted");
+    logger.debug({ ...context, data: result[0] }, "Successfully voted");
 
     revalidatePath(`/prompts/${newInteraction.promptId}`);
     return formatEntity(result[0], "interaction");

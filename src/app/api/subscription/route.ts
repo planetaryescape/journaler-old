@@ -26,8 +26,13 @@ export async function POST(request: NextRequest) {
 
   try {
     if (!userId) {
-      logger.error(context, "Unauthorized");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      logger.error(context, "Unauthenticated");
+      return NextResponse.json(
+        formatErrorEntity({ error: "You are not logged in" }),
+        {
+          status: 401,
+        },
+      );
     }
 
     const body = await request.json();
@@ -35,8 +40,18 @@ export async function POST(request: NextRequest) {
     const data = subscribeInputSchema.parse(body);
 
     if (userId !== data.userId) {
-      logger.error(context, "Unauthorized");
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      logger.error(
+        {
+          ...context,
+          authenticatedUserId: userId,
+          incorrectUserId: data.userId,
+        },
+        "Forbidden",
+      );
+      return NextResponse.json(
+        formatErrorEntity({ error: "You are not authorized to access this." }),
+        { status: 403 },
+      );
     }
 
     let user = await db
@@ -50,7 +65,9 @@ export async function POST(request: NextRequest) {
 
     if (!user[0]) {
       logger.error(context, "User not found");
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(formatErrorEntity({ error: "User not found" }), {
+        status: 404,
+      });
     }
 
     if (!user[0].stripeCustomerId) {

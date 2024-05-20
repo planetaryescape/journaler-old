@@ -32,7 +32,7 @@ export const createNewsletterSubscriber = async (
       .values(data)
       .returning();
     logger.debug(
-      { ...context, data: { result } },
+      { ...context, data: result[0] },
       "Created new newsletter subscriber",
     );
     return formatEntity(result[0], "newsletter-subscriber");

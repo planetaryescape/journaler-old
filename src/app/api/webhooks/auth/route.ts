@@ -89,7 +89,7 @@ export async function POST(request: Request) {
         // react: DealbaseWelcomeEmail(),
       });
 
-      return NextResponse.json({}, { status: 204 });
+      return NextResponse.json(null, { status: 204 });
     } catch (e) {
       logger.error({ ...context, error: e }, "Failed to update user");
       return NextResponse.json(
@@ -107,7 +107,7 @@ export async function POST(request: Request) {
 
       logger.info({ ...context, result }, "User deleted");
 
-      return NextResponse.json({}, { status: 200 });
+      return NextResponse.json(null, { status: 200 });
     } catch (error) {
       logger.error(
         { ...context, error, errorMessage: (error as Error).message },

@@ -11,7 +11,7 @@ export type EntityType =
   | "reward"
   | "comment";
 
-export type StatusType = "success" | "error" | "fail";
+export type StatusType = "success" | "error";
 
 export type Entity<T = unknown> = {
   status: StatusType;
@@ -28,11 +28,12 @@ export type ErrorEntity = {
   status: "error";
   sys: {
     entity: "error";
-    createdAt?: string;
-    updatedAt?: string;
   };
   error: unknown;
 };
+
+export type JournalerResponse<T> = Entity<T> | ErrorEntity;
+export type JournalerListResponse<T> = EntityList<T> | ErrorEntity;
 
 export type EntityList<T = unknown> = {
   status: StatusType;
@@ -44,7 +45,9 @@ export type EntityList<T = unknown> = {
   data: Omit<Entity<T>, "success">[];
 };
 
-export const formatEntity = <T extends { id?: number; [key: string]: any }>(
+export const formatEntity = <
+  T extends { id?: number; [key: string]: any } | undefined,
+>(
   data: T,
   entity: EntityType,
   status: StatusType = "success",
@@ -52,7 +55,7 @@ export const formatEntity = <T extends { id?: number; [key: string]: any }>(
   return {
     status,
     sys: {
-      id: data.id,
+      id: data?.id,
       entity,
     },
     data,

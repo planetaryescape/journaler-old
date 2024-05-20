@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const data = insertUserSchema.parse(request.body);
     logger.info({ ...context, data }, "Creating new user");
     const result = await db.insert(users).values(data).returning();
-    return NextResponse.json(formatEntity(result, "user"));
+    return NextResponse.json(formatEntity(result[0], "user"));
   } catch (error) {
     logger.error({ ...context, error }, "Error creating new user");
     return NextResponse.json(

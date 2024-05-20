@@ -19,46 +19,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Category, User } from "@/db/schema";
+import useCategories from "@/hooks/use-categories";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { createNewPrompt } from "@/lib/actions/createNewPrompt";
-import { Entity, EntityList } from "@/lib/utils/formatEntity";
-import { generateRequestId } from "@/lib/utils/generateRequestId";
 import { insertPromptSchema } from "@/lib/zod-schemas/prompts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 export default function NewPromptPage() {
-  const { data: user } = useQuery<Entity<User>>({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const res = await fetch("/api/users/current", {
-        headers: {
-          "Content-Type": "application/json",
-          "request-id": generateRequestId(),
-        },
-      });
-      const data = await res.json();
-      return data;
-    },
-  });
-
-  const { data: categories } = useQuery<EntityList<Category>>({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const res = await fetch("/api/categories", {
-        headers: {
-          "Content-Type": "application/json",
-          "request-id": generateRequestId(),
-        },
-      });
-      const data = await res.json();
-      return data;
-    },
-  });
+  const { user } = useCurrentUser();
+  const { categories } = useCategories();
 
   const form = useForm<
     z.infer<typeof insertPromptSchema> & { categoryId: number }

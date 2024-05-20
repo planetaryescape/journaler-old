@@ -16,8 +16,13 @@ export async function GET(request: NextRequest) {
   };
 
   if (!userId) {
-    logger.error(context, "Unauthorized");
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    logger.error(context, "Unauthenticated");
+    return NextResponse.json(
+      formatErrorEntity({ error: "You are not logged in" }),
+      {
+        status: 401,
+      },
+    );
   }
 
   try {

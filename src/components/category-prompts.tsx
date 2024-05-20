@@ -1,10 +1,7 @@
 "use client";
 
-import { Category, Interaction, User } from "@/db/schema";
-import { Prompt } from "@/db/schema/prompts";
-import { generateRequestId } from "@/lib/utils/generateRequestId";
-import { useQuery } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { Category } from "@/db/schema";
+import { usePrompts } from "@/hooks/use-prompts";
 import BounceLoader from "./bounce-loader";
 import { PromptCard } from "./prompt-card";
 
@@ -21,54 +18,12 @@ export const CategoryPrompts = ({
   earliest?: Date;
   sortBy?: { value: "votes" | "createdAt"; order: "desc" | "asc" };
 }) => {
-  const { data: rawPrompts, isLoading } = useQuery<{
-    result: (Prompt & {
-      promptCategory: { category: Category }[];
-      user: User;
-      interactions: Interaction[];
-    })[];
-  }>({
-    queryKey: ["category-prompts", earliest, category.id],
-    queryFn: async () => {
-      const res = await fetch(
-        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}&categoryId=${category.id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "request-id": generateRequestId(),
-          },
-        },
-      );
-      if (!res.ok) {
-        toast.error("Failed to fetch prompts.", {
-          position: "top-center",
-          description: `Something went wrong, please try again: ${res.statusText}`,
-        });
-        return { result: [] };
-      }
-
-      const data = await res.json();
-      return data;
-    },
+  const { prompts, isLoading } = usePrompts({
+    categoryId: category.id,
+    limit,
+    earliest,
+    sortBy,
   });
-
-  let prompts =
-    rawPrompts?.result
-      .map((item) => ({
-        ...item,
-        votes: item.interactions.filter(
-          (interaction) => interaction.type === "upvote",
-        ).length,
-      }))
-      .sort(
-        (a, b) =>
-          (sortBy.order === "desc" ? 1 : -1) *
-          (Number(b[sortBy.value]) - Number(a[sortBy.value])),
-      ) ?? [];
-
-  if (limit) {
-    prompts = prompts.slice(0, limit);
-  }
 
   return (
     <div className="mb-16 relative max-w-4xl mx-auto pt-4 md:px-8">
@@ -78,13 +33,13 @@ export const CategoryPrompts = ({
         </h3>
       )}
       <div className="flex flex-col md:gap-2 md:p-4 border-t md:border-none border-card pt-0">
-        {!isLoading && prompts.length === 0 && (
+        {!isLoading && prompts?.length === 0 && (
           <p className="text-center text-sm text-muted-foreground dark:text-warm-sand ">
             No prompts found
           </p>
         )}
         {isLoading && <BounceLoader className="size-full" />}
-        {prompts.map((prompt) => (
+        {prompts?.map((prompt) => (
           <PromptCard key={prompt.id} prompt={prompt} />
         ))}
       </div>

@@ -1,11 +1,29 @@
 import { db } from "@/db";
-import { interactions } from "@/db/schema/interactions";
-import { prompts } from "@/db/schema/prompts";
+import { Category } from "@/db/schema/categories";
+import { Interaction, interactions } from "@/db/schema/interactions";
+import { Prompt, prompts } from "@/db/schema/prompts";
+import { User } from "@/db/schema/users";
 import { createDefaultApiRouteContext } from "@/lib/createDefaultApiRouteContext";
 import { logger } from "@/lib/logger";
 import { formatEntityList, formatErrorEntity } from "@/lib/utils/formatEntity";
 import { and, eq, gt } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+
+export type WithPromptCategory<T> = T & {
+  promptCategory: { category: Category }[];
+};
+export type WithInteractions<T> = T & {
+  interactions: Interaction[];
+};
+export type WithUser<T> = T & {
+  user: User;
+};
+
+export type PromptWithRelations = WithInteractions<
+  WithUser<WithPromptCategory<Prompt>>
+>;
+
+export type WithVotes<T> = T & { votes: number };
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

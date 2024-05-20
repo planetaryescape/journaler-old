@@ -1,42 +1,21 @@
 "use client";
 
-import { Category, Interaction, User } from "@/db/schema";
-import { Prompt } from "@/db/schema/prompts";
+import { PromptWithRelations, WithVotes } from "@/app/api/prompts/route";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { cn } from "@/lib/utils";
-import { generateRequestId } from "@/lib/utils/generateRequestId";
-import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "next-view-transitions";
 import { Badge } from "./ui/badge";
 import { VotingComponent } from "./voting-component";
 
-export const PromptCard = ({
-  prompt: item,
-}: {
-  prompt: Prompt & {
-    promptCategory: { category: Category }[];
-    user: User;
-    interactions: Interaction[];
-    votes: number;
-  };
-}) => {
-  const { data: user } = useQuery<{ result: User }>({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const res = await fetch("/api/users/current", {
-        headers: {
-          "Content-Type": "application/json",
-          "request-id": generateRequestId(),
-        },
-      });
-      const data = await res.json();
-      return data;
-    },
-  });
+export type PromptWithVotes = WithVotes<PromptWithRelations>;
+
+export const PromptCard = ({ prompt: item }: { prompt: PromptWithVotes }) => {
+  const { user } = useCurrentUser();
 
   const isVoted = Boolean(
     item.interactions.some(
-      (interaction) => interaction.userId === user?.result.id,
+      (interaction) => interaction.userId === user?.data.id,
     ),
   );
 
