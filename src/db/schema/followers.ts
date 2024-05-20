@@ -32,17 +32,19 @@ export const followers = pgTable(
     }),
     followerIdIndex: index("follower_id_idx").on(followers.followerId),
     followedIdIndex: index("followed_id_idx").on(followers.followedId),
-  })
+  }),
 );
 
 export const followersRelations = relations(followers, ({ one }) => ({
   follower: one(users, {
     fields: [followers.followerId],
     references: [users.id],
+    relationName: "following",
   }),
   followedBy: one(users, {
     fields: [followers.followedId],
     references: [users.id],
+    relationName: "followed",
   }),
 }));
 

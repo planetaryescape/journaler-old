@@ -43,8 +43,12 @@ export const users = pgTable(
 );
 
 export const userRelations = relations(users, ({ one, many }) => ({
-  followers: many(followers),
-  following: many(followers),
+  followed: many(followers, {
+    relationName: "followed",
+  }),
+  following: many(followers, {
+    relationName: "following",
+  }),
 }));
 
 export type User = typeof users.$inferSelect;
