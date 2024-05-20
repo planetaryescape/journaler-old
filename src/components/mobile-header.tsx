@@ -75,7 +75,7 @@ export const MobileHeader = ({ className }: { className?: string }) => {
         {user ? (
           <Link
             className="flex flex-col border-card border-l py-4 items-center gap-2 col-span-1"
-            href="/account/prompts"
+            href="/account/profile"
           >
             <PersonIcon className="size-5" />
             Profile

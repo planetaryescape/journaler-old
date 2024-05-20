@@ -93,7 +93,7 @@ const SinglePromptPage = async ({ params }: { params: { id: number } }) => {
               )}
               <h6 className="flex gap-2 font-medium text-muted-foreground dark:text-warm-sand/80">
                 <Link href={`/users/${prompt.user.id}`}>
-                  <span>@{prompt.user.id}</span>
+                  <span>@user-{prompt.user.id}</span>
                 </Link>
                 <span>·</span>
                 <div className={cn("")}>

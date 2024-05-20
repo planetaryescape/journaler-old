@@ -13,8 +13,9 @@ import { SelectProps } from "@radix-ui/react-select";
 
 export default function CategoriesSelect({
   classNames,
+  withAll = false,
   ...props
-}: SelectProps & { classNames?: string }) {
+}: SelectProps & { withAll?: boolean; classNames?: string }) {
   const { categories } = useCategories();
   return (
     <Select {...props}>
@@ -25,6 +26,7 @@ export default function CategoriesSelect({
         />
       </SelectTrigger>
       <SelectContent>
+        {withAll && <SelectItem value={"0"}>All</SelectItem>}
         {categories?.data.map((category) => (
           <SelectItem
             key={category.data.id}

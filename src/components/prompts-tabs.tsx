@@ -14,8 +14,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { startOfDay, startOfWeek } from "date-fns";
-import { useParams } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import CategoriesSelect from "./categories-select";
 import { Prompts } from "./prompts";
 
 export function PromptsTabs({
@@ -29,6 +30,8 @@ export function PromptsTabs({
     value: "votes" | "createdAt";
     order: "desc" | "asc";
   }>({ value: "votes", order: "desc" });
+  const router = useRouter();
+  const pathname = usePathname();
 
   const params = useParams();
   const categoryId = parseInt((params.categoryId as string) ?? "");
@@ -39,6 +42,16 @@ export function PromptsTabs({
         <h3 className="text-xl font-semibold">
           {limit ? `Top ${limit} Prompts` : "All Prompts"}
         </h3>
+        <div className="flex gap-2">
+          <p>Filter by category: </p>
+          <CategoriesSelect
+            withAll
+            value={(categoryId || 0).toString()}
+            onValueChange={(value) =>
+              router.push(`${pathname}?categoryId=${value}`)
+            }
+          />
+        </div>
         <div className="flex gap-2">
           <Select
             value={sortBy.value}
