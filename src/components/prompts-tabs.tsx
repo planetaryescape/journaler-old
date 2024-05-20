@@ -14,6 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { startOfDay, startOfWeek } from "date-fns";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Prompts } from "./prompts";
 
@@ -29,7 +30,8 @@ export function PromptsTabs({
     order: "desc" | "asc";
   }>({ value: "votes", order: "desc" });
 
-  console.log("sortBy:", sortBy);
+  const params = useParams();
+  const categoryId = parseInt((params.categoryId as string) ?? "");
 
   return (
     <div className={cn("max-w-4xl mt-4 mx-auto px-2 md:px-0", className)}>
@@ -82,6 +84,7 @@ export function PromptsTabs({
         </TabsList>
         <TabsContent value="today">
           <Prompts
+            categoryId={categoryId}
             sortBy={sortBy}
             earliest={startOfDay(new Date())}
             limit={limit}
@@ -89,13 +92,14 @@ export function PromptsTabs({
         </TabsContent>
         <TabsContent value="this-week">
           <Prompts
+            categoryId={categoryId}
             sortBy={sortBy}
             earliest={startOfWeek(new Date())}
             limit={limit}
           />
         </TabsContent>
         <TabsContent value="all-time">
-          <Prompts sortBy={sortBy} limit={limit} />
+          <Prompts categoryId={categoryId} sortBy={sortBy} limit={limit} />
         </TabsContent>
       </Tabs>
     </div>

@@ -12,11 +12,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Category } from "@/db/schema/categories";
+import { Category } from "@/db/schema";
 import { cn } from "@/lib/utils";
 import { startOfDay, startOfWeek } from "date-fns";
 import { useState } from "react";
-import { CategoryPrompts } from "./category-prompts";
+import { Prompts } from "./prompts";
 
 export function CategoryPromptsTabs({
   className,
@@ -85,23 +85,23 @@ export function CategoryPromptsTabs({
           <TabsTrigger value="all-time">All time</TabsTrigger>
         </TabsList>
         <TabsContent value="today">
-          <CategoryPrompts
-            category={category}
+          <Prompts
+            categoryId={category.id}
             sortBy={sortBy}
             earliest={startOfDay(new Date())}
             limit={limit}
           />
         </TabsContent>
         <TabsContent value="this-week">
-          <CategoryPrompts
-            category={category}
+          <Prompts
+            categoryId={category.id}
             sortBy={sortBy}
             earliest={startOfWeek(new Date())}
             limit={limit}
           />
         </TabsContent>
         <TabsContent value="all-time">
-          <CategoryPrompts category={category} sortBy={sortBy} limit={limit} />
+          <Prompts categoryId={category.id} sortBy={sortBy} limit={limit} />
         </TabsContent>
       </Tabs>
     </div>

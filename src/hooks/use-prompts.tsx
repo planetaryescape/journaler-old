@@ -24,6 +24,9 @@ export const usePrompts = ({
 > & {
   prompts?: WithVotes<PromptWithRelations>[];
 } => {
+  const validCategoryId =
+    typeof categoryId === "number" && categoryId > 0 ? categoryId : undefined;
+
   const { data: rawPrompts, ...rest } = useQuery<
     unknown,
     ErrorEntity,
@@ -32,7 +35,7 @@ export const usePrompts = ({
     queryKey: ["category-prompts", earliest, categoryId],
     queryFn: async () => {
       const res = await fetch(
-        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}${categoryId ? `&categoryId=${categoryId}` : ""}`,
+        `/api/prompts?${earliest ? `earliest=${earliest.toISOString()}` : ""}${validCategoryId ? `&categoryId=${validCategoryId}` : ""}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +50,6 @@ export const usePrompts = ({
         });
         return { result: [] };
       }
-
       const data = await res.json();
       return data;
     },

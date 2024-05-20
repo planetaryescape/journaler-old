@@ -5,17 +5,20 @@ import BounceLoader from "./bounce-loader";
 import { PromptCard } from "./prompt-card";
 
 export const Prompts = ({
+  categoryId,
   title,
   limit,
   earliest,
   sortBy = { value: "votes", order: "desc" },
 }: {
+  categoryId?: number;
   title?: string;
   limit?: number;
   earliest?: Date;
   sortBy?: { value: "votes" | "createdAt"; order: "desc" | "asc" };
 }) => {
   const { prompts, isLoading } = usePrompts({
+    categoryId,
     limit,
     earliest,
     sortBy,
