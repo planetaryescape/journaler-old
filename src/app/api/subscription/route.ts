@@ -83,7 +83,9 @@ export async function POST(request: NextRequest) {
       allow_promotion_codes: true,
     });
 
-    return NextResponse.json(formatEntity(session.id, "generic"));
+    return NextResponse.json(
+      formatEntity({ sessionId: session.id }, "generic"),
+    );
   } catch (error) {
     logger.error(
       {

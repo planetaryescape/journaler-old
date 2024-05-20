@@ -70,7 +70,9 @@ export async function POST(request: NextRequest) {
       return_url: new URL(request.nextUrl).origin + "/dashboard/subscription",
     });
 
-    return NextResponse.json(formatEntity(session.url, "generic"));
+    return NextResponse.json(
+      formatEntity({ sessionUrl: session.url }, "generic"),
+    );
   } catch (error) {
     logger.error(
       {

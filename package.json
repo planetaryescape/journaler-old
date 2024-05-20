@@ -15,7 +15,7 @@
     "db:drop": "doppler run -- drizzle-kit drop",
     "db:studio": "doppler run -- drizzle-kit studio",
     "db:migrate": "doppler run -- drizzle-kit migrate",
-    "lint": "next lint",
+    "lint": "next lint --cache-location './node_modules/@eslint/.eslintcache/'",
     "lint-staged": "lint-staged",
     "prepare": "husky"
   },
