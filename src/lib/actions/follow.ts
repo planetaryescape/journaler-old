@@ -50,6 +50,11 @@ export const follow = async (
     revalidatePath(`/users/${newFollower.followedId}`);
 
     await knock.workflows.trigger("new-follow", {
+      data: {
+        page_name: "value",
+        primary_action_url: "value",
+        variableKey: "Preview data value",
+      },
       actor: {
         id: actor?.[0]?.clerkUserId ?? "",
         email: actor?.[0]?.email,

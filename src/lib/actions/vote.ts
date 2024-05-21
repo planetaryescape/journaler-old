@@ -67,6 +67,11 @@ export const vote = async (
     });
 
     await knock.workflows.trigger("new-vote", {
+      data: {
+        prompt_id: newPrompt[0].id,
+        prompt_title: newPrompt[0].title,
+        variableKey: "Preview data value",
+      },
       actor: {
         id: actor?.[0]?.clerkUserId ?? "",
         email: actor?.[0]?.email,
@@ -79,9 +84,6 @@ export const vote = async (
         name: r.username,
         collection: "users",
       })),
-      data: {
-        promptTitle: newPrompt[0].title,
-      },
     });
 
     return formatEntity(result[0], "interaction");
