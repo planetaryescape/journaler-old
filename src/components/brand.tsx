@@ -12,13 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { LinkButton } from "./ui/link-button";
 
-export const Brand = ({
-  state,
-  setState,
-}: {
-  state: boolean;
-  setState: (state: boolean) => void;
-}) => {
+export const Brand = () => {
   const { theme } = useTheme();
   const [hasTheme, setHasTheme] = useState(false);
   const { user } = useUser();
@@ -58,17 +52,19 @@ export const Brand = ({
             </LinkButton>
           </>
         )}
-        <div>
-          <NotificationIconButton
-            ref={notifButtonRef}
-            onClick={(e) => setIsVisible(!isVisible)}
-          />
-          <NotificationFeedPopover
-            buttonRef={notifButtonRef}
-            isVisible={isVisible}
-            onClose={() => setIsVisible(false)}
-          />
-        </div>
+        {user && (
+          <div>
+            <NotificationIconButton
+              ref={notifButtonRef}
+              onClick={(e) => setIsVisible(!isVisible)}
+            />
+            <NotificationFeedPopover
+              buttonRef={notifButtonRef}
+              isVisible={isVisible}
+              onClose={() => setIsVisible(false)}
+            />
+          </div>
+        )}
         <ThemeToggle />
         <UserButton />
       </div>

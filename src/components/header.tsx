@@ -7,7 +7,6 @@ import {
   NotificationFeedPopover,
   NotificationIconButton,
 } from "@knocklabs/react";
-import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { BackgroundGradient } from "./background-gradient";
 import { Brand } from "./brand";
@@ -17,14 +16,13 @@ import { ThemeToggle } from "./theme-toggle";
 export const Header = () => {
   const [state, setState] = useState(false);
   const { user } = useUser();
-  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const notifButtonRef = useRef(null);
 
   return (
     <header className="sticky top-0 bg-background z-10">
       <div className={cn(`md:hidden`, state ? "mx-2 pb-5" : "hidden")}>
-        <Brand state={state} setState={setState} />
+        <Brand />
       </div>
       <nav
         className={cn(
@@ -35,7 +33,7 @@ export const Header = () => {
         )}
       >
         <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
-          <Brand state={state} setState={setState} />
+          <Brand />
           <div
             className={cn(
               `flex-1 items-center mt-8 md:mt-0 md:flex`,
@@ -45,17 +43,19 @@ export const Header = () => {
             <ul className="flex-1 justify-end md:items-center flex flex-col md:flex-row gap-4">
               <NavigationMenuComponent />
 
-              <div>
-                <NotificationIconButton
-                  ref={notifButtonRef}
-                  onClick={(e) => setIsVisible(!isVisible)}
-                />
-                <NotificationFeedPopover
-                  buttonRef={notifButtonRef}
-                  isVisible={isVisible}
-                  onClose={() => setIsVisible(false)}
-                />
-              </div>
+              {user && (
+                <div>
+                  <NotificationIconButton
+                    ref={notifButtonRef}
+                    onClick={(e) => setIsVisible(!isVisible)}
+                  />
+                  <NotificationFeedPopover
+                    buttonRef={notifButtonRef}
+                    isVisible={isVisible}
+                    onClose={() => setIsVisible(false)}
+                  />
+                </div>
+              )}
               <div className="flex gap-4 justify-start items-center">
                 {!user && (
                   <>
