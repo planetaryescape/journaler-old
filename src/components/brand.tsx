@@ -52,19 +52,17 @@ export const Brand = () => {
             </LinkButton>
           </>
         )}
-        {user && (
-          <div>
-            <NotificationIconButton
-              ref={notifButtonRef}
-              onClick={(e) => setIsVisible(!isVisible)}
-            />
-            <NotificationFeedPopover
-              buttonRef={notifButtonRef}
-              isVisible={isVisible}
-              onClose={() => setIsVisible(false)}
-            />
-          </div>
-        )}
+        <div>
+          <NotificationIconButton
+            ref={notifButtonRef}
+            onClick={(e) => setIsVisible(!isVisible)}
+          />
+          <NotificationFeedPopover
+            buttonRef={notifButtonRef}
+            isVisible={isVisible}
+            onClose={() => setIsVisible(false)}
+          />
+        </div>
         <ThemeToggle />
         <UserButton />
       </div>
