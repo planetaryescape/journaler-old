@@ -12,15 +12,16 @@ export default function AppKnockProvider({
   const { userId } = useAuth();
   const { theme } = useTheme();
 
-  console.log("userId:", userId);
   const channelId =
     process.env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID ?? "no-channel-id";
+  const apiKey =
+    (process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY as string) || "no-api-key";
+
+  console.log("apiKey:", apiKey);
+  console.log("userId:", userId);
 
   return (
-    <KnockProvider
-      apiKey={process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY as string}
-      userId={userId ?? "Anonymous User"}
-    >
+    <KnockProvider apiKey={apiKey} userId={userId ?? "Anonymous User"}>
       <KnockFeedProvider
         colorMode={theme === "dark" ? "dark" : "light"}
         feedId={channelId}

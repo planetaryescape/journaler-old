@@ -45,7 +45,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(config.baseUrl),
   applicationName: "Journaler",
-  manifest: "site.webmanifest",
+  manifest: `${config.baseUrl}/site.webmanifest`,
   title:
     "Journaler - Enhance Your Journaling with Top Prompts and Community Insights",
   description:
