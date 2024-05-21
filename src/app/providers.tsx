@@ -12,10 +12,12 @@ export default function AppKnockProvider({
 
   return (
     <KnockProvider
-      apiKey={process.env.KNOCK_PUBLIC_API_KEY as string}
+      apiKey={process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY as string}
       userId={userId ?? "Anonymous User"}
     >
-      <KnockFeedProvider feedId={process.env.KNOCK_FEED_ID as string}>
+      <KnockFeedProvider
+        feedId={process.env.NEXT_PUBLIC_KNOCK_FEED_ID as string}
+      >
         {children}
       </KnockFeedProvider>
     </KnockProvider>
