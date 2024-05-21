@@ -27,14 +27,16 @@ export default function CategoriesSelect({
       </SelectTrigger>
       <SelectContent>
         {withAll && <SelectItem value={"0"}>All</SelectItem>}
-        {categories?.data.map((category) => (
-          <SelectItem
-            key={category.data.id}
-            value={category.data.id.toString()}
-          >
-            {category.data.name}
-          </SelectItem>
-        ))}
+        {categories?.data
+          .sort((a, b) => a.data.name.localeCompare(b.data.name))
+          .map((category) => (
+            <SelectItem
+              key={category.data.id}
+              value={category.data.id.toString()}
+            >
+              {category.data.name}
+            </SelectItem>
+          ))}
       </SelectContent>
     </Select>
   );
