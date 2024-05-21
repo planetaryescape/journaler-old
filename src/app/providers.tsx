@@ -1,22 +1,33 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { KnockFeedProvider, KnockProvider } from "@knocklabs/react";
+import { useTheme } from "next-themes";
 
 export default function AppKnockProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { userId } = useAuth();
+  const { user } = useUser();
+  const { theme } = useTheme();
+
+  if (!user) {
+    return <>{children}</>;
+  }
+
+  console.log("user in knock provider:", user);
+  const channelId = process.env.KNOCK_FEED_CHANNEL_ID as string;
+  console.log("channelId:", channelId);
 
   return (
     <KnockProvider
       apiKey={process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY as string}
-      userId={userId ?? "Anonymous User"}
+      userId={user.id ?? "Anonymous User"}
     >
       <KnockFeedProvider
-        feedId={process.env.NEXT_PUBLIC_KNOCK_FEED_ID as string}
+        colorMode={theme === "dark" ? "dark" : "light"}
+        feedId={channelId}
       >
         {children}
       </KnockFeedProvider>

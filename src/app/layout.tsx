@@ -102,20 +102,20 @@ export default function RootLayout({
         <ClerkProvider
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
-          <AppKnockProvider>
-            <html lang="en" suppressHydrationWarning>
-              <body
-                className={cn(
-                  "relative min-h-screen bg-background font-sans antialiased",
-                  fontSerif.variable,
-                  fontSans.variable,
-                )}
-              >
-                <ThemeProvider
-                  attribute="class"
-                  defaultTheme="dark"
-                  enableSystem
-                  disableTransitionOnChange
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AppKnockProvider>
+              <html lang="en" suppressHydrationWarning>
+                <body
+                  className={cn(
+                    "relative min-h-screen bg-background font-sans antialiased",
+                    fontSerif.variable,
+                    fontSans.variable,
+                  )}
                 >
                   <NextTopLoader color="#8FBC8F" />
                   <Header />
@@ -123,14 +123,14 @@ export default function RootLayout({
                   <MobileHeader />
                   <Footer />
                   <Toaster />
-                </ThemeProvider>
-                <SpeedInsights />
-                <Analytics />
+                  <SpeedInsights />
+                  <Analytics />
 
-                <BackgroundGradient degrees={Math.random() * 360} />
-              </body>
-            </html>
-          </AppKnockProvider>
+                  <BackgroundGradient degrees={Math.random() * 360} />
+                </body>
+              </html>
+            </AppKnockProvider>
+          </ThemeProvider>
         </ClerkProvider>
       </ReactQueryProvider>
     </ViewTransitions>
