@@ -13,7 +13,8 @@ export default function AppKnockProvider({
   const { theme } = useTheme();
 
   console.log("user in knock provider:", user);
-  const channelId = process.env.KNOCK_FEED_CHANNEL_ID ?? "no-channel-id";
+  const channelId =
+    process.env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID ?? "no-channel-id";
   console.log("channelId:", channelId);
 
   return (
