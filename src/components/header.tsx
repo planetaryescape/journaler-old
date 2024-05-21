@@ -43,17 +43,19 @@ export const Header = () => {
             <ul className="flex-1 justify-end md:items-center flex flex-col md:flex-row gap-4">
               <NavigationMenuComponent />
 
-              <div>
-                <NotificationIconButton
-                  ref={notifButtonRef}
-                  onClick={(e) => setIsVisible(!isVisible)}
-                />
-                <NotificationFeedPopover
-                  buttonRef={notifButtonRef}
-                  isVisible={isVisible}
-                  onClose={() => setIsVisible(false)}
-                />
-              </div>
+              {user && (
+                <div>
+                  <NotificationIconButton
+                    ref={notifButtonRef}
+                    onClick={(e) => setIsVisible(!isVisible)}
+                  />
+                  <NotificationFeedPopover
+                    buttonRef={notifButtonRef}
+                    isVisible={isVisible}
+                    onClose={() => setIsVisible(false)}
+                  />
+                </div>
+              )}
               <div className="flex gap-4 justify-start items-center">
                 {!user && (
                   <>

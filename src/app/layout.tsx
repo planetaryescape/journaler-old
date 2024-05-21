@@ -102,21 +102,21 @@ export default function RootLayout({
         <ClerkProvider
           publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <AppKnockProvider>
-              <html lang="en" suppressHydrationWarning>
-                <body
-                  className={cn(
-                    "relative min-h-screen bg-background font-sans antialiased",
-                    fontSerif.variable,
-                    fontSans.variable,
-                  )}
-                >
+          <html lang="en" suppressHydrationWarning>
+            <body
+              className={cn(
+                "relative min-h-screen bg-background font-sans antialiased",
+                fontSerif.variable,
+                fontSans.variable,
+              )}
+            >
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <AppKnockProvider>
                   <NextTopLoader color="#8FBC8F" />
                   <Header />
                   {children}
@@ -127,10 +127,10 @@ export default function RootLayout({
                   <Analytics />
 
                   <BackgroundGradient degrees={Math.random() * 360} />
-                </body>
-              </html>
-            </AppKnockProvider>
-          </ThemeProvider>
+                </AppKnockProvider>
+              </ThemeProvider>
+            </body>
+          </html>
         </ClerkProvider>
       </ReactQueryProvider>
     </ViewTransitions>
