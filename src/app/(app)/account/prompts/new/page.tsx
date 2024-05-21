@@ -61,8 +61,8 @@ export default function NewPromptPage() {
         duration: 10000,
         description: `Thank you for your contribution to the Journaler community! Your prompt has been created.`,
       });
-      form.reset();
       router.push(`/account/prompts/${result.data.id}`);
+      form.reset();
     }
   }
 

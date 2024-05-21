@@ -51,8 +51,7 @@ export const follow = async (
 
     await knock.workflows.trigger("new-follow", {
       data: {
-        page_name: "value",
-        primary_action_url: "value",
+        user_id: actor?.[0]?.id,
         variableKey: "Preview data value",
       },
       actor: {
