@@ -12,10 +12,6 @@ export default function AppKnockProvider({
   const { user } = useUser();
   const { theme } = useTheme();
 
-  if (!user) {
-    return <>{children}</>;
-  }
-
   console.log("user in knock provider:", user);
   const channelId = process.env.KNOCK_FEED_CHANNEL_ID as string;
   console.log("channelId:", channelId);
@@ -23,7 +19,7 @@ export default function AppKnockProvider({
   return (
     <KnockProvider
       apiKey={process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY as string}
-      userId={user.id ?? "Anonymous User"}
+      userId={user?.id ?? "Anonymous User"}
     >
       <KnockFeedProvider
         colorMode={theme === "dark" ? "dark" : "light"}
