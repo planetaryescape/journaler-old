@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { MobileHeader } from "@/components/mobile-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { env } from "@/env";
 import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -99,9 +100,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <ReactQueryProvider>
-        <ClerkProvider
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-        >
+        <ClerkProvider publishableKey={env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
           <html lang="en" suppressHydrationWarning>
             <body
               className={cn(
