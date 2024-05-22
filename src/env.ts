@@ -4,8 +4,6 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     PINO_LOG_LEVEL: z.enum(["error", "warn", "info", "debug", "trace"]),
-    GITHUB_ID: z.string(),
-    GITHUB_SECRET: z.string(),
     CLERK_SECRET_KEY: z.string(),
     DATABASE_URL: z.string().url(),
     DIRECT_URL: z.string().url(),
@@ -14,7 +12,7 @@ export const env = createEnv({
     DOPPLER_PROJECT: z.string(),
     KNOCK_API_KEY: z.string(),
     KNOCK_SIGNING_KEY: z.string(),
-    POSTGRES_DATABASE: z.string().url(),
+    POSTGRES_DATABASE: z.string(),
     POSTGRES_HOST: z.string(),
     POSTGRES_PASSWORD: z.string(),
     POSTGRES_PRISMA_URL: z.string(),
@@ -25,7 +23,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     SENTRY_AUTH_TOKEN: z.string(),
     STRIPE_SECRET_KEY: z.string(),
-    NODE_ENV: z.enum(["development", "test", "production"]),
+    NODE_ENV: z.enum(["development", "test", "production"]).optional(),
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
@@ -37,8 +35,6 @@ export const env = createEnv({
   },
   runtimeEnv: {
     PINO_LOG_LEVEL: process.env.PINO_LOG_LEVEL,
-    GITHUB_ID: process.env.GITHUB_ID,
-    GITHUB_SECRET: process.env.GITHUB_SECRET,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
     DIRECT_URL: process.env.DIRECT_URL,
