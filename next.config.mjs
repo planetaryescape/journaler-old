@@ -1,6 +1,6 @@
-import { env } from "@/env";
 import { withSentryConfig } from "@sentry/nextjs";
 import nextPWA from "next-pwa";
+import { env } from "src/env";
 /** @type {import('next').NextConfig} */
 const nextConfig = {};
 
