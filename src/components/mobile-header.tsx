@@ -18,6 +18,7 @@ import {
   ChatBubbleIcon,
   EnvelopeClosedIcon,
   HomeIcon,
+  IdCardIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { Link } from "next-view-transitions";
@@ -57,7 +58,7 @@ export const MobileHeader = ({ className }: { className?: string }) => {
         className,
       )}
     >
-      <div className="grid grid-cols-3 w-full">
+      <div className="grid grid-cols-4 w-full">
         <Link
           className="flex flex-col border-card border-r py-4 items-center gap-2 col-span-1"
           href="/"
@@ -71,6 +72,13 @@ export const MobileHeader = ({ className }: { className?: string }) => {
         >
           <ChatBubbleIcon className="size-5" />
           Prompts
+        </Link>
+        <Link
+          className="flex flex-col border-card py-4 items-center gap-2 col-span-1"
+          href="/categories"
+        >
+          <IdCardIcon className="size-5" />
+          Categories
         </Link>
         {user ? (
           <Link

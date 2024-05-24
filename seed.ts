@@ -24,7 +24,7 @@ createSeedClient()
       (x) =>
         x(100, {
           comments: (x) => x({ min: 0, max: 3 }),
-          interactions: (x) => x({ min: 0, max: 100 }),
+          interactions: (x) => x({ min: 0, max: 30 }),
         }),
       { connect: { users, categories } }
     );

@@ -45,12 +45,12 @@ export const components: {
   },
   {
     title: "My Saved Prompts",
-    href: "/account/prompts/saved",
+    href: "/account/profile",
     description: "Access the prompts you have saved to your custom lists.",
   },
   {
     title: "My Created Prompts",
-    href: "/account/prompts",
+    href: "/account/profile",
     description: "Manage and review prompts you have created and shared.",
   },
 ];

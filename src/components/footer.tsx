@@ -19,8 +19,8 @@ export const Footer = () => {
   }, [theme]);
 
   return (
-    <footer className="relative px-4 py-5 mx-auto mb-16 md:mb-0 md:px-8">
-      <div className="max-w-screen-xl mx-auto md:px-8">
+    <footer className="row-span-1 relative px-4 py-5 w-full mx-auto mb-16 md:mb-0 md:px-4">
+      <div className="max-w-screen-xl mx-auto md:px-4">
         <div className="gap-6 justify-between md:flex">
           <div className="flex-1">
             <div className="max-w-xs">

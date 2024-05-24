@@ -33,7 +33,7 @@ export default async function SingleCategoryPage({
   const { userId } = auth();
   return (
     <div className="pt-4">
-      <section className="pt-0 md:pt-16 max-w-7xl mx-auto px-4 md:px-8 flex flex-col">
+      <section className="pt-0 max-w-7xl mx-auto px-4 md:px-8 flex flex-col">
         <Breadcrumb className="mb-4 text-muted-foreground dark:text-warm-sand/80">
           <BreadcrumbList>
             <BreadcrumbItem>

@@ -20,7 +20,7 @@ export const Header = () => {
   const notifButtonRef = useRef(null);
 
   return (
-    <header className="sticky top-0 bg-background z-10">
+    <header className="row-span-1 sticky top-0 bg-background z-50">
       <div className={cn(`md:hidden`, state ? "mx-2 pb-5" : "hidden")}>
         <Brand />
       </div>
@@ -32,7 +32,7 @@ export const Header = () => {
             : "",
         )}
       >
-        <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
+        <div className="items-center max-w-screen-xl mx-auto px-2 md:flex md:px-4">
           <Brand />
           <div
             className={cn(

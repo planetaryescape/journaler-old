@@ -34,21 +34,24 @@ export function CategoryPromptsTabs({
 
   return (
     <div className={cn("max-w-4xl mt-4 mx-auto px-2 md:px-0", className)}>
-      <div className="flex items-center justify-between mb-4 px-2">
-        <div>
-          <h3 className="text-xl font-semibold">{category.name}:</h3>
-          <h3 className="text-xl font-semibold">
+      <div className="flex flex-col md:flex-row w-full gap-2 items-center justify-between mb-4">
+        <div className="flex gap-2">
+          <h3 className="text-xl font-semibold whitespace-nowrap text-ellipsis">
+            {category.name}:
+          </h3>
+          <h3 className="text-xl font-semibold whitespace-nowrap">
             {limit ? `Top ${limit} Prompts` : "All Prompts"}
           </h3>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full items-center justify-end px-2">
+          <p className="whitespace-nowrap">Sort by: </p>
           <Select
             value={sortBy.value}
             onValueChange={(value: "votes" | "createdAt") =>
               setSortBy((currentSortBy) => ({ ...currentSortBy, value }))
             }
           >
-            <SelectTrigger className="w-[100px]">
+            <SelectTrigger className="w-full md:w-[100px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>

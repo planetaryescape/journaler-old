@@ -1,8 +1,6 @@
-import { BackgroundGradient } from "@/components/background-gradient";
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-import { MobileHeader } from "@/components/mobile-header";
-import { ThemeProvider } from "@/components/theme-provider";
+import { AppKnockProvider } from "@/components/providers/knock-providers";
+import { ReactQueryProvider } from "@/components/providers/react-query-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { env } from "@/env";
 import { config } from "@/lib/config";
@@ -15,8 +13,6 @@ import { ViewTransitions } from "next-view-transitions";
 import { Merriweather, Open_Sans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { ReactNode } from "react";
-import AppKnockProvider from "./providers";
-import { ReactQueryProvider } from "./react-query-provider";
 
 import "@knocklabs/react/dist/index.css";
 import "./globals.css";
@@ -98,17 +94,17 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <ReactQueryProvider>
-        <ClerkProvider publishableKey={env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-          <html lang="en" suppressHydrationWarning>
-            <body
-              className={cn(
-                "relative min-h-screen bg-background font-sans antialiased",
-                fontSerif.variable,
-                fontSans.variable,
-              )}
-            >
+    <ReactQueryProvider>
+      <ClerkProvider publishableKey={env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+        <html lang="en" suppressHydrationWarning>
+          <body
+            className={cn(
+              "relative min-h-screen bg-background font-sans antialiased",
+              fontSerif.variable,
+              fontSans.variable,
+            )}
+          >
+            <ViewTransitions>
               <ThemeProvider
                 attribute="class"
                 defaultTheme="dark"
@@ -117,21 +113,16 @@ export default function RootLayout({
               >
                 <AppKnockProvider>
                   <NextTopLoader color="#8FBC8F" />
-                  <Header />
                   {children}
-                  <MobileHeader />
-                  <Footer />
                   <Toaster />
                   <SpeedInsights />
                   <Analytics />
-
-                  <BackgroundGradient degrees={Math.random() * 360} />
                 </AppKnockProvider>
               </ThemeProvider>
-            </body>
-          </html>
-        </ClerkProvider>
-      </ReactQueryProvider>
-    </ViewTransitions>
+            </ViewTransitions>
+          </body>
+        </html>
+      </ClerkProvider>
+    </ReactQueryProvider>
   );
 }

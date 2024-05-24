@@ -25,11 +25,9 @@ export const Prompts = ({
   });
 
   return (
-    <div className="mb-16 relative max-w-4xl mx-auto pt-4 md:px-8">
+    <div className="mb-16 relative max-w-4xl mx-auto mt-4 px-2 md:px-0">
       {title && (
-        <h3 className="text-3xl font-semibold mx-auto mb-4 w-full text-center">
-          {title}
-        </h3>
+        <h3 className="text-xl text-center font-semibold w-full">{title}</h3>
       )}
       <div className="flex flex-col md:gap-2 md:p-4 border-t md:border-none border-card pt-0">
         {!isLoading && prompts?.length === 0 && (

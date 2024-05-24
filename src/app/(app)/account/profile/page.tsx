@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 import { Link } from "next-view-transitions";
 
 export default async function ProfilePage() {
-  const { userId } = auth();
+  const { userId, protect } = auth();
   const context = {
     tracePath: "profilePage",
     userId,
@@ -16,6 +16,7 @@ export default async function ProfilePage() {
 
   if (!userId) {
     logger.error(context, "Unauthenticated");
+    protect();
   }
 
   const user = await db.query.users.findFirst({
@@ -30,7 +31,12 @@ export default async function ProfilePage() {
     <div className="mb-16 pt-4 relative max-w-4xl mx-auto px-4 md:px-8">
       <div className="mb-4">
         <div>
-          <h3 className="font-bold text-xl">{`${user?.email}`}</h3>
+          <div className="flex justify-between items-center">
+            <h3 className="font-bold text-xl">{`@user-${user?.id}`}</h3>
+            <LinkButton size="sm" variant="ghost" href="/account/profile/edit">
+              Edit Profile
+            </LinkButton>
+          </div>
           <span>@user-{user?.id}</span>
           <p className="mb-4">
             You can create a new prompt or edit an existing one
