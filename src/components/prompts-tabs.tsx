@@ -38,55 +38,62 @@ export function PromptsTabs({
 
   return (
     <div className={cn("max-w-4xl mt-4 mx-auto px-2 md:px-0", className)}>
-      <div className="flex items-center justify-between mb-4 px-2">
+      <div className="flex flex-col gap-2 w-full items-center justify-between mb-4 px-2">
         <h3 className="text-xl font-semibold">
           {limit ? `Top ${limit} Prompts` : "All Prompts"}
         </h3>
-        <div className="flex gap-2">
-          <p>Filter by category: </p>
-          <CategoriesSelect
-            withAll
-            value={(categoryId || 0).toString()}
-            onValueChange={(value) =>
-              router.push(`${pathname}?categoryId=${value}`)
-            }
-          />
-        </div>
-        <div className="flex gap-2">
-          <Select
-            value={sortBy.value}
-            onValueChange={(value: "votes" | "createdAt") =>
-              setSortBy((currentSortBy) => ({ ...currentSortBy, value }))
-            }
-          >
-            <SelectTrigger className="w-[100px]">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Sort by</SelectLabel>
-                <SelectItem value="votes">Votes</SelectItem>
-                <SelectItem value="createdAt">Date</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <RadioGroup
-            value={sortBy.order}
-            onValueChange={(value: "desc" | "asc") =>
-              setSortBy((currentSortBy) => ({ ...currentSortBy, order: value }))
-            }
-            className="flex gap-2"
-            defaultValue="desc"
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="desc" id="r1" />
-              <Label htmlFor="r1">Desc</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="asc" id="r2" />
-              <Label htmlFor="r2">Asc</Label>
-            </div>
-          </RadioGroup>
+        <div className="flex gap-2 flex-col md:flex-row items-center justify-between w-full">
+          <div className="flex gap-2 items-center w-full">
+            <p className="whitespace-nowrap">Filter by category: </p>
+            <CategoriesSelect
+              classNames="w-full md:w-[180px]"
+              withAll
+              value={(categoryId || 0).toString()}
+              onValueChange={(value) =>
+                router.push(`${pathname}?categoryId=${value}`)
+              }
+            />
+          </div>
+          <div className="flex gap-2 items-center w-full justify-end">
+            <p className="whitespace-nowrap">Sort by: </p>
+            <Select
+              value={sortBy.value}
+              onValueChange={(value: "votes" | "createdAt") =>
+                setSortBy((currentSortBy) => ({ ...currentSortBy, value }))
+              }
+            >
+              <SelectTrigger className="w-full md:w-[180px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Sort by</SelectLabel>
+                  <SelectItem value="votes">Votes</SelectItem>
+                  <SelectItem value="createdAt">Date</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <RadioGroup
+              value={sortBy.order}
+              onValueChange={(value: "desc" | "asc") =>
+                setSortBy((currentSortBy) => ({
+                  ...currentSortBy,
+                  order: value,
+                }))
+              }
+              className="flex gap-2"
+              defaultValue="desc"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="desc" id="r1" />
+                <Label htmlFor="r1">Desc</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="asc" id="r2" />
+                <Label htmlFor="r2">Asc</Label>
+              </div>
+            </RadioGroup>
+          </div>
         </div>
       </div>
       <Tabs defaultValue="today" className={cn("")}>
