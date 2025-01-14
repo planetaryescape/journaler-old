@@ -67,7 +67,7 @@
     "react-dom": "^18",
     "react-email": "2.1.2",
     "react-hook-form": "^7.51.4",
-    "resend": "^3.2.0",
+    "resend": "^4.1.1",
     "sonner": "^1.4.41",
     "stripe": "^15.6.0",
     "svix": "^1.24.0",
